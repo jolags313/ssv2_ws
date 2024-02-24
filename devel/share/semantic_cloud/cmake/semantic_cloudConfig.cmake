@@ -1,0 +1,1 @@
+/home/conlab/ssv2_ws/devel/.private/semantic_cloud/share/semantic_cloud/cmake/semantic_cloudConfig.cmake

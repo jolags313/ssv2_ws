@@ -1,0 +1,44 @@
+<launch>
+  <!-- Always set GUI to false for AWS RoboMaker Simulation
+       Use gui:=true on roslaunch command-line to run with a gui.
+  -->
+  <arg name="gui" default="true"/>
+  <arg name="mode" default="day" doc="mode of the track to load, valid options are 'day' or 'night'"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find aws_robomaker_racetrack_world)/worlds/racetrack_$(arg mode).world"/>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="$(arg gui)"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+    <arg name="verbose" default="true"/>
+  </include>
+  
+  <!-- Short-term hack to support the original front_laser:=true argument for spawning
+       the simulator. This will be removed in favour of using the config:=x arg instead. -->
+  <arg name="front_laser" default="false" />
+  <arg name="default_config" value="front_laser" if="$(arg front_laser)" />
+  <arg name="default_config" value="base" unless="$(arg front_laser)" />
+  <!-- end of hack -->
+
+  <!-- Configuration of Jackal which you would like to simulate.
+       See jackal_description for details. -->
+  <arg name="config" default="$(arg default_config)" />
+
+  <!-- Optionally enable teleop for the simulation -->
+  <arg name="joystick" default="true" />
+  
+  <!-- Spawn Jackal -->
+  <include file="$(find jackal_gazebo)/launch/spawn_jackal.launch">
+    <arg name="x" value="2.75" />
+    <arg name="y" value="-14" />
+    <arg name="z" value="0" />
+    <arg name="yaw" value="0" />
+    <arg name="config" value="$(arg config)" />
+    <arg name="joystick" value="$(arg joystick)" />
+  </include>
+  
+  <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 1 world odom 100" />
+  
+</launch>

@@ -1,0 +1,7 @@
+Symlinking /home/conlab/ssv2_ws/devel/lib/pkgconfig/orb_slam2.pc
+Symlinking /home/conlab/ssv2_ws/devel/lib/orb_slam2/monoAR
+Symlinking /home/conlab/ssv2_ws/devel/lib/orb_slam2/mono
+Symlinking /home/conlab/ssv2_ws/devel/lib/orb_slam2/stereo
+Symlinking /home/conlab/ssv2_ws/devel/lib/orb_slam2/rgbd
+Symlinking /home/conlab/ssv2_ws/devel/share/orb_slam2/cmake/orb_slam2Config-version.cmake
+Symlinking /home/conlab/ssv2_ws/devel/share/orb_slam2/cmake/orb_slam2Config.cmake

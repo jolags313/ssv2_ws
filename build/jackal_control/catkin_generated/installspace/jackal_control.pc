@@ -1,0 +1,8 @@
+prefix=/home/conlab/ssv2_ws/install
+
+Name: jackal_control
+Description: Description of jackal_control
+Version: 0.8.8
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

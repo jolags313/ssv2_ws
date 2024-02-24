@@ -1,0 +1,6 @@
+devel_space: /home/conlab/ssv2_ws/devel
+install: false
+install_space: /home/conlab/ssv2_ws/install
+profile: default
+source_space: /home/conlab/ssv2_ws/src
+workspace: /home/conlab/ssv2_ws

@@ -1,0 +1,1 @@
+/home/conlab/ssv2_ws/devel/.private/aws_robomaker_hospital_world/lib/pkgconfig/aws_robomaker_hospital_world.pc

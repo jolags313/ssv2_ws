@@ -1,0 +1,8 @@
+prefix=/home/conlab/ssv2_ws/devel/.private/jackal_gazebo
+
+Name: jackal_gazebo
+Description: Description of jackal_gazebo
+Version: 0.4.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

@@ -1,0 +1,18 @@
+<launch>
+
+  <!-- openni2_launch, use hardware depth registration-->
+  
+  <!-- for floatlazer -->
+  <remap from="/camera/color/image_raw" to="/camera/rgb/image_raw" />
+  <remap from="/camera/aligned_depth_to_color/image_raw" to="/camera/depth_registered/image_raw" />
+  
+  <!-- for SSMI >
+  <remap from="/camera/color/image_raw" to="/camera/image" />
+  <remap from="/camera/aligned_depth_to_color/image_raw" to="/camera/depth" /-->
+  
+  <include file="$(find realsense2_camera)/launch/rs_rgbd.launch">
+     <!-- arg name = "depth_registration" value = "true"/ -->
+     <!-- arg name = "color_depth_synchronization" value = "true"/ -->
+  </include>
+
+</launch>

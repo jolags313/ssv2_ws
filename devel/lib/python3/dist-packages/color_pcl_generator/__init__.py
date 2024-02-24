@@ -1,0 +1,1 @@
+/home/conlab/ssv2_ws/devel/.private/semantic_cloud/lib/python3/dist-packages/color_pcl_generator/__init__.py

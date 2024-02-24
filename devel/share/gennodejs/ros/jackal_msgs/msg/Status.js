@@ -1,0 +1,1 @@
+/home/conlab/ssv2_ws/devel/.private/jackal_msgs/share/gennodejs/ros/jackal_msgs/msg/Status.js

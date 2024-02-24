@@ -1,0 +1,1 @@
+/home/conlab/ssv2_ws/devel/.private/orb_slam2/share/orb_slam2/cmake/orb_slam2Config.cmake

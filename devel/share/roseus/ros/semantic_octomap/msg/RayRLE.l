@@ -1,0 +1,1 @@
+/home/conlab/ssv2_ws/devel/.private/semantic_octomap/share/roseus/ros/semantic_octomap/msg/RayRLE.l

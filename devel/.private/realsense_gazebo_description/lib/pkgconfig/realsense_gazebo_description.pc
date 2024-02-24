@@ -1,0 +1,8 @@
+prefix=/home/conlab/ssv2_ws/devel/.private/realsense_gazebo_description
+
+Name: realsense_gazebo_description
+Description: Description of realsense_gazebo_description
+Version: 0.1.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp gazebo_ros sensor_msgs image_transport camera_info_manager realsense_gazebo_plugin

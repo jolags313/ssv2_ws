@@ -1,0 +1,1 @@
+/home/conlab/ssv2_ws/devel/.private/jackal_control/share/jackal_control/cmake/jackal_controlConfig-version.cmake
