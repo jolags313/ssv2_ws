@@ -655,6 +655,19 @@ actionlib_generate_messages_lisp/fast:
 .PHONY : actionlib_generate_messages_lisp/fast
 
 #=============================================================================
+# Target rules for targets named semantic_navigation
+
+# Build rule for target.
+semantic_navigation: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 semantic_navigation
+.PHONY : semantic_navigation
+
+# fast build rule for target.
+semantic_navigation/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigation.dir/build.make CMakeFiles/semantic_navigation.dir/build
+.PHONY : semantic_navigation/fast
+
+#=============================================================================
 # Target rules for targets named run_tests
 
 # Build rule for target.
@@ -1558,6 +1571,7 @@ src/simple_navigation_goals.o: src/simple_navigation_goals.cpp.o
 # target to build an object file
 src/simple_navigation_goals.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_navigation_goals.dir/build.make CMakeFiles/simple_navigation_goals.dir/src/simple_navigation_goals.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigation.dir/build.make CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.o
 .PHONY : src/simple_navigation_goals.cpp.o
 
 src/simple_navigation_goals.i: src/simple_navigation_goals.cpp.i
@@ -1567,6 +1581,7 @@ src/simple_navigation_goals.i: src/simple_navigation_goals.cpp.i
 # target to preprocess a source file
 src/simple_navigation_goals.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_navigation_goals.dir/build.make CMakeFiles/simple_navigation_goals.dir/src/simple_navigation_goals.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigation.dir/build.make CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.i
 .PHONY : src/simple_navigation_goals.cpp.i
 
 src/simple_navigation_goals.s: src/simple_navigation_goals.cpp.s
@@ -1576,6 +1591,7 @@ src/simple_navigation_goals.s: src/simple_navigation_goals.cpp.s
 # target to generate assembly for a file
 src/simple_navigation_goals.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_navigation_goals.dir/build.make CMakeFiles/simple_navigation_goals.dir/src/simple_navigation_goals.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigation.dir/build.make CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.s
 .PHONY : src/simple_navigation_goals.cpp.s
 
 # Help Target
@@ -1695,6 +1711,7 @@ help:
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... semantic_navigation"
 	@echo "... simple_navigation_goals"
 	@echo "... src/simple_navigation_goals.o"
 	@echo "... src/simple_navigation_goals.i"

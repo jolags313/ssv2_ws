@@ -122,6 +122,9 @@ void OctomapGenerator<PCLSemanticsMax, SemanticsOctreeMax>::updateColorAndSemant
         sem.semantic_color.b = (rgb)       & 0x0000ff;
         sem.confidence = it->confidence;
         octomap_.updateNodeSemantics(it->x, it->y, it->z, sem);
+        
+        // If statement for color(s) of interest -> are the colors in hex? Why compare them to blue?
+        if (sem.semantic_color.r == 
     }
   }
     SemanticsOcTreeNodeMax* node = octomap_.search(pcl_cloud->begin()->x, pcl_cloud->begin()->y, pcl_cloud->begin()->z);
