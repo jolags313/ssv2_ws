@@ -9,7 +9,7 @@
 #include <semantics_point_type/semantics_point_type.h>
 #include <octomap_generator/octomap_generator_base.h>
 
-#include <vector>
+//#include <vector>
 
 typedef pcl::PointCloud<PointXYZRGBSemanticsBayesian> PCLSemanticsBayesian;
 typedef pcl::PointCloud<PointXYZRGBSemanticsMax> PCLSemanticsMax;
@@ -98,6 +98,7 @@ class OctomapGenerator: public OctomapGeneratorBase
     float raycast_range_; ///<Max range for points to perform raycasting to free unoccupied space
     void updateColorAndSemantics(CLOUD* pcl_cloud);
     
+    /*
     struct bounding_box {
       float x_center;
       float y_center;
@@ -110,6 +111,7 @@ class OctomapGenerator: public OctomapGeneratorBase
     };
     
     vector<bounding_box> bb_instances;
+    */
 
 };
 #endif//OCTOMAP_GENERATOR

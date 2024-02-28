@@ -7,6 +7,8 @@
 #include <sstream>
 #include <cstring> // For std::memcpy
 
+// #include <vector>
+
 template<class CLOUD, class OCTREE>
 OctomapGenerator<CLOUD, OCTREE>::OctomapGenerator(): octomap_(0.05), max_range_(1.), raycast_range_(1.){}
 
@@ -109,7 +111,7 @@ template<>
 void OctomapGenerator<PCLSemanticsMax, SemanticsOctreeMax>::updateColorAndSemantics(PCLSemanticsMax* pcl_cloud)
 {
   // Declare (?) vector of bounding boxes
-  vector<bounding_box> bb_instances;
+  // vector<bounding_box> bb_instances;
   
   for(PCLSemanticsMax::const_iterator it = pcl_cloud->begin(); it < pcl_cloud->end(); it++)
   {
@@ -127,7 +129,7 @@ void OctomapGenerator<PCLSemanticsMax, SemanticsOctreeMax>::updateColorAndSemant
         sem.semantic_color.b = (rgb)       & 0x0000ff;
         sem.confidence = it->confidence;
         octomap_.updateNodeSemantics(it->x, it->y, it->z, sem);
-        
+        /*
         // If statement for color(s) of interest
         // Need to add a parameter for which object class we want in params and then load it in 
 
@@ -164,7 +166,7 @@ void OctomapGenerator<PCLSemanticsMax, SemanticsOctreeMax>::updateColorAndSemant
 		// Iterate through bounding boxes
                 for (vector<bounding_box>::iterator bb_it = bb_instances.begin(); bb_it != bb_instances.end(); bb_it++)
                 {   
-                    if(/* adjacent */) // Check for adjacency
+                    if(adjacent) // Check for adjacency
                     {
                         // update bound and center of that message in vector
                     }
@@ -180,7 +182,8 @@ void OctomapGenerator<PCLSemanticsMax, SemanticsOctreeMax>::updateColorAndSemant
             
             // need to have some sort of vector of our messages which is part of the class (which one? which header?)
             // ex 
-        }
+        } 
+        */
     }
   }
     SemanticsOcTreeNodeMax* node = octomap_.search(pcl_cloud->begin()->x, pcl_cloud->begin()->y, pcl_cloud->begin()->z);
