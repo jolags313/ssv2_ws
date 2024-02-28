@@ -108,6 +108,9 @@ void OctomapGenerator<PCLColor, ColorOcTree>::updateColorAndSemantics(PCLColor* 
 template<>
 void OctomapGenerator<PCLSemanticsMax, SemanticsOctreeMax>::updateColorAndSemantics(PCLSemanticsMax* pcl_cloud)
 {
+  // Declare (?) vector of bounding boxes
+  vector<bounding_box> bb_instances;
+  
   for(PCLSemanticsMax::const_iterator it = pcl_cloud->begin(); it < pcl_cloud->end(); it++)
   {
     if (!std::isnan(it->x) && !std::isnan(it->y) && !std::isnan(it->z))
@@ -117,14 +120,67 @@ void OctomapGenerator<PCLSemanticsMax, SemanticsOctreeMax>::updateColorAndSemant
         octomap::SemanticsMax sem;
         uint32_t rgb;
         std::memcpy(&rgb, &it->semantic_color, sizeof(uint32_t));
+        
+        // See explanation, & is used to mask unwanted bits and >> is used to shift the desired colors to the end to compare
         sem.semantic_color.r = (rgb >> 16) & 0x0000ff;
         sem.semantic_color.g = (rgb >> 8)  & 0x0000ff;
         sem.semantic_color.b = (rgb)       & 0x0000ff;
         sem.confidence = it->confidence;
         octomap_.updateNodeSemantics(it->x, it->y, it->z, sem);
         
-        // If statement for color(s) of interest -> are the colors in hex? Why compare them to blue?
-        if (sem.semantic_color.r == 
+        // If statement for color(s) of interest
+        // Need to add a parameter for which object class we want in params and then load it in 
+
+        // Create a struct with fields to represent the center, xMax, xMin, yMax, yMin + a vector of these -> see octomap_generator header, added bounding_box struct
+
+	// Values are for a person
+        if (sem.semantic_color.r == 64 && sem.semantic_color.g == 0 && sem.semantic_color.b == 128)
+        {
+            // Check if the new voxel is adjacent to an existing bounding box, first check if vector is empty
+            if (bb_instances.size() == 0)
+            {
+                // Populate struct fields, xMax, xMin, yMax, yMin, no need to check z
+                bounding_box temp_bb = {
+                  it->x, // center x
+                  it->y, // center y
+                  
+                  it->x - resolution / 2, // minimum x
+                  it->x + resolution / 2, // maximum x
+                  
+                  it->y - resolution / 2, // minimum y
+                  it->y + resolution / 2, // maximum y
+                };
+                
+                // Add to vector
+                bb_instances.push_back(temp_bb);
+            }
+            else
+            {
+                // Check to see if adjacent to an existing element in the vector, ONLY CHECK X AND Y -> can just check to see if it's within limits
+                // (xMin - resolution/2 <= x <= XMax + resolution/2) and (yMin - resolution/2 <= y <= yMax + resolution/2)
+                // This ensures the new entries are inside of/adjacent to the current bounding box
+                
+
+		// Iterate through bounding boxes
+                for (vector<bounding_box>::iterator bb_it = bb_instances.begin(); bb_it != bb_instances.end(); bb_it++)
+                {   
+                    if(/* adjacent */) // Check for adjacency
+                    {
+                        // update bound and center of that message in vector
+                    }
+                    else // create new entry in vector, use push_back
+                    {
+                        // add new entry
+                    }
+                }
+                
+            }
+
+            // get the center and set the bounds
+            
+            // need to have some sort of vector of our messages which is part of the class (which one? which header?)
+            // ex 
+        }
     }
   }
     SemanticsOcTreeNodeMax* node = octomap_.search(pcl_cloud->begin()->x, pcl_cloud->begin()->y, pcl_cloud->begin()->z);

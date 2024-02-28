@@ -1,0 +1,5 @@
+[35m[1mScanning dependencies of target semantic_navigation[0m
+[ 50%] Built target simple_navigation_goals
+[ 75%] [32mBuilding CXX object CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.o[0m
+[100%] [32m[1mLinking CXX executable /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation[0m
+[100%] Built target semantic_navigation
