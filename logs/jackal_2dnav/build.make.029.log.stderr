@@ -1,12 +1,4 @@
-[35m[1mScanning dependencies of target semantic_navigation[0m
-[ 50%] Built target simple_navigation_goals
-[ 75%] [32mBuilding CXX object CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o[0m
 [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:[m[K In member function ‘[01m[Kvoid semanticExploration::semanticCallback(const Octomap&)[m[K’:
-[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:45:31:[m[K [01;31m[Kerror: [m[Kcannot convert ‘[01m[Koctomap::ColorOcTree*[m[K’ to ‘[01m[Koctomap::OcTree*[m[K’ in initialization
-   45 |     octomap::OcTree* octree = [01;31m[Kdynamic_cast<octomap::ColorOcTree*>(tree)[m[K;
-      |                               [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
-      |                               [01;31m[K|[m[K
-      |                               [01;31m[Koctomap::ColorOcTree*[m[K
 [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:53:58:[m[K [01;31m[Kerror: [m[K‘[01m[Koctomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::NodeType[m[K’ {aka ‘[01m[Kclass octomap::OcTreeNode[m[K’} has no member named ‘[01m[KgetColor[m[K’
    53 |       octomap::ColorOcTreeNode::Color currentColor = it->[01;31m[KgetColor[m[K();
       |                                                          [01;31m[K^~~~~~~~[m[K

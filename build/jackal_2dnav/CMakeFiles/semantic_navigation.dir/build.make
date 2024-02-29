@@ -76,27 +76,27 @@ include CMakeFiles/semantic_navigation.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/semantic_navigation.dir/flags.make
 
-CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.o: CMakeFiles/semantic_navigation.dir/flags.make
-CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.o: /home/conlab/ssv2_ws/src/jackal_2dnav/src/simple_navigation_goals.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/conlab/ssv2_ws/build/jackal_2dnav/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.o -c /home/conlab/ssv2_ws/src/jackal_2dnav/src/simple_navigation_goals.cpp
+CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o: CMakeFiles/semantic_navigation.dir/flags.make
+CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o: /home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/conlab/ssv2_ws/build/jackal_2dnav/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o -c /home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp
 
-CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/conlab/ssv2_ws/src/jackal_2dnav/src/simple_navigation_goals.cpp > CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.i
+CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp > CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.i
 
-CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/conlab/ssv2_ws/src/jackal_2dnav/src/simple_navigation_goals.cpp -o CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.s
+CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp -o CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.s
 
 # Object files for target semantic_navigation
 semantic_navigation_OBJECTS = \
-"CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.o"
+"CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o"
 
 # External object files for target semantic_navigation
 semantic_navigation_EXTERNAL_OBJECTS =
 
-/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation: CMakeFiles/semantic_navigation.dir/src/simple_navigation_goals.cpp.o
+/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation: CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation: CMakeFiles/semantic_navigation.dir/build.make
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation: /opt/ros/noetic/lib/libpcl_ros_filter.so
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation: /opt/ros/noetic/lib/libpcl_ros_tf.so

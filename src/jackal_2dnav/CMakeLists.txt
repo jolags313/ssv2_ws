@@ -167,7 +167,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/jackal_2dnav_node.cpp)
 add_executable(simple_navigation_goals src/simple_navigation_goals.cpp)
-add_executable(semantic_navigation src/simple_navigation_goals.cpp)
+add_executable(semantic_navigation src/semantic_navigation.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

@@ -1,0 +1,165 @@
+[35m[1mScanning dependencies of target semantic_navigation[0m
+[ 50%] Built target simple_navigation_goals
+[ 75%] [32mBuilding CXX object CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o[0m
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:[m[K In member function ‘[01m[Kvoid semanticExploration::semanticCallback(const Octomap&)[m[K’:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:50:58:[m[K [01;31m[Kerror: [m[K‘[01m[Koctomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::NodeType[m[K’ {aka ‘[01m[Kclass octomap::OcTreeNode[m[K’} has no member named ‘[01m[KgetColor[m[K’
+   50 |       octomap::ColorOcTreeNode::Color currentColor = it->[01;31m[KgetColor[m[K();
+      |                                                          [01;31m[K^~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:69:20:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[Kit.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getX()[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+   69 |             [01;35m[Kit.getX()[m[K, // center x
+      |             [01;35m[K~~~~~~~^~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:70:20:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[Kit.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getY()[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+   70 |             [01;35m[Kit.getY()[m[K, // center y
+      |             [01;35m[K~~~~~~~^~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:72:23:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getX() - (((octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)octomap_msg.octomap_msgs::Octomap_<std::allocator<void> >::resolution) / (octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)2))[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+   72 |             [01;35m[Kit.getX() - octomap_msg.resolution / 2[m[K, // minimum x
+      |             [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:73:23:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getX() + (((octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)octomap_msg.octomap_msgs::Octomap_<std::allocator<void> >::resolution) / (octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)2))[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+   73 |             [01;35m[Kit.getX() + octomap_msg.resolution / 2[m[K, // maximum x
+      |             [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:75:23:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getY() - (((octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)octomap_msg.octomap_msgs::Octomap_<std::allocator<void> >::resolution) / (octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)2))[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+   75 |             [01;35m[Kit.getY() - octomap_msg.resolution / 2[m[K, // minimum y
+      |             [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:76:23:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getY() + (((octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)octomap_msg.octomap_msgs::Octomap_<std::allocator<void> >::resolution) / (octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)2))[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+   76 |             [01;35m[Kit.getY() + octomap_msg.resolution / 2[m[K, // maximum y
+      |             [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:91:21:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminX[m[K’
+   91 |             if(bbIt.[01;31m[KminX[m[K - octomap_msg.resolution/2 <= it.getX() &&
+      |                     [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:92:33:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxX[m[K’
+   92 |               it.getX() <= bbIt.[01;31m[KmaxX[m[K + octomap_msg.resolution/2 &&
+      |                                 [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:94:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminY[m[K’
+   94 |               bbIt.[01;31m[KminY[m[K - octomap_msg.resolution/2 <= it.getY() &&
+      |                    [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:95:33:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxY[m[K’
+   95 |               it.getY() <= bbIt.[01;31m[KmaxY[m[K + octomap_msg.resolution/2 ){
+      |                                 [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:98:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminX[m[K’
+   98 |               bbIt.[01;31m[KminX[m[K = (bbIt.minX - octomap_msg.resolution/2 == it.getX()) ? it.getX() - octomap_msg.resolution/2 : bbIt.minX;
+      |                    [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:98:33:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminX[m[K’
+   98 |               bbIt.minX = (bbIt.[01;31m[KminX[m[K - octomap_msg.resolution/2 == it.getX()) ? it.getX() - octomap_msg.resolution/2 : bbIt.minX;
+      |                                 [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:98:125:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminX[m[K’
+   98 |               bbIt.minX = (bbIt.minX - octomap_msg.resolution/2 == it.getX()) ? it.getX() - octomap_msg.resolution/2 : bbIt.[01;31m[KminX[m[K;
+      |                                                                                                                             [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:99:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxX[m[K’
+   99 |               bbIt.[01;31m[KmaxX[m[K = (it.getX() == bbIt.maxX + octomap_msg.resolution/2) ? it.getX() + octomap_msg.resolution/2 : bbIt.maxX;
+      |                    [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:99:46:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxX[m[K’
+   99 |               bbIt.maxX = (it.getX() == bbIt.[01;31m[KmaxX[m[K + octomap_msg.resolution/2) ? it.getX() + octomap_msg.resolution/2 : bbIt.maxX;
+      |                                              [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:99:125:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxX[m[K’
+   99 |               bbIt.maxX = (it.getX() == bbIt.maxX + octomap_msg.resolution/2) ? it.getX() + octomap_msg.resolution/2 : bbIt.[01;31m[KmaxX[m[K;
+      |                                                                                                                             [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:101:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminY[m[K’
+  101 |               bbIt.[01;31m[KminY[m[K = (bbIt.minY - octomap_msg.resolution/2 == it.getY()) ? it.getY() - octomap_msg.resolution/2 : bbIt.minY;
+      |                    [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:101:33:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminY[m[K’
+  101 |               bbIt.minY = (bbIt.[01;31m[KminY[m[K - octomap_msg.resolution/2 == it.getY()) ? it.getY() - octomap_msg.resolution/2 : bbIt.minY;
+      |                                 [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:101:125:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminY[m[K’
+  101 |               bbIt.minY = (bbIt.minY - octomap_msg.resolution/2 == it.getY()) ? it.getY() - octomap_msg.resolution/2 : bbIt.[01;31m[KminY[m[K;
+      |                                                                                                                             [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:102:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxY[m[K’
+  102 |               bbIt.[01;31m[KmaxY[m[K = (it.getY() == bbIt.maxY + octomap_msg.resolution/2) ? it.getY() + octomap_msg.resolution/2 : bbIt.maxY;
+      |                    [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:102:46:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxY[m[K’
+  102 |               bbIt.maxY = (it.getY() == bbIt.[01;31m[KmaxY[m[K + octomap_msg.resolution/2) ? it.getY() + octomap_msg.resolution/2 : bbIt.maxY;
+      |                                              [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:102:125:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxY[m[K’
+  102 |               bbIt.maxY = (it.getY() == bbIt.maxY + octomap_msg.resolution/2) ? it.getY() + octomap_msg.resolution/2 : bbIt.[01;31m[KmaxY[m[K;
+      |                                                                                                                             [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:104:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KxCenter[m[K’
+  104 |               bbIt.[01;31m[KxCenter[m[K = bbIt.minX + (bbIt.maxX - bbIt.minX) / 2;
+      |                    [01;31m[K^~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:104:35:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminX[m[K’
+  104 |               bbIt.xCenter = bbIt.[01;31m[KminX[m[K + (bbIt.maxX - bbIt.minX) / 2;
+      |                                   [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:104:48:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxX[m[K’
+  104 |               bbIt.xCenter = bbIt.minX + (bbIt.[01;31m[KmaxX[m[K - bbIt.minX) / 2;
+      |                                                [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:104:60:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminX[m[K’
+  104 |               bbIt.xCenter = bbIt.minX + (bbIt.maxX - bbIt.[01;31m[KminX[m[K) / 2;
+      |                                                            [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:105:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KYCenter[m[K’
+  105 |               bbIt.[01;31m[KYCenter[m[K = bbIt.minY + (bbIt.maxY - bbIt.minY) / 2;
+      |                    [01;31m[K^~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:105:35:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminY[m[K’
+  105 |               bbIt.YCenter = bbIt.[01;31m[KminY[m[K + (bbIt.maxY - bbIt.minY) / 2;
+      |                                   [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:105:48:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxY[m[K’
+  105 |               bbIt.YCenter = bbIt.minY + (bbIt.[01;31m[KmaxY[m[K - bbIt.minY) / 2;
+      |                                                [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:105:60:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminY[m[K’
+  105 |               bbIt.YCenter = bbIt.minY + (bbIt.maxY - bbIt.[01;31m[KminY[m[K) / 2;
+      |                                                            [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:111:24:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[Kit.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getX()[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+  111 |                 [01;35m[Kit.getX()[m[K, // center x
+      |                 [01;35m[K~~~~~~~^~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:112:24:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[Kit.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getY()[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+  112 |                 [01;35m[Kit.getY()[m[K, // center y
+      |                 [01;35m[K~~~~~~~^~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:114:27:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getX() - (((octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)octomap_msg.octomap_msgs::Octomap_<std::allocator<void> >::resolution) / (octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)2))[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+  114 |                 [01;35m[Kit.getX() - octomap_msg.resolution / 2[m[K, // minimum x
+      |                 [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:115:27:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getX() + (((octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)octomap_msg.octomap_msgs::Octomap_<std::allocator<void> >::resolution) / (octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)2))[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+  115 |                 [01;35m[Kit.getX() + octomap_msg.resolution / 2[m[K, // maximum x
+      |                 [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:117:27:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getY() - (((octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)octomap_msg.octomap_msgs::Octomap_<std::allocator<void> >::resolution) / (octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)2))[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+  117 |                 [01;35m[Kit.getY() - octomap_msg.resolution / 2[m[K, // minimum y
+      |                 [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:118:27:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getY() + (((octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)octomap_msg.octomap_msgs::Octomap_<std::allocator<void> >::resolution) / (octomap_msgs::Octomap_<std::allocator<void> >::_resolution_type)2))[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+  118 |                 [01;35m[Kit.getY() + octomap_msg.resolution / 2[m[K, // maximum y
+      |                 [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:135:25:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxX[m[K’
+  135 |       if(bbArea < (bbIt.[01;31m[KmaxX[m[K - bbIt.minX) * (bbIt.maxY - bbIt.minY)){
+      |                         [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:135:37:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminX[m[K’
+  135 |       if(bbArea < (bbIt.maxX - bbIt.[01;31m[KminX[m[K) * (bbIt.maxY - bbIt.minY)){
+      |                                     [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:135:51:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxY[m[K’
+  135 |       if(bbArea < (bbIt.maxX - bbIt.minX) * (bbIt.[01;31m[KmaxY[m[K - bbIt.minY)){
+      |                                                   [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:135:63:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminY[m[K’
+  135 |       if(bbArea < (bbIt.maxX - bbIt.minX) * (bbIt.maxY - bbIt.[01;31m[KminY[m[K)){
+      |                                                               [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:137:24:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxX[m[K’
+  137 |         bbArea = (bbIt.[01;31m[KmaxX[m[K - bbIt.minX) * (bbIt.maxY - bbIt.minY);
+      |                        [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:137:36:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminX[m[K’
+  137 |         bbArea = (bbIt.maxX - bbIt.[01;31m[KminX[m[K) * (bbIt.maxY - bbIt.minY);
+      |                                    [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:137:50:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KmaxY[m[K’
+  137 |         bbArea = (bbIt.maxX - bbIt.minX) * (bbIt.[01;31m[KmaxY[m[K - bbIt.minY);
+      |                                                  [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:137:62:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::vector<semanticExploration::boundingBox>::iterator[m[K’ {aka ‘[01m[Kclass __gnu_cxx::__normal_iterator<semanticExploration::boundingBox*, std::vector<semanticExploration::boundingBox> >[m[K’} has no member named ‘[01m[KminY[m[K’
+  137 |         bbArea = (bbIt.maxX - bbIt.minX) * (bbIt.maxY - bbIt.[01;31m[KminY[m[K);
+      |                                                              [01;31m[K^~~~[m[K
+In file included from [01m[K/opt/ros/noetic/include/ros/ros.h:40[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:1[m[K:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:149:32:[m[K [01;31m[Kerror: [m[K‘[01m[KsemanticExplorer[m[K’ was not declared in this scope; did you mean ‘[01m[KsemanticExploration[m[K’?
+  149 |     ROS_INFO_STREAM("X AT " << [01;31m[KsemanticExplorer[m[K.goal.target_pose.pose.position.x << "    Y AT " <<  goal.target_pose.pose.position.y << '\n');
+      |                                [01;31m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:361:64:[m[K [01;36m[Knote: [m[Kin definition of macro ‘[01m[KROSCONSOLE_PRINT_STREAM_AT_LOCATION_WITH_FILTER[m[K’
+  361 |     __rosconsole_print_stream_at_location_with_filter__ss__ << [01;36m[Kargs[m[K; \
+      |                                                                [01;36m[K^~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:409:7:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROSCONSOLE_PRINT_STREAM_AT_LOCATION[m[K’
+  409 |       [01;36m[KROSCONSOLE_PRINT_STREAM_AT_LOCATION[m[K(args); \
+      |       [01;36m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:582:43:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG_STREAM_COND[m[K’
+  582 | #define ROS_LOG_STREAM(level, name, args) [01;36m[KROS_LOG_STREAM_COND[m[K(true, level, name, args)
+      |                                           [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/rosconsole/macros_generated.h:111:31:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG_STREAM[m[K’
+  111 | #define ROS_INFO_STREAM(args) [01;36m[KROS_LOG_STREAM[m[K(::ros::console::levels::Info, ROSCONSOLE_DEFAULT_NAME, args)
+      |                               [01;36m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:149:5:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_INFO_STREAM[m[K’
+  149 |     [01;36m[KROS_INFO_STREAM[m[K("X AT " << semanticExplorer.goal.target_pose.pose.position.x << "    Y AT " <<  goal.target_pose.pose.position.y << '\n');
+      |     [01;36m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:157:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kac[m[K’ was not declared in this scope
+  157 |     [01;31m[Kac[m[K.sendGoal(goal);
+      |     [01;31m[K^~[m[K
+make[2]: *** [CMakeFiles/semantic_navigation.dir/build.make:82: CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:1228: CMakeFiles/semantic_navigation.dir/all] Error 2
+make: *** [Makefile:160: all] Error 2
