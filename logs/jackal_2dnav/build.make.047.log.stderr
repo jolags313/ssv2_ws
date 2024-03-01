@@ -1,0 +1,53 @@
+In file included from [01m[K/opt/ros/noetic/include/ros/ros.h:40[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:1[m[K:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:[m[K In member function ‘[01m[Kvoid semanticExploration::semanticCallback(const Octomap&)[m[K’:
+[01m[K/opt/ros/noetic/include/ros/console.h:384:3:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kdo[m[K’
+  384 |   [01;31m[Kdo[m[K \
+      |   [01;31m[K^~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:575:35:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG_COND[m[K’
+  575 | #define ROS_LOG(level, name, ...) [01;36m[KROS_LOG_COND[m[K(true, level, name, __VA_ARGS__)
+      |                                   [01;36m[K^~~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/rosconsole/macros_generated.h:110:23:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG[m[K’
+  110 | #define ROS_INFO(...) [01;36m[KROS_LOG[m[K(::ros::console::levels::Info, ROSCONSOLE_DEFAULT_NAME, __VA_ARGS__)
+      |                       [01;36m[K^~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:83:13:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_INFO[m[K’
+   83 |             [01;36m[KROS_INFO[m[K("Empty BB");
+      |             [01;36m[K^~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:384:3:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K}[m[K’ before ‘[01m[Kdo[m[K’
+  384 |   [01;31m[Kdo[m[K \
+      |   [01;31m[K^~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:575:35:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG_COND[m[K’
+  575 | #define ROS_LOG(level, name, ...) [01;36m[KROS_LOG_COND[m[K(true, level, name, __VA_ARGS__)
+      |                                   [01;36m[K^~~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/rosconsole/macros_generated.h:110:23:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG[m[K’
+  110 | #define ROS_INFO(...) [01;36m[KROS_LOG[m[K(::ros::console::levels::Info, ROSCONSOLE_DEFAULT_NAME, __VA_ARGS__)
+      |                       [01;36m[K^~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:83:13:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_INFO[m[K’
+   83 |             [01;36m[KROS_INFO[m[K("Empty BB");
+      |             [01;36m[K^~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:81:32:[m[K [01;36m[Knote: [m[Kto match this ‘[01m[K{[m[K’
+   81 |           boundingBox tempBB = [01;36m[K{[m[K
+      |                                [01;36m[K^[m[K
+In file included from [01m[K/opt/ros/noetic/include/ros/ros.h:40[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:1[m[K:
+[01m[K/opt/ros/noetic/include/ros/console.h:384:3:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K,[m[K’ or ‘[01m[K;[m[K’ before ‘[01m[Kdo[m[K’
+  384 |   [01;31m[Kdo[m[K \
+      |   [01;31m[K^~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:575:35:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG_COND[m[K’
+  575 | #define ROS_LOG(level, name, ...) [01;36m[KROS_LOG_COND[m[K(true, level, name, __VA_ARGS__)
+      |                                   [01;36m[K^~~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/rosconsole/macros_generated.h:110:23:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG[m[K’
+  110 | #define ROS_INFO(...) [01;36m[KROS_LOG[m[K(::ros::console::levels::Info, ROSCONSOLE_DEFAULT_NAME, __VA_ARGS__)
+      |                       [01;36m[K^~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:83:13:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_INFO[m[K’
+   83 |             [01;36m[KROS_INFO[m[K("Empty BB");
+      |             [01;36m[K^~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:94:11:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K}[m[K’ token
+   94 |           [01;31m[K}[m[K;
+      |           [01;31m[K^[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:98:33:[m[K [01;31m[Kerror: [m[K‘[01m[KtempBB[m[K’ was not declared in this scope
+   98 |           bbInstances.push_back([01;31m[KtempBB[m[K);
+      |                                 [01;31m[K^~~~~~[m[K
+make[2]: *** [CMakeFiles/semantic_navigation.dir/build.make:82: CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:1228: CMakeFiles/semantic_navigation.dir/all] Error 2
+make: *** [Makefile:160: all] Error 2

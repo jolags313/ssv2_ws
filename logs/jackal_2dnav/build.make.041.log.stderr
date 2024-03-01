@@ -1,0 +1,13 @@
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:[m[K In member function ‘[01m[Kvoid semanticExploration::semanticCallback(const Octomap&)[m[K’:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:50:5:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[Koctomap[m[K’
+   50 |     [01;31m[Koctomap[m[K::ColorOcTree* octree = dynamic_cast<octomap::ColorOcTree*>(tree);
+      |     [01;31m[K^~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:54:5:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[Kstd[m[K’
+   54 |     [01;31m[Kstd[m[K::vector<boundingBox> bbInstances;
+      |     [01;31m[K^~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:58:5:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[Kfor[m[K’
+   58 |     [01;31m[Kfor[m[K(octomap::ColorOcTree::leaf_iterator it = octree->begin_leafs(), end = octree->end_leafs(); it!=end; ++it){
+      |     [01;31m[K^~~[m[K
+make[2]: *** [CMakeFiles/semantic_navigation.dir/build.make:82: CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:1228: CMakeFiles/semantic_navigation.dir/all] Error 2
+make: *** [Makefile:160: all] Error 2

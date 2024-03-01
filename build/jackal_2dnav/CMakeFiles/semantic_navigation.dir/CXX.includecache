@@ -9,9 +9,15 @@
 /home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp
 ros/ros.h
 -
+iostream
+-
+stdlib.h
+-
 vector
 -
 octomap/octomap.h
+-
+octomap/OcTree.h
 -
 octomap/ColorOcTree.h
 -

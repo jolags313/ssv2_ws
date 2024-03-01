@@ -214,6 +214,8 @@ semantic_navigation_EXTERNAL_OBJECTS =
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation: /usr/lib/x86_64-linux-gnu/libboost_thread.so.1.71.0
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation: /usr/lib/x86_64-linux-gnu/libconsole_bridge.so.0.4
+/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation: /opt/ros/noetic/lib/liboctomap.so
+/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation: /opt/ros/noetic/lib/liboctomath.so
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation: CMakeFiles/semantic_navigation.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/conlab/ssv2_ws/build/jackal_2dnav/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/semantic_navigation.dir/link.txt --verbose=$(VERBOSE)

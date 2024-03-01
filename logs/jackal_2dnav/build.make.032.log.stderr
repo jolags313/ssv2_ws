@@ -1,0 +1,13 @@
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:[m[K In member function ‘[01m[Kvoid semanticExploration::semanticCallback(const Octomap&)[m[K’:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:51:64:[m[K [01;31m[Kerror: [m[Kconversion from ‘[01m[Kleaf_iterator<[01;32m[Koctomap::ColorOcTreeNode[m[K,[...]>[m[K’ to non-scalar type ‘[01m[Kleaf_iterator<[01;32m[Koctomap::OcTreeNode[m[K,[...]>[m[K’ requested
+   51 |     for(octomap::OcTree::leaf_iterator it = [01;31m[Koctree->begin_leafs()[m[K, end = octree->end_leafs(); it!=end; ++it){
+      |                                             [01;31m[K~~~~~~~~~~~~~~~~~~~^~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:51:91:[m[K [01;31m[Kerror: [m[Kconversion from ‘[01m[Kleaf_iterator<[01;32m[Koctomap::ColorOcTreeNode[m[K,[...]>[m[K’ to non-scalar type ‘[01m[Kleaf_iterator<[01;32m[Koctomap::OcTreeNode[m[K,[...]>[m[K’ requested
+   51 |     for(octomap::OcTree::leaf_iterator it = octree->begin_leafs(), end = [01;31m[Koctree->end_leafs()[m[K; it!=end; ++it){
+      |                                                                          [01;31m[K~~~~~~~~~~~~~~~~~^~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:53:58:[m[K [01;31m[Kerror: [m[K‘[01m[Koctomap::OcTreeBaseImpl<octomap::OcTreeNode, octomap::AbstractOccupancyOcTree>::NodeType[m[K’ {aka ‘[01m[Kclass octomap::OcTreeNode[m[K’} has no member named ‘[01m[KgetColor[m[K’
+   53 |       octomap::ColorOcTreeNode::Color currentColor = it->[01;31m[KgetColor[m[K();
+      |                                                          [01;31m[K^~~~~~~~[m[K
+make[2]: *** [CMakeFiles/semantic_navigation.dir/build.make:82: CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:1228: CMakeFiles/semantic_navigation.dir/all] Error 2
+make: *** [Makefile:160: all] Error 2

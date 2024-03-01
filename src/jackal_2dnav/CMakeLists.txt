@@ -191,6 +191,7 @@ target_link_libraries(
 target_link_libraries(
   semantic_navigation 
   ${catkin_LIBRARIES}
+  ${OCTOMAP_LIBRARIES}
 )
 
 set(LINK_LIBS
