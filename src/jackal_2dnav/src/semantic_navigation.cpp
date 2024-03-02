@@ -38,7 +38,7 @@ public:
     ROS_INFO("Object created");
     
     // Topic to subscribe to (full octomap message from octomap_generator
-    sub_ = nh_.subscribe("/octomap_full", 10, &semanticExploration::semanticCallback, this);
+    sub_ = nh_.subscribe("/octomap_full", 1, &semanticExploration::semanticCallback, this);
   }
   
   // populate goal (geometry_msgs/PoseStamped)
@@ -52,33 +52,33 @@ public:
     
     // why doesn't this work? we're going from base to derived types (Abstract -> Color)
     octomap::ColorOcTree* octree = dynamic_cast<octomap::ColorOcTree*>(tree);
-    //ROS_INFO("Dynamic Casted");
+    ROS_INFO("Dynamic Casted");
     
     // declare vector of bounding boxes
     std::vector<boundingBox> bbInstances;
-    //ROS_INFO("BB vector declared");
+    ROS_INFO("BB vector declared");
     
     // iterator
     for(octomap::ColorOcTree::leaf_iterator it = octree->begin_leafs(), end = octree->end_leafs(); it!=end; ++it){
     
-      //ROS_INFO("Why does adding this let us in");
+      // ROS_INFO("In iterator");
     
       // get color -> class octomap::ColorOcTreeNode::Color has three fields r, g, b (0 to 255), does this even work? getColor isn't listed in the leaf iterator documentation
       octomap::ColorOcTreeNode::Color currentColor = it->getColor();
-      //ROS_INFO("Color extracted");
+      // ROS_INFO("Color extracted");
       
       // correct access of color class of ColorOcTreeNode?
       int semR = currentColor.r;
       int semG = currentColor.b;
       int semB = currentColor.g;
-      //ROS_INFO_STREAM("R is " << semR << "    G is " << semG << "    B is " << semB << '\n');
+      // ROS_INFO_STREAM("R is " << semR << "    G is " << semG << "    B is " << semB << '\n');
       
       // maybe do this octomap::ColorOcTreeNode* node = octomap_.search(pcl_cloud->begin()->x, pcl_cloud->begin()->y, pcl_cloud->begin()->z);
       
       // values are for a person
       if(semR == 64 && semG == 0 && semB == 128){
       
-        ROS_INFO("Person found");
+        // ROS_INFO("Person found");
           
         // check if the vector of bounding boxes is empty
         if(bbInstances.size() == 0){
@@ -104,11 +104,11 @@ public:
           bbInstances.push_back(tempBB);
           
           // test, show center of very first node
-          break;
+          // break;
         }
         else{
         
-          ROS_INFO("Non-empty BB");
+          // ROS_INFO("Non-empty BB");
               
           // check to see if the current node is adjacent to/in an existing bounding box (just check x and y and if in limits)
           // (xMin - resolution/2 <= x <= XMax + resolution/2) and (yMin - resolution/2 <= y <= yMax + resolution/2)
@@ -177,6 +177,12 @@ public:
       }         
     }
     
+    // getting vector size is 0 wtf
+    ROS_INFO_STREAM("Vector size is " << bbInstances.size() << '\n');
+    
+    // unable to output this- is it a problem accessing the vector?
+    ROS_INFO_STREAM("Idx is " << idx << "    X at " << bbInstances[idx].xCenter << "    Y at " << bbInstances[idx].yCenter << '\n');
+    
     goal.target_pose.header.frame_id = "map"; //global frame
     goal.target_pose.header.stamp = ros::Time::now();
   
@@ -203,14 +209,14 @@ private:
   
   // are these necessary?
   struct boundingBox{
-    double xCenter;
-    double yCenter;
+    float xCenter;
+    float yCenter;
       
-    double minX;
-    double maxX;
+    float minX;
+    float maxX;
       
-    double minY;
-    double maxY;
+    float minY;
+    float maxY;
   };
     
     std::vector<boundingBox> bbInstances;
@@ -230,19 +236,20 @@ int main(int argc, char** argv){
     ROS_INFO("Waiting for the move_base action server to come up");
   }
   
-  // set frequency to 0.1 Hz
-  // ros::Rate rate(0.1);
-  
   // think contents (including below object creation) should be inside loop but comment out for now for testing and until we find a way to blacklist visited goals
   
   // create an object of class semanticExploration that will take care of everything
   semanticExploration semanticExplorer;
   
-  ros::Rate r(0.1); // every 10 seconds
+  ros::Rate r(0.5); // every 10 seconds
   
   while(ros::ok()){
-    // ros::spin();
-    ros::spinOnce();
+    
+    ROS_INFO("Before callback call");
+    ros::getGlobalCallbackQueue()->callOne();
+    ROS_INFO("After callback call");
+    ros::getGlobalCallbackQueue()->clear();
+    ROS_INFO("After callback clear");
     
     // send goal of the location input using callback -> how can we get the goal from inside? -> just make it a global variable for now
     ROS_INFO("Sending goal");
@@ -255,6 +262,9 @@ int main(int argc, char** argv){
       ROS_INFO("Object reached");
     else
       ROS_INFO("Exploration failed");
+      
+    // try here
+    // ros::spinOnce();
       
     r.sleep();
   }
