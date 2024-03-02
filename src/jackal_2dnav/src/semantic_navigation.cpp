@@ -54,9 +54,9 @@ public:
     octomap::ColorOcTree* octree = dynamic_cast<octomap::ColorOcTree*>(tree);
     ROS_INFO("Dynamic Casted");
     
-    // declare vector of bounding boxes
-    std::vector<boundingBox> bbInstances;
-    ROS_INFO("BB vector declared");
+    // declare vector of bounding boxes -> comment out since already declared as private below
+    // std::vector<boundingBox> bbInstances;
+    // ROS_INFO("BB vector declared");
     
     // iterator
     for(octomap::ColorOcTree::leaf_iterator it = octree->begin_leafs(), end = octree->end_leafs(); it!=end; ++it){
@@ -92,11 +92,11 @@ public:
             it.getX(), // center x
             it.getY(), // center y
                   
-            it.getX() - it.getSize() / 2, // minimum x, octomap_msg.resolution
-            it.getX() + it.getSize() / 2, // maximum x
+            it.getX() - octomap_msg.resolution / 2, // minimum x, octomap_msg.resolution
+            it.getX() + octomap_msg.resolution / 2, // maximum x
                   
-            it.getY() - it.getSize() / 2, // minimum y
-            it.getY() + it.getSize() / 2, // maximum y  
+            it.getY() - octomap_msg.resolution / 2, // minimum y
+            it.getY() + octomap_msg.resolution / 2, // maximum y  
           };
               
           // add to vector
@@ -119,23 +119,25 @@ public:
             //ROS_INFO("In BB iterator");
                   
             // check for adjacency/limits
-            if(bbIt->minX - it.getSize() / 2 <= it.getX() && 
-               it.getX() <= bbIt->maxX + it.getSize() / 2 &&
+            if(bbIt->minX - octomap_msg.resolution / 2 <= it.getX() && 
+               it.getX() <= bbIt->maxX + octomap_msg.resolution / 2 &&
                       
-               bbIt->minY - it.getSize() / 2 <= it.getY() && 
-               it.getY() <= bbIt->maxY + it.getSize() / 2 ){
+               bbIt->minY - octomap_msg.resolution / 2 <= it.getY() && 
+               it.getY() <= bbIt->maxY + octomap_msg.resolution / 2 ){
                           
               // update center and bounds of bounding box, is there a way to check which side without multiple ifs?
-              bbIt->minX = (bbIt->minX - it.getSize() / 2 == it.getX()) ? it.getX() - it.getSize() / 2 : bbIt->minX;
-              bbIt->maxX = (it.getX() == bbIt->maxX + it.getSize() / 2) ? it.getX() + it.getSize() / 2 : bbIt->maxX;
+              bbIt->minX = (bbIt->minX - octomap_msg.resolution / 2 == it.getX()) ? it.getX() - octomap_msg.resolution / 2 : bbIt->minX;
+              bbIt->maxX = (it.getX() == bbIt->maxX + octomap_msg.resolution / 2) ? it.getX() + octomap_msg.resolution / 2 : bbIt->maxX;
                      
-              bbIt->minY = (bbIt->minY - it.getSize() / 2 == it.getY()) ? it.getY() - it.getSize() / 2 : bbIt->minY;
-              bbIt->maxY = (it.getY() == bbIt->maxY + it.getSize() / 2) ? it.getY() + it.getSize() / 2 : bbIt->maxY;
+              bbIt->minY = (bbIt->minY - octomap_msg.resolution / 2 == it.getY()) ? it.getY() - octomap_msg.resolution / 2 : bbIt->minY;
+              bbIt->maxY = (it.getY() == bbIt->maxY + octomap_msg.resolution / 2) ? it.getY() + octomap_msg.resolution / 2 : bbIt->maxY;
                      
               bbIt->xCenter = bbIt->minX + (bbIt->maxX - bbIt->minX) / 2;
               bbIt->yCenter = bbIt->minY + (bbIt->maxY - bbIt->minY) / 2;
               
-              ROS_INFO("Existing bounding box");   
+              // ROS_INFO("Existing bounding box"); 
+              ROS_INFO_STREAM("New X at " << it.getX() << "    New Y at " << it.getY() << '\n');  
+              
               break;                
             }
             // if we get through the entire vector without a match, add a new bounding box
@@ -146,11 +148,11 @@ public:
                 it.getX(), // center x
                 it.getY(), // center y
                   
-                it.getX() - it.getSize() / 2, // minimum x
-                it.getX() + it.getSize() / 2, // maximum x
+                it.getX() - octomap_msg.resolution / 2, // minimum x
+                it.getX() + octomap_msg.resolution / 2, // maximum x
                   
-                it.getY() - it.getSize() / 2, // minimum y
-                it.getY() + it.getSize() / 2, // maximum y  
+                it.getY() - octomap_msg.resolution / 2, // minimum y
+                it.getY() + octomap_msg.resolution / 2, // maximum y  
               };
               
               // add to vector
@@ -219,7 +221,7 @@ private:
     float maxY;
   };
     
-    std::vector<boundingBox> bbInstances;
+  std::vector<boundingBox> bbInstances;
   
   // add one for visualization
   // void visualizeLocations(const std::vector<
