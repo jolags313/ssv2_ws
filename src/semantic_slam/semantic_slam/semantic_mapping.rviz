@@ -91,7 +91,7 @@ Visualization Manager:
           Max. Octree Depth: 16
           Min. Height Display: -3.40282347e+38
           Name: ColorOccupancyGrid
-          Octomap Topic: /octomap_full
+          Octomap Topic: /floatlazer/octomap_full
           Queue Size: 5
           Value: true
           Voxel Alpha: 1

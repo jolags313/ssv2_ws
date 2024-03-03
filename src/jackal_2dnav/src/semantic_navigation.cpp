@@ -26,7 +26,7 @@ typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseCl
 // global variable for use in main and callback, should probably change this in the future
 move_base_msgs::MoveBaseGoal goal;
 
-// make a class and have the callback as a method + add goal as a member state so that it can be filled in the callback
+// make a class and have the callback as a method
 class semanticExploration{
 
 public:
@@ -38,7 +38,7 @@ public:
     ROS_INFO("Object created");
     
     // Topic to subscribe to (full octomap message from octomap_generator
-    sub_ = nh_.subscribe("/octomap_full", 1, &semanticExploration::semanticCallback, this);
+    sub_ = nh_.subscribe("floatlazer/octomap_full", 1, &semanticExploration::semanticCallback, this);
   }
   
   // populate goal (geometry_msgs/PoseStamped)
@@ -50,7 +50,7 @@ public:
     octomap::AbstractOcTree* tree = octomap_msgs::msgToMap(octomap_msg);
     ROS_INFO("Deserialized Octomap");
     
-    // why doesn't this work? we're going from base to derived types (Abstract -> Color)
+    // going from base to derived types (Abstract -> Color)
     octomap::ColorOcTree* octree = dynamic_cast<octomap::ColorOcTree*>(tree);
     ROS_INFO("Dynamic Casted");
     
@@ -63,19 +63,17 @@ public:
     
       // ROS_INFO("In iterator");
     
-      // get color -> class octomap::ColorOcTreeNode::Color has three fields r, g, b (0 to 255), does this even work? getColor isn't listed in the leaf iterator documentation
+      // get color -> class octomap::ColorOcTreeNode::Color has three fields r, g, b (0 to 255)
       octomap::ColorOcTreeNode::Color currentColor = it->getColor();
       // ROS_INFO("Color extracted");
       
       // correct access of color class of ColorOcTreeNode?
       int semR = currentColor.r;
-      int semG = currentColor.b;
-      int semB = currentColor.g;
+      int semG = currentColor.g;
+      int semB = currentColor.b;
       // ROS_INFO_STREAM("R is " << semR << "    G is " << semG << "    B is " << semB << '\n');
       
-      // maybe do this octomap::ColorOcTreeNode* node = octomap_.search(pcl_cloud->begin()->x, pcl_cloud->begin()->y, pcl_cloud->begin()->z);
-      
-      // values are for a person
+      // values are for the color of a person
       if(semR == 64 && semG == 0 && semB == 128){
       
         // ROS_INFO("Person found");
@@ -92,19 +90,20 @@ public:
             it.getX(), // center x
             it.getY(), // center y
                   
-            it.getX() - octomap_msg.resolution / 2, // minimum x, octomap_msg.resolution
-            it.getX() + octomap_msg.resolution / 2, // maximum x
+            // minimum x, set bounds using it.getSize() and not it.getSize() / 2 for padding when checking for adjacency      
+            it.getX() - it.getSize(), 
+            it.getX() + it.getSize(), // maximum x
                   
-            it.getY() - octomap_msg.resolution / 2, // minimum y
-            it.getY() + octomap_msg.resolution / 2, // maximum y  
+            it.getY() - it.getSize(), // minimum y
+            it.getY() + it.getSize(), // maximum y  
           };
               
           // add to vector
-          ROS_INFO("Initial BB");
+          ROS_INFO("First BB");
           bbInstances.push_back(tempBB);
           
           // test, show center of very first node
-          // break;
+          continue;
         }
         else{
         
@@ -113,53 +112,55 @@ public:
           // check to see if the current node is adjacent to/in an existing bounding box (just check x and y and if in limits)
           // (xMin - resolution/2 <= x <= XMax + resolution/2) and (yMin - resolution/2 <= y <= yMax + resolution/2)
               
-          // iterate through bounding boxes
-          for(std::vector<boundingBox>::iterator bbIt = bbInstances.begin(); bbIt != bbInstances.end(); bbIt++){
-          
+          // iterate through bounding boxes -> DO NOT USE AN ITERATOR (https://stackoverflow.com/questions/37900109/adding-an-element-to-a-vector-while-iterating-over-it)
+          int currentSize = bbInstances.size();          
+          for(int i = 0; i < currentSize; ++i){
+            
             //ROS_INFO("In BB iterator");
                   
             // check for adjacency/limits
-            if(bbIt->minX - octomap_msg.resolution / 2 <= it.getX() && 
-               it.getX() <= bbIt->maxX + octomap_msg.resolution / 2 &&
+            if(bbInstances[i].minX <= it.getX() + it.getSize() / 2 && 
+               it.getX() - it.getSize() / 2 <= bbInstances[i].maxX &&
                       
-               bbIt->minY - octomap_msg.resolution / 2 <= it.getY() && 
-               it.getY() <= bbIt->maxY + octomap_msg.resolution / 2 ){
+               bbInstances[i].minY <= it.getY() + it.getSize() / 2 && 
+               it.getY() - it.getSize() / 2 <= bbInstances[i].maxY ){
                           
               // update center and bounds of bounding box, is there a way to check which side without multiple ifs?
-              bbIt->minX = (bbIt->minX - octomap_msg.resolution / 2 == it.getX()) ? it.getX() - octomap_msg.resolution / 2 : bbIt->minX;
-              bbIt->maxX = (it.getX() == bbIt->maxX + octomap_msg.resolution / 2) ? it.getX() + octomap_msg.resolution / 2 : bbIt->maxX;
+              bbInstances[i].minX = (bbInstances[i].minX >= it.getX() - it.getSize() / 2) ? it.getX() - it.getSize() / 2 : bbInstances[i].minX;
+              bbInstances[i].maxX = (it.getX() + it.getSize() / 2 >= bbInstances[i].maxX) ? it.getX() + it.getSize() / 2 : bbInstances[i].maxX;
                      
-              bbIt->minY = (bbIt->minY - octomap_msg.resolution / 2 == it.getY()) ? it.getY() - octomap_msg.resolution / 2 : bbIt->minY;
-              bbIt->maxY = (it.getY() == bbIt->maxY + octomap_msg.resolution / 2) ? it.getY() + octomap_msg.resolution / 2 : bbIt->maxY;
+              bbInstances[i].minY = (bbInstances[i].minY >= it.getY() - it.getSize() / 2) ? it.getY() - it.getSize() / 2 : bbInstances[i].minY;
+              bbInstances[i].maxY = (it.getY() + it.getSize() / 2 >= bbInstances[i].maxY) ? it.getY() + it.getSize() / 2 : bbInstances[i].maxY;
                      
-              bbIt->xCenter = bbIt->minX + (bbIt->maxX - bbIt->minX) / 2;
-              bbIt->yCenter = bbIt->minY + (bbIt->maxY - bbIt->minY) / 2;
+              bbInstances[i].xCenter = bbInstances[i].minX + (bbInstances[i].maxX - bbInstances[i].minX) / 2;
+              bbInstances[i].yCenter = bbInstances[i].minY + (bbInstances[i].maxY - bbInstances[i].minY) / 2;
               
               // ROS_INFO("Existing bounding box"); 
-              ROS_INFO_STREAM("New X at " << it.getX() << "    New Y at " << it.getY() << '\n');  
+              ROS_INFO_STREAM("Adjacent, current center at (" << bbInstances[i].xCenter << ", " << bbInstances[i].yCenter << ") with size " << (bbInstances[i].maxX - bbInstances[i].minX) << " by " << (bbInstances[i].maxY - bbInstances[i].minY)); 
+              ROS_INFO_STREAM("^ New X at " << it.getX() << "    New Y at " << it.getY() << "    with size " << it.getSize() << '\n');  
               
               break;                
             }
             // if we get through the entire vector without a match, add a new bounding box
-            else if(bbIt == bbInstances.end()){
+            else if(i == currentSize - 1){
             
               // if not adjacent, add new bounding box
               boundingBox tempBB = {
                 it.getX(), // center x
                 it.getY(), // center y
                   
-                it.getX() - octomap_msg.resolution / 2, // minimum x
-                it.getX() + octomap_msg.resolution / 2, // maximum x
+                it.getX() - it.getSize() / 2, // minimum x
+                it.getX() + it.getSize() / 2, // maximum x
                   
-                it.getY() - octomap_msg.resolution / 2, // minimum y
-                it.getY() + octomap_msg.resolution / 2, // maximum y  
+                it.getY() - it.getSize() / 2, // minimum y
+                it.getY() + it.getSize() / 2, // maximum y  
               };
               
               // add to vector
               ROS_INFO("New bounding box");
               bbInstances.push_back(tempBB);
             }
-          }
+          } 
         }
       }
     }
@@ -167,10 +168,14 @@ public:
     ROS_INFO("Outside of iterator");
     
     // check to see which is the largest in area (placeholder metric, will be using a vector of these when used with explore_lite like with the frontiers -> weighted to choose the best one)
-    float bbArea = 0;
+    float minArea = 0.001; // 0.001 m^2 = about 1 inch x 1 inch
+    float bbArea = minArea;
     int idx = 0;
     
     for(std::vector<boundingBox>::iterator bbIt = bbInstances.begin(); bbIt != bbInstances.end(); bbIt++){
+    
+      ROS_INFO_STREAM("X size " << (bbIt->maxX - bbIt->minX) << "    Y size " << (bbIt->maxY - bbIt->minY) << '\n');
+      ROS_INFO_STREAM("Bounding box area is " << (bbIt->maxX - bbIt->minX) * (bbIt->maxY - bbIt->minY) << '\n');
       
       if(bbArea < (bbIt->maxX - bbIt->minX) * (bbIt->maxY - bbIt->minY)){
         
@@ -180,6 +185,7 @@ public:
     }
     
     // getting vector size is 0 wtf
+    ROS_INFO_STREAM("Max area was " << bbArea << '\n');
     ROS_INFO_STREAM("Vector size is " << bbInstances.size() << '\n');
     
     // unable to output this- is it a problem accessing the vector?
@@ -188,8 +194,8 @@ public:
     goal.target_pose.header.frame_id = "map"; //global frame
     goal.target_pose.header.stamp = ros::Time::now();
   
-    goal.target_pose.pose.position.x = bbInstances[idx].xCenter;
-    goal.target_pose.pose.position.y = bbInstances[idx].yCenter;
+    goal.target_pose.pose.position.x = bbArea <= minArea ? 0 : bbInstances[idx].xCenter;
+    goal.target_pose.pose.position.y = bbArea <= minArea ? 0 : bbInstances[idx].yCenter;
     goal.target_pose.pose.position.z = 0; // can we just leave this as 0?
     
     ROS_INFO_STREAM("X AT " << goal.target_pose.pose.position.x << "    Y AT " <<  goal.target_pose.pose.position.y << '\n');
@@ -224,7 +230,7 @@ private:
   std::vector<boundingBox> bbInstances;
   
   // add one for visualization
-  // void visualizeLocations(const std::vector<
+  // void visualizeLocations(const std::vector< >)
 };
 
 int main(int argc, char** argv){
@@ -243,7 +249,7 @@ int main(int argc, char** argv){
   // create an object of class semanticExploration that will take care of everything
   semanticExploration semanticExplorer;
   
-  ros::Rate r(0.5); // every 10 seconds
+  ros::Rate r(0.1); // every 10 seconds
   
   while(ros::ok()){
     
@@ -276,9 +282,6 @@ int main(int argc, char** argv){
     // note that we wouldn't be able to call the above anyway since goal is out of scope
     
     // rate.sleep();
-    
-    
-  
 
   return 0;
 }

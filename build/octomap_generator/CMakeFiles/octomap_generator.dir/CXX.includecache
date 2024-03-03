@@ -124,18 +124,6 @@ sstream
 cstring
 -
 
-/home/conlab/ssv2_ws/src/semantic_slam/octomap_generator/src/semantic_octree/semantics_bayesian.cpp
-semantics_octree/semantics_bayesian.h
--
-vector
--
-algorithm
--
-
-/home/conlab/ssv2_ws/src/semantic_slam/octomap_generator/src/semantic_octree/semantics_max.cpp
-semantics_octree/semantics_max.h
--
-
 /opt/ros/noetic/include/geometry_msgs/Point.h
 string
 -

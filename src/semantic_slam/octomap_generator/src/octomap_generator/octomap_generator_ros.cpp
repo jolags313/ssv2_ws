@@ -31,7 +31,7 @@ OctomapGeneratorNode::OctomapGeneratorNode(ros::NodeHandle& nh): nh_(nh)
     octomap_generator_ = new OctomapGenerator<PCLColor, ColorOcTree>();
   }
   reset();
-  fullmap_pub_ = nh_.advertise<octomap_msgs::Octomap>("octomap_full", 1, true);
+  fullmap_pub_ = nh_.advertise<octomap_msgs::Octomap>("floatlazer/octomap_full", 1, true);
   pointcloud_sub_ = new message_filters::Subscriber<sensor_msgs::PointCloud2> (nh_, pointcloud_topic_, 5);
   tf_pointcloud_sub_ = new tf::MessageFilter<sensor_msgs::PointCloud2> (*pointcloud_sub_, tf_listener_, world_frame_id_, 5);
   tf_pointcloud_sub_->registerCallback(boost::bind(&OctomapGeneratorNode::insertCloudCallback, this, _1));
