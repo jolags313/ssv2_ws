@@ -1,0 +1,129 @@
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:309:1:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K}[m[K’ at end of input
+  309 | [01;31m[K}[m[K
+      | [01;31m[K^[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:32:26:[m[K [01;36m[Knote: [m[Kto match this ‘[01m[K{[m[K’
+   32 | class semanticExploration[01;36m[K{[m[K
+      |                          [01;36m[K^[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:[m[K In constructor ‘[01m[KsemanticExploration::semanticExploration()[m[K’:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:43:5:[m[K [01;31m[Kerror: [m[K‘[01m[Ksub_[m[K’ was not declared in this scope
+   43 |     [01;31m[Ksub_[m[K = nh_.subscribe("floatlazer/octomap_full", 1, &semanticExploration::semanticCallback, this);
+      |     [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:43:12:[m[K [01;31m[Kerror: [m[K‘[01m[Knh_[m[K’ was not declared in this scope
+   43 |     sub_ = [01;31m[Knh_[m[K.subscribe("floatlazer/octomap_full", 1, &semanticExploration::semanticCallback, this);
+      |            [01;31m[K^~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:[m[K In member function ‘[01m[Kvoid semanticExploration::semanticCallback(const Octomap&)[m[K’:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:84:12:[m[K [01;31m[Kerror: [m[K‘[01m[KbbInstances[m[K’ was not declared in this scope
+   84 |         if([01;31m[KbbInstances[m[K.size() == 0){
+      |            [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:89:11:[m[K [01;31m[Kerror: [m[K‘[01m[KboundingBox[m[K’ was not declared in this scope
+   89 |           [01;31m[KboundingBox[m[K tempBB = {
+      |           [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:105:33:[m[K [01;31m[Kerror: [m[K‘[01m[KtempBB[m[K’ was not declared in this scope
+  105 |           bbInstances.push_back([01;31m[KtempBB[m[K);
+      |                                 [01;31m[K^~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:132:34:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator[m[K’ has no member named ‘[01m[Kget[m[K’; did you mean ‘[01m[KgetX[m[K’?
+  132 |             if(checkAdjacency(it.[01;31m[Kget[m[K(X), it.get(Y), bbInstances[i]){
+      |                                  [01;31m[K^~~[m[K
+      |                                  [32m[KgetX[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:132:38:[m[K [01;31m[Kerror: [m[K‘[01m[KX[m[K’ was not declared in this scope; did you mean ‘[01m[Kboost::detail::function::X[m[K’?
+  132 |             if(checkAdjacency(it.get([01;31m[KX[m[K), it.get(Y), bbInstances[i]){
+      |                                      [01;31m[K^[m[K
+      |                                      [32m[Kboost::detail::function::X[m[K
+In file included from [01m[K/usr/include/boost/function/detail/prologue.hpp:17[m[K,
+                 from [01m[K/usr/include/boost/function.hpp:30[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/forwards.h:40[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/common.h:37[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/ros.h:43[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:1[m[K:
+[01m[K/usr/include/boost/function/function_base.hpp:60:13:[m[K [01;36m[Knote: [m[K‘[01m[Kboost::detail::function::X[m[K’ declared here
+   60 |       class [01;36m[KX[m[K;
+      |             [01;36m[K^[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:132:45:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator[m[K’ has no member named ‘[01m[Kget[m[K’; did you mean ‘[01m[KgetX[m[K’?
+  132 |             if(checkAdjacency(it.get(X), it.[01;31m[Kget[m[K(Y), bbInstances[i]){
+      |                                             [01;31m[K^~~[m[K
+      |                                             [32m[KgetX[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:132:49:[m[K [01;31m[Kerror: [m[K‘[01m[KY[m[K’ was not declared in this scope
+  132 |             if(checkAdjacency(it.get(X), it.get([01;31m[KY[m[K), bbInstances[i]){
+      |                                                 [01;31m[K^[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:132:16:[m[K [01;31m[Kerror: [m[K‘[01m[KcheckAdjacency[m[K’ was not declared in this scope
+  132 |             if([01;31m[KcheckAdjacency[m[K(it.get(X), it.get(Y), bbInstances[i]){
+      |                [01;31m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:132:68:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K)[m[K’ before ‘[01m[K{[m[K’ token
+  132 |             if[34m[K([m[KcheckAdjacency(it.get(X), it.get(Y), bbInstances[i])[01;31m[K{[m[K
+      |               [34m[K~[m[K                                                    [01;31m[K^[m[K
+      |                                                                    [32m[K)[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:169:11:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K}[m[K’ token
+  169 |           [01;31m[K}[m[K
+      |           [01;31m[K^[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:181:21:[m[K [01;31m[Kerror: [m[K‘[01m[KboundingBox[m[K’ was not declared in this scope
+  181 |     for(std::vector<[01;31m[KboundingBox[m[K>::iterator bbIt = bbInstances.begin(); bbIt != bbInstances.end(); bbIt++){
+      |                     [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:181:32:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+  181 |     for(std::vector<boundingBox[01;31m[K>[m[K::iterator bbIt = bbInstances.begin(); bbIt != bbInstances.end(); bbIt++){
+      |                                [01;31m[K^[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:181:32:[m[K [01;31m[Kerror: [m[Ktemplate argument 2 is invalid
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:181:43:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[KbbIt[m[K’
+  181 |     for(std::vector<boundingBox>::iterator[01;31m[K [m[K[32m[KbbIt[m[K = bbInstances.begin(); bbIt != bbInstances.end(); bbIt++){
+      |                                           [01;31m[K^[m[K[32m[K~~~~[m[K
+      |                                           [32m[K;[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:181:44:[m[K [01;31m[Kerror: [m[K‘[01m[KbbIt[m[K’ was not declared in this scope
+  181 |     for(std::vector<boundingBox>::iterator [01;31m[KbbIt[m[K = bbInstances.begin(); bbIt != bbInstances.end(); bbIt++){
+      |                                            [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:181:51:[m[K [01;31m[Kerror: [m[K‘[01m[KbbInstances[m[K’ was not declared in this scope
+  181 |     for(std::vector<boundingBox>::iterator bbIt = [01;31m[KbbInstances[m[K.begin(); bbIt != bbInstances.end(); bbIt++){
+      |                                                   [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:181:97:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K)[m[K’ before ‘[01m[K;[m[K’ token
+  181 |     for[34m[K([m[Kstd::vector<boundingBox>::iterator bbIt = bbInstances.begin(); bbIt != bbInstances.end()[01;31m[K;[m[K bbIt++){
+      |        [34m[K~[m[K                                                                                        [01;31m[K^[m[K
+      |                                                                                                 [32m[K)[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:181:99:[m[K [01;31m[Kerror: [m[K‘[01m[KbbIt[m[K’ was not declared in this scope
+  181 |     for(std::vector<boundingBox>::iterator bbIt = bbInstances.begin(); bbIt != bbInstances.end(); [01;31m[KbbIt[m[K++){
+      |                                                                                                   [01;31m[K^~~~[m[K
+In file included from [01m[K/opt/ros/noetic/include/ros/ros.h:40[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:1[m[K:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:195:42:[m[K [01;31m[Kerror: [m[K‘[01m[KbbInstances[m[K’ was not declared in this scope
+  195 |     ROS_INFO_STREAM("Vector size is " << [01;31m[KbbInstances[m[K.size() << '\n');
+      |                                          [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:361:64:[m[K [01;36m[Knote: [m[Kin definition of macro ‘[01m[KROSCONSOLE_PRINT_STREAM_AT_LOCATION_WITH_FILTER[m[K’
+  361 |     __rosconsole_print_stream_at_location_with_filter__ss__ << [01;36m[Kargs[m[K; \
+      |                                                                [01;36m[K^~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:409:7:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROSCONSOLE_PRINT_STREAM_AT_LOCATION[m[K’
+  409 |       [01;36m[KROSCONSOLE_PRINT_STREAM_AT_LOCATION[m[K(args); \
+      |       [01;36m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:582:43:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG_STREAM_COND[m[K’
+  582 | #define ROS_LOG_STREAM(level, name, args) [01;36m[KROS_LOG_STREAM_COND[m[K(true, level, name, args)
+      |                                           [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/rosconsole/macros_generated.h:111:31:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG_STREAM[m[K’
+  111 | #define ROS_INFO_STREAM(args) [01;36m[KROS_LOG_STREAM[m[K(::ros::console::levels::Info, ROSCONSOLE_DEFAULT_NAME, args)
+      |                               [01;36m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:195:5:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_INFO_STREAM[m[K’
+  195 |     [01;36m[KROS_INFO_STREAM[m[K("Vector size is " << bbInstances.size() << '\n');
+      |     [01;36m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:198:56:[m[K [01;31m[Kerror: [m[K‘[01m[KbbInstances[m[K’ was not declared in this scope
+  198 |     ROS_INFO_STREAM("Idx is " << idx << "    X at " << [01;31m[KbbInstances[m[K[idx].xCenter << "    Y at " << bbInstances[idx].yCenter << '\n');
+      |                                                        [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:361:64:[m[K [01;36m[Knote: [m[Kin definition of macro ‘[01m[KROSCONSOLE_PRINT_STREAM_AT_LOCATION_WITH_FILTER[m[K’
+  361 |     __rosconsole_print_stream_at_location_with_filter__ss__ << [01;36m[Kargs[m[K; \
+      |                                                                [01;36m[K^~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:409:7:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROSCONSOLE_PRINT_STREAM_AT_LOCATION[m[K’
+  409 |       [01;36m[KROSCONSOLE_PRINT_STREAM_AT_LOCATION[m[K(args); \
+      |       [01;36m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:582:43:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG_STREAM_COND[m[K’
+  582 | #define ROS_LOG_STREAM(level, name, args) [01;36m[KROS_LOG_STREAM_COND[m[K(true, level, name, args)
+      |                                           [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/rosconsole/macros_generated.h:111:31:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG_STREAM[m[K’
+  111 | #define ROS_INFO_STREAM(args) [01;36m[KROS_LOG_STREAM[m[K(::ros::console::levels::Info, ROSCONSOLE_DEFAULT_NAME, args)
+      |                               [01;36m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:198:5:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_INFO_STREAM[m[K’
+  198 |     [01;36m[KROS_INFO_STREAM[m[K("Idx is " << idx << "    X at " << bbInstances[idx].xCenter << "    Y at " << bbInstances[idx].yCenter << '\n');
+      |     [01;36m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:203:64:[m[K [01;31m[Kerror: [m[K‘[01m[KbbInstances[m[K’ was not declared in this scope
+  203 |     goal.target_pose.pose.position.x = bbArea <= minArea ? 0 : [01;31m[KbbInstances[m[K[idx].xCenter;
+      |                                                                [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:[m[K At global scope:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:215:3:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id at end of input
+  215 |   [01;31m[K}[m[K
+      |   [01;31m[K^[m[K
+make[2]: *** [CMakeFiles/semantic_navigation.dir/build.make:82: CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:1228: CMakeFiles/semantic_navigation.dir/all] Error 2
+make: *** [Makefile:160: all] Error 2

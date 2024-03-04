@@ -3,7 +3,9 @@
 #include <iostream>
 #include <stdlib.h>
 
+#include <math.h>
 #include <vector>
+#include <algorithm>
 
 #include <octomap/octomap.h>
 #include <octomap/OcTree.h>
@@ -117,14 +119,9 @@ public:
           for(int i = 0; i < currentSize; ++i){
             
             //ROS_INFO("In BB iterator");
-                  
-            // check for adjacency/limits
-            if(bbInstances[i].minX <= it.getX() + it.getSize() / 2 && 
-               it.getX() - it.getSize() / 2 <= bbInstances[i].maxX &&
-                      
-               bbInstances[i].minY <= it.getY() + it.getSize() / 2 && 
-               it.getY() - it.getSize() / 2 <= bbInstances[i].maxY ){
-                          
+            
+            if(checkAdjacency(it.getX(), it.getY(), bbInstances[i])){
+                                     
               // update center and bounds of bounding box, is there a way to check which side without multiple ifs?
               bbInstances[i].minX = (bbInstances[i].minX >= it.getX() - it.getSize() / 2) ? it.getX() - it.getSize() / 2 : bbInstances[i].minX;
               bbInstances[i].maxX = (it.getX() + it.getSize() / 2 >= bbInstances[i].maxX) ? it.getX() + it.getSize() / 2 : bbInstances[i].maxX;
@@ -166,27 +163,41 @@ public:
     }
     
     ROS_INFO("Outside of iterator");
+    ROS_INFO_STREAM("Vector size is " << bbInstances.size() << " before trimming" << '\n');
     
     // check to see which is the largest in area (placeholder metric, will be using a vector of these when used with explore_lite like with the frontiers -> weighted to choose the best one)
-    float minArea = 0.001; // 0.001 m^2 = about 1 inch x 1 inch
+    float minArea = 0.1; // 0.1 m^2 = about 4 inches x 4 inches
     float bbArea = minArea;
     int idx = 0;
     
-    for(std::vector<boundingBox>::iterator bbIt = bbInstances.begin(); bbIt != bbInstances.end(); bbIt++){
+    int currentSize = bbInstances.size();
+    int currentIdx = 0;
+    int numErased = 0;
+              
+    for(int i = 0; i < currentSize; ++i){
     
-      ROS_INFO_STREAM("X size " << (bbIt->maxX - bbIt->minX) << "    Y size " << (bbIt->maxY - bbIt->minY) << '\n');
-      ROS_INFO_STREAM("Bounding box area is " << (bbIt->maxX - bbIt->minX) * (bbIt->maxY - bbIt->minY) << '\n');
+      currentIdx = i - numErased;
+      ROS_INFO_STREAM("Current index = " << currentIdx << '\n');
+    
+      ROS_INFO_STREAM("X size " << (bbInstances[currentIdx].maxX - bbInstances[currentIdx].minX) << "    Y size " << (bbInstances[currentIdx].maxY - bbInstances[currentIdx].minY) << '\n');
+      ROS_INFO_STREAM("Bounding box area is " << (bbInstances[currentIdx].maxX - bbInstances[currentIdx].minX) * (bbInstances[currentIdx].maxY - bbInstances[currentIdx].minY) << '\n');
       
-      if(bbArea < (bbIt->maxX - bbIt->minX) * (bbIt->maxY - bbIt->minY)){
+      if((bbInstances[currentIdx].maxX - bbInstances[currentIdx].minX) * (bbInstances[currentIdx].maxY - bbInstances[currentIdx].minY) < minArea){
+        bbInstances.erase(bbInstances.begin() + currentIdx);
+        numErased++;
         
-        bbArea = (bbIt->maxX - bbIt->minX) * (bbIt->maxY - bbIt->minY);
-        idx = std::distance(bbInstances.begin(), bbIt);
-      }         
+        ROS_INFO_STREAM("Current vector size = " << bbInstances.size() << '\n');
+      }
+      else if(bbArea < (bbInstances[currentIdx].maxX - bbInstances[currentIdx].minX) * (bbInstances[currentIdx].maxY - bbInstances[currentIdx].minY)){
+        
+        bbArea = (bbInstances[currentIdx].maxX - bbInstances[currentIdx].minX) * (bbInstances[currentIdx].maxY - bbInstances[currentIdx].minY);
+        idx = currentIdx;
+        ROS_INFO_STREAM("Current vector size = " << bbInstances.size() << " and idx = " << idx << '\n');
+      }
     }
-    
-    // getting vector size is 0 wtf
-    ROS_INFO_STREAM("Max area was " << bbArea << '\n');
-    ROS_INFO_STREAM("Vector size is " << bbInstances.size() << '\n');
+      
+    ROS_INFO_STREAM("Max area was " << bbArea << " = " << bbInstances[idx].maxX - bbInstances[idx].minX << " x " << bbInstances[idx].maxY - bbInstances[idx].minY << '\n');
+    ROS_INFO_STREAM("Vector size is " << bbInstances.size() << " after trimming" << '\n');
     
     // unable to output this- is it a problem accessing the vector?
     ROS_INFO_STREAM("Idx is " << idx << "    X at " << bbInstances[idx].xCenter << "    Y at " << bbInstances[idx].yCenter << '\n');
@@ -229,8 +240,27 @@ private:
     
   std::vector<boundingBox> bbInstances;
   
+  // minimum distance the center of a voxel can be from the bounding box to be considered adjacent (m)
+  float minDistance = 0.1; // about 3.93 inches
+  
   // add one for visualization
   // void visualizeLocations(const std::vector< >)
+  
+  // check for adjacency
+  bool checkAdjacency(double newX, double newY, const boundingBox currentBB){
+  
+    // first convert doubles newX and newY to floats so that we can use std::max
+    // float floatX = static_cast<float>(newX);
+    // float floatY = static_cast<float>(newY);
+    
+    float dx = std::max({currentBB.minX - newX, 0.0, newX - currentBB.maxX});
+    float dy = std::max({currentBB.minY - newY, 0.0, newY - currentBB.maxY});
+    
+    if(sqrt(pow(dx, 2) + pow(dy, 2)) <= minDistance)
+      return true;
+    else 
+      return false;      
+  }
 };
 
 int main(int argc, char** argv){
@@ -279,8 +309,7 @@ int main(int argc, char** argv){
     
     // ROS_INFO_STREAM("X AT " << goal.target_pose.pose.position.x << "    Y AT " <<  goal.target_pose.pose.position.y << '\n');
     
-    // note that we wouldn't be able to call the above anyway since goal is out of scope
-    
+    // note that we wouldn't be able to call the above anyway since goal is out of scope    
     // rate.sleep();
 
   return 0;

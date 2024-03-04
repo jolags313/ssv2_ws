@@ -13,7 +13,11 @@ iostream
 -
 stdlib.h
 -
+math.h
+-
 vector
+-
+algorithm
 -
 octomap/octomap.h
 -
