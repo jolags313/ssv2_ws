@@ -1,0 +1,44 @@
+/usr/bin/ld: CMakeFiles/explore.dir/src/costmap_client.cpp.o: in function `explore::Costmap2DClient::Costmap2DClient(ros::NodeHandle&, ros::NodeHandle&, tf::TransformListener const*)':
+costmap_client.cpp:(.text+0x498): undefined reference to `costmap_2d::Costmap2D::Costmap2D()'
+/usr/bin/ld: costmap_client.cpp:(.text+0x11cb): undefined reference to `costmap_2d::Costmap2D::~Costmap2D()'
+/usr/bin/ld: CMakeFiles/explore.dir/src/costmap_client.cpp.o: in function `explore::Costmap2DClient::updateFullMap(boost::shared_ptr<nav_msgs::OccupancyGrid_<std::allocator<void> > const> const&)':
+costmap_client.cpp:(.text+0x1407): undefined reference to `costmap_2d::Costmap2D::resizeMap(unsigned int, unsigned int, double, double, double)'
+/usr/bin/ld: costmap_client.cpp:(.text+0x143c): undefined reference to `costmap_2d::Costmap2D::getCharMap() const'
+/usr/bin/ld: costmap_client.cpp:(.text+0x144f): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsX() const'
+/usr/bin/ld: costmap_client.cpp:(.text+0x1460): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsY() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/costmap_client.cpp.o: in function `explore::Costmap2DClient::updatePartialMap(boost::shared_ptr<map_msgs::OccupancyGridUpdate_<std::allocator<void> > const> const&)':
+costmap_client.cpp:(.text+0x1b9a): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsX() const'
+/usr/bin/ld: costmap_client.cpp:(.text+0x1baf): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsY() const'
+/usr/bin/ld: costmap_client.cpp:(.text+0x1d1a): undefined reference to `costmap_2d::Costmap2D::getCharMap() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/explore.cpp.o: in function `explore::Explore::goalOnBlacklist(geometry_msgs::Point_<std::allocator<void> > const&)':
+explore.cpp:(.text+0x2226): undefined reference to `costmap_2d::Costmap2D::getResolution() const'
+/usr/bin/ld: explore.cpp:(.text+0x2245): undefined reference to `costmap_2d::Costmap2D::getResolution() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/explore.cpp.o: in function `explore::Costmap2DClient::~Costmap2DClient()':
+explore.cpp:(.text._ZN7explore15Costmap2DClientD2Ev[_ZN7explore15Costmap2DClientD5Ev]+0x5c): undefined reference to `costmap_2d::Costmap2D::~Costmap2D()'
+/usr/bin/ld: CMakeFiles/explore.dir/src/frontier_search.cpp.o: in function `frontier_exploration::nhood4(unsigned int, costmap_2d::Costmap2D const&)':
+frontier_search.cpp:(.text+0x5a): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsX() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x69): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsY() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/frontier_search.cpp.o: in function `frontier_exploration::nhood8(unsigned int, costmap_2d::Costmap2D const&)':
+frontier_search.cpp:(.text+0x2ee): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsX() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x2fd): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsY() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/frontier_search.cpp.o: in function `frontier_exploration::nearestCell(unsigned int&, unsigned int, unsigned char, costmap_2d::Costmap2D const&)':
+frontier_search.cpp:(.text+0x49a): undefined reference to `costmap_2d::Costmap2D::getCharMap() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x4b0): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsX() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x4c5): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsY() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/frontier_search.cpp.o: in function `frontier_exploration::FrontierSearch::searchFrom(geometry_msgs::Point_<std::allocator<void> >)':
+frontier_search.cpp:(.text+0x8e2): undefined reference to `costmap_2d::Costmap2D::worldToMap(double, double, unsigned int&, unsigned int&) const'
+/usr/bin/ld: frontier_search.cpp:(.text+0xa41): undefined reference to `costmap_2d::Costmap2D::getCharMap() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0xa5e): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsX() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0xa7a): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsY() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0xfb2): undefined reference to `costmap_2d::Costmap2D::getResolution() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/frontier_search.cpp.o: in function `frontier_exploration::FrontierSearch::buildNewFrontier(unsigned int, unsigned int, std::vector<bool, std::allocator<bool> >&)':
+frontier_search.cpp:(.text+0x1382): undefined reference to `costmap_2d::Costmap2D::mapToWorld(unsigned int, unsigned int, double&, double&) const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x13f9): undefined reference to `costmap_2d::Costmap2D::mapToWorld(unsigned int, unsigned int, double&, double&) const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x157a): undefined reference to `costmap_2d::Costmap2D::mapToWorld(unsigned int, unsigned int, double&, double&) const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/frontier_search.cpp.o: in function `frontier_exploration::FrontierSearch::frontierCost(frontier_exploration::Frontier const&)':
+frontier_search.cpp:(.text+0x19b4): undefined reference to `costmap_2d::Costmap2D::getResolution() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x1a08): undefined reference to `costmap_2d::Costmap2D::getResolution() const'
+collect2: error: ld returned 1 exit status
+make[2]: *** [CMakeFiles/explore.dir/build.make:249: /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/explore] Error 1
+make[1]: *** [CMakeFiles/Makefile2:472: CMakeFiles/explore.dir/all] Error 2
+make: *** [Makefile:160: all] Error 2

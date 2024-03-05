@@ -369,7 +369,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/simple_navigation_goals.dir/DependInfo.cmake"
+  "CMakeFiles/my_navigation_goals.dir/DependInfo.cmake"
   "CMakeFiles/octomap_msgs_generate_messages_py.dir/DependInfo.cmake"
   "CMakeFiles/octomap_msgs_generate_messages_nodejs.dir/DependInfo.cmake"
   "CMakeFiles/nav_msgs_generate_messages_nodejs.dir/DependInfo.cmake"

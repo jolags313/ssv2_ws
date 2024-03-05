@@ -8,6 +8,8 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/conlab/ssv2_ws/devel/.private/explore_lite:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/conlab/ssv2_ws/devel/.private/explore_lite/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/home/conlab/ssv2_ws/devel/.private/explore_lite/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD='/home/conlab/ssv2_ws/build/explore_lite'
 export ROSLISP_PACKAGE_DIRECTORIES="/home/conlab/ssv2_ws/devel/.private/explore_lite/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
 export ROS_PACKAGE_PATH="/home/conlab/ssv2_ws/src/m-explore/explore:$ROS_PACKAGE_PATH"

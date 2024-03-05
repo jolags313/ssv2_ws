@@ -21,6 +21,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/usr/include/vtk-7.1"
   "/usr/include/freetype2"
+  "/home/conlab/ssv2_ws/src/jackal_2dnav/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   "/usr/include/eigen3"

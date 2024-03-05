@@ -187,17 +187,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named simple_navigation_goals
+# Target rules for targets named my_navigation_goals
 
 # Build rule for target.
-simple_navigation_goals: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 simple_navigation_goals
-.PHONY : simple_navigation_goals
+my_navigation_goals: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 my_navigation_goals
+.PHONY : my_navigation_goals
 
 # fast build rule for target.
-simple_navigation_goals/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_navigation_goals.dir/build.make CMakeFiles/simple_navigation_goals.dir/build
-.PHONY : simple_navigation_goals/fast
+my_navigation_goals/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_navigation_goals.dir/build.make CMakeFiles/my_navigation_goals.dir/build
+.PHONY : my_navigation_goals/fast
 
 #=============================================================================
 # Target rules for targets named octomap_msgs_generate_messages_py
@@ -1564,6 +1564,33 @@ gtest/fast:
 	$(MAKE) $(MAKESILENT) -f gtest/googletest/CMakeFiles/gtest.dir/build.make gtest/googletest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
+src/my_navigation_goals.o: src/my_navigation_goals.cpp.o
+
+.PHONY : src/my_navigation_goals.o
+
+# target to build an object file
+src/my_navigation_goals.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_navigation_goals.dir/build.make CMakeFiles/my_navigation_goals.dir/src/my_navigation_goals.cpp.o
+.PHONY : src/my_navigation_goals.cpp.o
+
+src/my_navigation_goals.i: src/my_navigation_goals.cpp.i
+
+.PHONY : src/my_navigation_goals.i
+
+# target to preprocess a source file
+src/my_navigation_goals.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_navigation_goals.dir/build.make CMakeFiles/my_navigation_goals.dir/src/my_navigation_goals.cpp.i
+.PHONY : src/my_navigation_goals.cpp.i
+
+src/my_navigation_goals.s: src/my_navigation_goals.cpp.s
+
+.PHONY : src/my_navigation_goals.s
+
+# target to generate assembly for a file
+src/my_navigation_goals.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_navigation_goals.dir/build.make CMakeFiles/my_navigation_goals.dir/src/my_navigation_goals.cpp.s
+.PHONY : src/my_navigation_goals.cpp.s
+
 src/semantic_navigation.o: src/semantic_navigation.cpp.o
 
 .PHONY : src/semantic_navigation.o
@@ -1590,33 +1617,6 @@ src/semantic_navigation.s: src/semantic_navigation.cpp.s
 src/semantic_navigation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigation.dir/build.make CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.s
 .PHONY : src/semantic_navigation.cpp.s
-
-src/simple_navigation_goals.o: src/simple_navigation_goals.cpp.o
-
-.PHONY : src/simple_navigation_goals.o
-
-# target to build an object file
-src/simple_navigation_goals.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_navigation_goals.dir/build.make CMakeFiles/simple_navigation_goals.dir/src/simple_navigation_goals.cpp.o
-.PHONY : src/simple_navigation_goals.cpp.o
-
-src/simple_navigation_goals.i: src/simple_navigation_goals.cpp.i
-
-.PHONY : src/simple_navigation_goals.i
-
-# target to preprocess a source file
-src/simple_navigation_goals.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_navigation_goals.dir/build.make CMakeFiles/simple_navigation_goals.dir/src/simple_navigation_goals.cpp.i
-.PHONY : src/simple_navigation_goals.cpp.i
-
-src/simple_navigation_goals.s: src/simple_navigation_goals.cpp.s
-
-.PHONY : src/simple_navigation_goals.s
-
-# target to generate assembly for a file
-src/simple_navigation_goals.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/simple_navigation_goals.dir/build.make CMakeFiles/simple_navigation_goals.dir/src/simple_navigation_goals.cpp.s
-.PHONY : src/simple_navigation_goals.cpp.s
 
 # Help Target
 help:
@@ -1735,14 +1735,14 @@ help:
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... my_navigation_goals"
 	@echo "... semantic_navigation"
-	@echo "... simple_navigation_goals"
+	@echo "... src/my_navigation_goals.o"
+	@echo "... src/my_navigation_goals.i"
+	@echo "... src/my_navigation_goals.s"
 	@echo "... src/semantic_navigation.o"
 	@echo "... src/semantic_navigation.i"
 	@echo "... src/semantic_navigation.s"
-	@echo "... src/simple_navigation_goals.o"
-	@echo "... src/simple_navigation_goals.i"
-	@echo "... src/simple_navigation_goals.s"
 .PHONY : help
 
 

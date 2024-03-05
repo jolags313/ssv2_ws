@@ -149,21 +149,21 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/simple_navigation_goals" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/simple_navigation_goals")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/my_navigation_goals" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/my_navigation_goals")
     file(RPATH_CHECK
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/simple_navigation_goals"
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/my_navigation_goals"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav" TYPE EXECUTABLE FILES "/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/simple_navigation_goals")
-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/simple_navigation_goals" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/simple_navigation_goals")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav" TYPE EXECUTABLE FILES "/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/my_navigation_goals")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/my_navigation_goals" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/my_navigation_goals")
     file(RPATH_CHANGE
-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/simple_navigation_goals"
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/my_navigation_goals"
          OLD_RPATH "/opt/ros/noetic/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/simple_navigation_goals")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/jackal_2dnav/my_navigation_goals")
     endif()
   endif()
 endif()

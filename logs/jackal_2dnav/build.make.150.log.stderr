@@ -1,0 +1,211 @@
+/usr/bin/ld: CMakeFiles/explore.dir/src/costmap_client.cpp.o: in function `explore::Costmap2DClient::Costmap2DClient(ros::NodeHandle&, ros::NodeHandle&, tf::TransformListener const*)':
+costmap_client.cpp:(.text+0x498): undefined reference to `costmap_2d::Costmap2D::Costmap2D()'
+/usr/bin/ld: costmap_client.cpp:(.text+0x11cb): undefined reference to `costmap_2d::Costmap2D::~Costmap2D()'
+/usr/bin/ld: CMakeFiles/explore.dir/src/costmap_client.cpp.o: in function `explore::Costmap2DClient::updateFullMap(boost::shared_ptr<nav_msgs::OccupancyGrid_<std::allocator<void> > const> const&)':
+costmap_client.cpp:(.text+0x1407): undefined reference to `costmap_2d::Costmap2D::resizeMap(unsigned int, unsigned int, double, double, double)'
+/usr/bin/ld: costmap_client.cpp:(.text+0x143c): undefined reference to `costmap_2d::Costmap2D::getCharMap() const'
+/usr/bin/ld: costmap_client.cpp:(.text+0x144f): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsX() const'
+/usr/bin/ld: costmap_client.cpp:(.text+0x1460): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsY() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/costmap_client.cpp.o: in function `explore::Costmap2DClient::updatePartialMap(boost::shared_ptr<map_msgs::OccupancyGridUpdate_<std::allocator<void> > const> const&)':
+costmap_client.cpp:(.text+0x1b9a): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsX() const'
+/usr/bin/ld: costmap_client.cpp:(.text+0x1baf): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsY() const'
+/usr/bin/ld: costmap_client.cpp:(.text+0x1d1a): undefined reference to `costmap_2d::Costmap2D::getCharMap() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/explore.cpp.o: in function `explore::Explore::goalOnBlacklist(geometry_msgs::Point_<std::allocator<void> > const&)':
+explore.cpp:(.text+0x2226): undefined reference to `costmap_2d::Costmap2D::getResolution() const'
+/usr/bin/ld: explore.cpp:(.text+0x2245): undefined reference to `costmap_2d::Costmap2D::getResolution() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/explore.cpp.o: in function `explore::Costmap2DClient::~Costmap2DClient()':
+explore.cpp:(.text._ZN7explore15Costmap2DClientD2Ev[_ZN7explore15Costmap2DClientD5Ev]+0x5c): undefined reference to `costmap_2d::Costmap2D::~Costmap2D()'
+/usr/bin/ld: CMakeFiles/explore.dir/src/frontier_search.cpp.o: in function `frontier_exploration::nhood4(unsigned int, costmap_2d::Costmap2D const&)':
+frontier_search.cpp:(.text+0x5a): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsX() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x69): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsY() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/frontier_search.cpp.o: in function `frontier_exploration::nhood8(unsigned int, costmap_2d::Costmap2D const&)':
+frontier_search.cpp:(.text+0x2ee): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsX() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x2fd): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsY() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/frontier_search.cpp.o: in function `frontier_exploration::nearestCell(unsigned int&, unsigned int, unsigned char, costmap_2d::Costmap2D const&)':
+frontier_search.cpp:(.text+0x49a): undefined reference to `costmap_2d::Costmap2D::getCharMap() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x4b0): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsX() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x4c5): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsY() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/frontier_search.cpp.o: in function `frontier_exploration::FrontierSearch::searchFrom(geometry_msgs::Point_<std::allocator<void> >)':
+frontier_search.cpp:(.text+0x8e2): undefined reference to `costmap_2d::Costmap2D::worldToMap(double, double, unsigned int&, unsigned int&) const'
+/usr/bin/ld: frontier_search.cpp:(.text+0xa41): undefined reference to `costmap_2d::Costmap2D::getCharMap() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0xa5e): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsX() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0xa7a): undefined reference to `costmap_2d::Costmap2D::getSizeInCellsY() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0xfb2): undefined reference to `costmap_2d::Costmap2D::getResolution() const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/frontier_search.cpp.o: in function `frontier_exploration::FrontierSearch::buildNewFrontier(unsigned int, unsigned int, std::vector<bool, std::allocator<bool> >&)':
+frontier_search.cpp:(.text+0x1382): undefined reference to `costmap_2d::Costmap2D::mapToWorld(unsigned int, unsigned int, double&, double&) const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x13f9): undefined reference to `costmap_2d::Costmap2D::mapToWorld(unsigned int, unsigned int, double&, double&) const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x157a): undefined reference to `costmap_2d::Costmap2D::mapToWorld(unsigned int, unsigned int, double&, double&) const'
+/usr/bin/ld: CMakeFiles/explore.dir/src/frontier_search.cpp.o: in function `frontier_exploration::FrontierSearch::frontierCost(frontier_exploration::Frontier const&)':
+frontier_search.cpp:(.text+0x19b4): undefined reference to `costmap_2d::Costmap2D::getResolution() const'
+/usr/bin/ld: frontier_search.cpp:(.text+0x1a08): undefined reference to `costmap_2d::Costmap2D::getResolution() const'
+collect2: error: ld returned 1 exit status
+make[2]: *** [CMakeFiles/explore.dir/build.make:249: /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/explore] Error 1
+make[1]: *** [CMakeFiles/Makefile2:356: CMakeFiles/explore.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:6:17:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before ‘[01m[K)[m[K’ token
+    6 | semanticExplore([01;31m[K)[m[K{
+      |                 [01;31m[K^[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:[m[K In function ‘[01m[Kvoid semanticCallback(const Octomap&)[m[K’:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:54:10:[m[K [01;31m[Kerror: [m[K‘[01m[KbbInstances[m[K’ was not declared in this scope
+   54 |       if([01;31m[KbbInstances[m[K.size() == 0){
+      |          [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:59:9:[m[K [01;31m[Kerror: [m[K‘[01m[KboundingBox[m[K’ was not declared in this scope
+   59 |         [01;31m[KboundingBox[m[K tempBB = {
+      |         [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:75:31:[m[K [01;31m[Kerror: [m[K‘[01m[KtempBB[m[K’ was not declared in this scope
+   75 |         bbInstances.push_back([01;31m[KtempBB[m[K);
+      |                               [01;31m[K^~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:90:14:[m[K [01;31m[Kerror: [m[K‘[01m[KcheckAdjacency[m[K’ was not declared in this scope
+   90 |           if([01;31m[KcheckAdjacency[m[K(it.getX(), it.getY(), bbInstances[i])){
+      |              [01;31m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:112:13:[m[K [01;31m[Kerror: [m[K‘[01m[KboundingBox[m[K’ was not declared in this scope
+  112 |             [01;31m[KboundingBox[m[K tempBB = {
+      |             [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:125:35:[m[K [01;31m[Kerror: [m[K‘[01m[KtempBB[m[K’ was not declared in this scope
+  125 |             bbInstances.push_back([01;31m[KtempBB[m[K);
+      |                                   [01;31m[K^~~~~~[m[K
+In file included from [01m[K/opt/ros/noetic/include/ros/ros.h:40[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/include/semantic_navigation.h:1[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:2[m[K:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:133:40:[m[K [01;31m[Kerror: [m[K‘[01m[KbbInstances[m[K’ was not declared in this scope
+  133 |   ROS_INFO_STREAM("Vector size is " << [01;31m[KbbInstances[m[K.size() << " before trimming" << '\n');
+      |                                        [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:361:64:[m[K [01;36m[Knote: [m[Kin definition of macro ‘[01m[KROSCONSOLE_PRINT_STREAM_AT_LOCATION_WITH_FILTER[m[K’
+  361 |     __rosconsole_print_stream_at_location_with_filter__ss__ << [01;36m[Kargs[m[K; \
+      |                                                                [01;36m[K^~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:409:7:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROSCONSOLE_PRINT_STREAM_AT_LOCATION[m[K’
+  409 |       [01;36m[KROSCONSOLE_PRINT_STREAM_AT_LOCATION[m[K(args); \
+      |       [01;36m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/ros/console.h:582:43:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG_STREAM_COND[m[K’
+  582 | #define ROS_LOG_STREAM(level, name, args) [01;36m[KROS_LOG_STREAM_COND[m[K(true, level, name, args)
+      |                                           [01;36m[K^~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/rosconsole/macros_generated.h:111:31:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_LOG_STREAM[m[K’
+  111 | #define ROS_INFO_STREAM(args) [01;36m[KROS_LOG_STREAM[m[K(::ros::console::levels::Info, ROSCONSOLE_DEFAULT_NAME, args)
+      |                               [01;36m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:133:3:[m[K [01;36m[Knote: [m[Kin expansion of macro ‘[01m[KROS_INFO_STREAM[m[K’
+  133 |   [01;36m[KROS_INFO_STREAM[m[K("Vector size is " << bbInstances.size() << " before trimming" << '\n');
+      |   [01;36m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:140:21:[m[K [01;31m[Kerror: [m[K‘[01m[KbbInstances[m[K’ was not declared in this scope
+  140 |   int currentSize = [01;31m[KbbInstances[m[K.size();
+      |                     [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:149:5:[m[K [01;31m[Kerror: [m[K‘[01m[KcurrentArea[m[K’ was not declared in this scope
+  149 |     [01;31m[KcurrentArea[m[K = (bbInstances[currentIdx].maxX - bbInstances[currentIdx].minX) * (bbInstances[currentIdx].maxY - bbInstances[currentIdx].minY);
+      |     [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:[m[K At global scope:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:194:27:[m[K [01;31m[Kerror: [m[K‘[01m[KboundingBox[m[K’ does not name a type
+  194 |                     const [01;31m[KboundingBox[m[K currentBB){
+      |                           [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:[m[K In function ‘[01m[Kbool checkAdjacency(double, double, int)[m[K’:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:196:34:[m[K [01;31m[Kerror: [m[Krequest for member ‘[01m[KminX[m[K’ in ‘[01m[KcurrentBB[m[K’, which is of non-class type ‘[01m[Kconst int[m[K’
+  196 |   float dx = std::max({currentBB.[01;31m[KminX[m[K - newX, 0.0, newX - currentBB.maxX});
+      |                                  [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:196:69:[m[K [01;31m[Kerror: [m[Krequest for member ‘[01m[KmaxX[m[K’ in ‘[01m[KcurrentBB[m[K’, which is of non-class type ‘[01m[Kconst int[m[K’
+  196 |   float dx = std::max({currentBB.minX - newX, 0.0, newX - currentBB.[01;31m[KmaxX[m[K});
+      |                                                                     [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:196:74:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kmax(<brace-enclosed initializer list>)[m[K’
+  196 |   float dx = std::max({currentBB.minX - newX, 0.0, newX - currentBB.maxX}[01;31m[K)[m[K;
+      |                                                                          [01;31m[K^[m[K
+In file included from [01m[K/usr/include/c++/9/bits/char_traits.h:39[m[K,
+                 from [01m[K/usr/include/c++/9/string:40[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/platform.h:38[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/time.h:53[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/include/semantic_navigation.h:1[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:2[m[K:
+[01m[K/usr/include/c++/9/bits/stl_algobase.h:222:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp> constexpr const _Tp& std::max(const _Tp&, const _Tp&)[m[K’
+  222 |     [01;36m[Kmax[m[K(const _Tp& __a, const _Tp& __b)
+      |     [01;36m[K^~~[m[K
+[01m[K/usr/include/c++/9/bits/stl_algobase.h:222:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:196:74:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+  196 |   float dx = std::max({currentBB.minX - newX, 0.0, newX - currentBB.maxX}[01;36m[K)[m[K;
+      |                                                                          [01;36m[K^[m[K
+In file included from [01m[K/usr/include/c++/9/bits/char_traits.h:39[m[K,
+                 from [01m[K/usr/include/c++/9/string:40[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/platform.h:38[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/time.h:53[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/include/semantic_navigation.h:1[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:2[m[K:
+[01m[K/usr/include/c++/9/bits/stl_algobase.h:268:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp, class _Compare> constexpr const _Tp& std::max(const _Tp&, const _Tp&, _Compare)[m[K’
+  268 |     [01;36m[Kmax[m[K(const _Tp& __a, const _Tp& __b, _Compare __comp)
+      |     [01;36m[K^~~[m[K
+[01m[K/usr/include/c++/9/bits/stl_algobase.h:268:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:196:74:[m[K [01;36m[Knote: [m[K  candidate expects 3 arguments, 1 provided
+  196 |   float dx = std::max({currentBB.minX - newX, 0.0, newX - currentBB.maxX}[01;36m[K)[m[K;
+      |                                                                          [01;36m[K^[m[K
+In file included from [01m[K/usr/include/c++/9/algorithm:62[m[K,
+                 from [01m[K/usr/include/boost/math/tools/config.hpp:18[m[K,
+                 from [01m[K/usr/include/boost/math/special_functions/round.hpp:13[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/time.h:58[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/include/semantic_navigation.h:1[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:2[m[K:
+[01m[K/usr/include/c++/9/bits/stl_algo.h:3462:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp> constexpr _Tp std::max(std::initializer_list<_Tp>)[m[K’
+ 3462 |     [01;36m[Kmax[m[K(initializer_list<_Tp> __l)
+      |     [01;36m[K^~~[m[K
+[01m[K/usr/include/c++/9/bits/stl_algo.h:3462:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/usr/include/c++/9/bits/stl_algo.h:3468:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp, class _Compare> constexpr _Tp std::max(std::initializer_list<_Tp>, _Compare)[m[K’
+ 3468 |     [01;36m[Kmax[m[K(initializer_list<_Tp> __l, _Compare __comp)
+      |     [01;36m[K^~~[m[K
+[01m[K/usr/include/c++/9/bits/stl_algo.h:3468:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:197:34:[m[K [01;31m[Kerror: [m[Krequest for member ‘[01m[KminY[m[K’ in ‘[01m[KcurrentBB[m[K’, which is of non-class type ‘[01m[Kconst int[m[K’
+  197 |   float dy = std::max({currentBB.[01;31m[KminY[m[K - newY, 0.0, newY - currentBB.maxY});
+      |                                  [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:197:69:[m[K [01;31m[Kerror: [m[Krequest for member ‘[01m[KmaxY[m[K’ in ‘[01m[KcurrentBB[m[K’, which is of non-class type ‘[01m[Kconst int[m[K’
+  197 |   float dy = std::max({currentBB.minY - newY, 0.0, newY - currentBB.[01;31m[KmaxY[m[K});
+      |                                                                     [01;31m[K^~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:197:74:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kmax(<brace-enclosed initializer list>)[m[K’
+  197 |   float dy = std::max({currentBB.minY - newY, 0.0, newY - currentBB.maxY}[01;31m[K)[m[K;
+      |                                                                          [01;31m[K^[m[K
+In file included from [01m[K/usr/include/c++/9/bits/char_traits.h:39[m[K,
+                 from [01m[K/usr/include/c++/9/string:40[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/platform.h:38[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/time.h:53[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/include/semantic_navigation.h:1[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:2[m[K:
+[01m[K/usr/include/c++/9/bits/stl_algobase.h:222:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp> constexpr const _Tp& std::max(const _Tp&, const _Tp&)[m[K’
+  222 |     [01;36m[Kmax[m[K(const _Tp& __a, const _Tp& __b)
+      |     [01;36m[K^~~[m[K
+[01m[K/usr/include/c++/9/bits/stl_algobase.h:222:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:197:74:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+  197 |   float dy = std::max({currentBB.minY - newY, 0.0, newY - currentBB.maxY}[01;36m[K)[m[K;
+      |                                                                          [01;36m[K^[m[K
+In file included from [01m[K/usr/include/c++/9/bits/char_traits.h:39[m[K,
+                 from [01m[K/usr/include/c++/9/string:40[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/platform.h:38[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/time.h:53[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/include/semantic_navigation.h:1[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:2[m[K:
+[01m[K/usr/include/c++/9/bits/stl_algobase.h:268:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp, class _Compare> constexpr const _Tp& std::max(const _Tp&, const _Tp&, _Compare)[m[K’
+  268 |     [01;36m[Kmax[m[K(const _Tp& __a, const _Tp& __b, _Compare __comp)
+      |     [01;36m[K^~~[m[K
+[01m[K/usr/include/c++/9/bits/stl_algobase.h:268:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:197:74:[m[K [01;36m[Knote: [m[K  candidate expects 3 arguments, 1 provided
+  197 |   float dy = std::max({currentBB.minY - newY, 0.0, newY - currentBB.maxY}[01;36m[K)[m[K;
+      |                                                                          [01;36m[K^[m[K
+In file included from [01m[K/usr/include/c++/9/algorithm:62[m[K,
+                 from [01m[K/usr/include/boost/math/tools/config.hpp:18[m[K,
+                 from [01m[K/usr/include/boost/math/special_functions/round.hpp:13[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/time.h:58[m[K,
+                 from [01m[K/opt/ros/noetic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/include/semantic_navigation.h:1[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:2[m[K:
+[01m[K/usr/include/c++/9/bits/stl_algo.h:3462:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp> constexpr _Tp std::max(std::initializer_list<_Tp>)[m[K’
+ 3462 |     [01;36m[Kmax[m[K(initializer_list<_Tp> __l)
+      |     [01;36m[K^~~[m[K
+[01m[K/usr/include/c++/9/bits/stl_algo.h:3462:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/usr/include/c++/9/bits/stl_algo.h:3468:5:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Tp, class _Compare> constexpr _Tp std::max(std::initializer_list<_Tp>, _Compare)[m[K’
+ 3468 |     [01;36m[Kmax[m[K(initializer_list<_Tp> __l, _Compare __comp)
+      |     [01;36m[K^~~[m[K
+[01m[K/usr/include/c++/9/bits/stl_algo.h:3468:5:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:199:39:[m[K [01;31m[Kerror: [m[K‘[01m[KminDistance[m[K’ was not declared in this scope
+  199 |   if(sqrt(pow(dx, 2) + pow(dy, 2)) <= [01;31m[KminDistance[m[K)
+      |                                       [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:203:1:[m[K [01;35m[Kwarning: [m[Kcontrol reaches end of non-void function [[01;35m[K-Wreturn-type[m[K]
+  203 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K
+make[2]: *** [CMakeFiles/semantic_navigation.dir/build.make:82: CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:1787: CMakeFiles/semantic_navigation.dir/all] Error 2
+make: *** [Makefile:160: all] Error 2

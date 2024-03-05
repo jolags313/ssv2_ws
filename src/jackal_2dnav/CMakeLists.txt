@@ -146,7 +146,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
   ${OCTOMAP_INCLUDE_DIRS}
@@ -166,7 +166,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/jackal_2dnav_node.cpp)
-add_executable(simple_navigation_goals src/simple_navigation_goals.cpp)
+add_executable(my_navigation_goals src/my_navigation_goals.cpp)
 add_executable(semantic_navigation src/semantic_navigation.cpp)
 
 ## Rename C++ executable without prefix
@@ -184,7 +184,7 @@ add_executable(semantic_navigation src/semantic_navigation.cpp)
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(
-  simple_navigation_goals 
+  my_navigation_goals 
   ${catkin_LIBRARIES}
 )
 
@@ -228,7 +228,7 @@ set(LINK_LIBS
 #   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
 # )
 
-install(TARGETS simple_navigation_goals
+install(TARGETS my_navigation_goals
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 ## Mark cpp header files for installation

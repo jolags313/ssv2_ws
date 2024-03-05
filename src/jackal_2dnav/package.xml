@@ -38,13 +38,13 @@
   <build_depend>octomap_msgs</build_depend>
   <build_depend>libpcl-all-dev</build_depend>
 
-   <exec_depend>roscpp</exec_depend>
-   <exec_depend>sensor_msgs</exec_depend>
-   <exec_depend>pcl_ros</exec_depend>
-   <exec_depend>pcl_conversions</exec_depend>
-   <exec_depend>std_srvs</exec_depend>
-   <exec_depend>octomap</exec_depend>
-   <exec_depend>octomap_msgs</exec_depend>
-   <exec_depend>libpcl-all</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>pcl_ros</exec_depend>
+  <exec_depend>pcl_conversions</exec_depend>
+  <exec_depend>std_srvs</exec_depend>
+  <exec_depend>octomap</exec_depend>
+  <exec_depend>octomap_msgs</exec_depend>
+  <exec_depend>libpcl-all</exec_depend>
    
 </package>
