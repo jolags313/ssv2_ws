@@ -11,6 +11,7 @@ semanticExplore::semanticExplore(){
   
   // Topic to subscribe to (full octomap message from octomap_generator
   sub_ = nh_.subscribe("floatlazer/octomap_full", 1, &semanticExplore::semanticCallback, this);
+  
 }
 
 // populate goal (geometry_msgs/PoseStamped)
@@ -30,23 +31,24 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
   // std::vector<boundingBox> bbInstances;
   // ROS_INFO("BB vector declared");
   
+  // get current robot pose
+  geometry_msgs::Pose robotPose = getCurrentPose();
+  float robotX = robotPose.position.x;
+  float robotY = robotPose.position.y; 
+  
   // iterator
   for(octomap::ColorOcTree::leaf_iterator it = octree->begin_leafs(), end = octree->end_leafs(); it!=end; ++it){
   
-    // ROS_INFO("In iterator");
+    ROS_INFO("In iterator");
   
     // get color -> class octomap::ColorOcTreeNode::Color has three fields r, g, b (0 to 255)
     octomap::ColorOcTreeNode::Color currentColor = it->getColor();
-    // ROS_INFO("Color extracted");
     
-    // correct access of color class of ColorOcTreeNode?
-    int semR = currentColor.r;
-    int semG = currentColor.g;
-    int semB = currentColor.b;
-    // ROS_INFO_STREAM("R is " << semR << "    G is " << semG << "    B is " << semB << '\n');
+    // ROS_INFO("Color extracted");
+    // ROS_INFO_STREAM("R is " << currentColor.r << "    G is " << currentColor.g << "    B is " << currentColor.b << '\n');
     
     // values are for the color of a person
-    if(semR == 64 && semG == 0 && semB == 128){
+    if(currentColor.r == 64 && currentColor.g == 0 && currentColor.b == 128){
     
       // ROS_INFO("Person found");
         
@@ -162,20 +164,26 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
       bbArea = currentArea;
       idx = currentIdx;
       ROS_INFO_STREAM("Current vector size = " << bbInstances.size() << " and idx = " << idx << '\n');
+      
+      // make newGoal and push into newGoals
+      geometry_msgs::Point newGoal = inflateGoal(robotX, robotY, bbInstances[currentIdx]);
+      newGoals.push_back(newGoal);
     }
   }
     
-  ROS_INFO_STREAM("Max area was " << bbArea << " = " << bbInstances[idx].maxX - bbInstances[idx].minX << " x " << bbInstances[idx].maxY - bbInstances[idx].minY << '\n');
   ROS_INFO_STREAM("Vector size is " << bbInstances.size() << " after trimming" << '\n');
   
-  // unable to output this- is it a problem accessing the vector?
+  ROS_INFO_STREAM("Max area was " << bbArea << " = " << bbInstances[idx].maxX - bbInstances[idx].minX << " x " << bbInstances[idx].maxY - bbInstances[idx].minY << '\n');
+  
   ROS_INFO_STREAM("Idx is " << idx << "    X at " << bbInstances[idx].xCenter << "    Y at " << bbInstances[idx].yCenter << '\n');
+  
+  ROS_INFO_STREAM("When adjusted, X at " << newGoals[idx].x << "    Y at " << newGoals[idx].y << '\n');
   
   sGoal.target_pose.header.frame_id = "map"; //global frame
   sGoal.target_pose.header.stamp = ros::Time::now();
 
-  sGoal.target_pose.pose.position.x = bbArea <= minArea ? 0 : bbInstances[idx].xCenter;
-  sGoal.target_pose.pose.position.y = bbArea <= minArea ? 0 : bbInstances[idx].yCenter;
+  sGoal.target_pose.pose.position.x = bbArea <= minArea ? 0 : newGoals[idx].x;
+  sGoal.target_pose.pose.position.y = bbArea <= minArea ? 0 : newGoals[idx].y;
   sGoal.target_pose.pose.position.z = 0; // can we just leave this as 0?
   
   ROS_INFO_STREAM("X AT " << sGoal.target_pose.pose.position.x << "    Y AT " <<  sGoal.target_pose.pose.position.y << '\n');
@@ -188,10 +196,64 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
   // do we need something to send the action goals? If we send the goal up here, ac is not in scope
 }
 
-// check for adjacency
+geometry_msgs::Pose semanticExplore::getCurrentPose(){
+
+  ROS_INFO("Getting pose");  
+  
+  tf::Stamped<tf::Pose> globalPose; 
+  ROS_INFO("Before set id"); 
+  globalPose.setIdentity();
+  
+  ROS_INFO("Init global pose");
+  
+  tf::Stamped<tf::Pose> currentPose;
+  currentPose.setIdentity();
+  
+  ROS_INFO("Init current pose");
+  
+  currentPose.frame_id_ = "base_link";
+  currentPose.stamp_ = ros::Time();
+  ROS_INFO("Frame and stamp");
+  ros::Time currentTime = ros::Time::now();
+  ROS_INFO("Set time");
+  
+  // get the global pose of the robot
+  try{
+    tf_->transformPose("map", currentPose, globalPose);
+    ROS_INFO("Transforming pose");
+  } catch (tf::LookupException& ex){
+    ROS_ERROR_THROTTLE(1.0, "No Transform available Error looking up robot pose: %s\n", ex.what());
+    return {};
+    
+  } catch (tf::ConnectivityException& ex){
+    ROS_ERROR_THROTTLE(1.0, "Connectivity Error looking up robot pose: %s\n", ex.what());
+    return {};
+    
+  } catch (tf::ExtrapolationException& ex){
+    ROS_ERROR_THROTTLE(1.0, "Extrapolation Error looking up robot pose: %s\n", ex.what());
+    return {};
+  }
+  
+  // check globalPose timeout
+  if (currentTime.toSec() - globalPose.stamp_.toSec() > 0.3){
+    ROS_WARN_THROTTLE(1.0, "Costmap2DClient transform timeout. Current time: %.4f, globalPose stamp: %.4f, tolerance: %.4f",
+                      currentTime.toSec(), globalPose.stamp_.toSec(),
+                      0.3);
+    return {};
+  }
+
+  geometry_msgs::PoseStamped msg;
+  ROS_INFO("Message made");
+  
+  tf::poseStampedTFToMsg(globalPose, msg);
+  ROS_INFO("Pop message");
+  
+  return msg.pose;
+}
+
 bool semanticExplore::checkAdjacency(double newX, 
-                    double newY, 
-                    const boundingBox currentBB){
+                                     double newY, 
+                                     const boundingBox currentBB){
   
   float dx = std::max({currentBB.minX - newX, 0.0, newX - currentBB.maxX});
   float dy = std::max({currentBB.minY - newY, 0.0, newY - currentBB.maxY});
@@ -200,6 +262,30 @@ bool semanticExplore::checkAdjacency(double newX,
     return true;
   else 
     return false;      
+}
+
+
+geometry_msgs::Point semanticExplore::inflateGoal(float robotX,
+                                                  float robotY,
+                                                  const boundingBox currentBB){
+  // x and y distances
+  float dx = currentBB.xCenter - robotX;
+  float dy = currentBB.yCenter - robotY;
+  
+  // angle between the object and the current pose, recall atan2(y, x)
+  double theta = atan2(dy, dx);
+  
+  // radius of bounding box (distance from center to a corner), add an additional couple of inches to account for inflation layer
+  float radius = sqrt(pow((currentBB.maxX - currentBB.minX) / 2, 2) + pow((currentBB.maxY - currentBB.minY) / 2, 2)) + 0.1;
+  
+  // new goal
+  geometry_msgs::Point newGoal;
+  
+  newGoal.x = currentBB.xCenter - radius * cos(theta);
+  newGoal.y = currentBB.yCenter - radius * sin(theta);      
+  newGoal.z = 0;      
+  
+  return newGoal;                                       
 }
 
 int main(int argc, char** argv){
