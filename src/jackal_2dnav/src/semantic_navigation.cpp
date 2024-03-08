@@ -4,12 +4,13 @@
 // Note- following https://answers.ros.org/question/59725/publishing-to-a-topic-via-subscriber-callback-function/
 
 semanticExplore::semanticExplore(){
-  // Topic to publish (nothing here, just need to fill out the goal using subscribed info in semanticCallback)
-  // pub_ = nh_.advertise<PUBLISHED_MESSAGE_TYPE>("/published_topic", queue size)
-  
+
   ROS_INFO("Object created");
   
-  // Topic to subscribe to (full octomap message from octomap_generator
+  // Topic to publish (vector of inflated goal poses to pass to explore_lite)
+  pub_ = nh_.advertise<jackal_2dnav::sPoses>("/semantic_goals", 1);
+  
+  // Topic to subscribe to (full octomap message from octomap_generator)
   sub_ = nh_.subscribe("floatlazer/octomap_full", 1, &semanticExplore::semanticCallback, this);
   
 }
@@ -39,7 +40,7 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
   // iterator
   for(octomap::ColorOcTree::leaf_iterator it = octree->begin_leafs(), end = octree->end_leafs(); it!=end; ++it){
   
-    ROS_INFO("In iterator");
+    // ROS_INFO("In iterator");
   
     // get color -> class octomap::ColorOcTreeNode::Color has three fields r, g, b (0 to 255)
     octomap::ColorOcTreeNode::Color currentColor = it->getColor();
@@ -55,7 +56,7 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
       // check if the vector of bounding boxes is empty
       if(bbInstances.size() == 0){
       
-        ROS_INFO("Empty BB");
+        // ROS_INFO("Empty BB");
             
         // populate struct fields with center, max/min x/y, no need to check z (everything is projected onto a 2D map), all units in m
         boundingBox tempBB = {
@@ -73,7 +74,7 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
         };
             
         // add to vector
-        ROS_INFO("First BB");
+        // ROS_INFO("First BB");
         bbInstances.push_back(tempBB);
         
         // test, show center of very first node
@@ -102,8 +103,8 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
             bbInstances[i].yCenter = bbInstances[i].minY + (bbInstances[i].maxY - bbInstances[i].minY) / 2;
             
             // ROS_INFO("Existing bounding box"); 
-            ROS_INFO_STREAM("Adjacent, current center at (" << bbInstances[i].xCenter << ", " << bbInstances[i].yCenter << ") with size " << (bbInstances[i].maxX - bbInstances[i].minX) << " by " << (bbInstances[i].maxY - bbInstances[i].minY)); 
-            ROS_INFO_STREAM("^ New X at " << it.getX() << "    New Y at " << it.getY() << "    with size " << it.getSize() << '\n');  
+            // ROS_INFO_STREAM("Adjacent, current center at (" << bbInstances[i].xCenter << ", " << bbInstances[i].yCenter << ") with size " << (bbInstances[i].maxX - bbInstances[i].minX) << " by " << (bbInstances[i].maxY - bbInstances[i].minY)); 
+            // ROS_INFO_STREAM("^ New X at " << it.getX() << "    New Y at " << it.getY() << "    with size " << it.getSize() << '\n');  
             
             break;                
           }
@@ -123,7 +124,7 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
             };
             
             // add to vector
-            ROS_INFO("New bounding box");
+            // ROS_INFO("New bounding box");
             bbInstances.push_back(tempBB);
           }
         } 
@@ -131,8 +132,8 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
     }
   }
   
-  ROS_INFO("Outside of iterator");
-  ROS_INFO_STREAM("Vector size is " << bbInstances.size() << " before trimming" << '\n');
+  // ROS_INFO("Outside of iterator");
+  // ROS_INFO_STREAM("Vector size is " << bbInstances.size() << " before trimming" << '\n');
   
   // check to see which is the largest in area (placeholder metric, will be using a vector of these when used with explore_lite like with the frontiers -> weighted to choose the best one)
   float minArea = 0.1; // 0.1 m^2 = about 4 inches x 4 inches
@@ -142,85 +143,98 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
   int currentSize = bbInstances.size();
   int currentIdx = 0;
   int numErased = 0;
+  
+  int msgLength = 0;
             
   for(int i = 0; i < currentSize; ++i){
   
     currentIdx = i - numErased;
-    ROS_INFO_STREAM("Current index = " << currentIdx << '\n');
+    // ROS_INFO_STREAM("Current index = " << currentIdx << '\n');
     
     float currentArea = (bbInstances[currentIdx].maxX - bbInstances[currentIdx].minX) * (bbInstances[currentIdx].maxY - bbInstances[currentIdx].minY);
   
-    ROS_INFO_STREAM("X size " << (bbInstances[currentIdx].maxX - bbInstances[currentIdx].minX) << "    Y size " << (bbInstances[currentIdx].maxY - bbInstances[currentIdx].minY) << '\n');
-    ROS_INFO_STREAM("Bounding box area is " << currentArea << '\n');
+    // ROS_INFO_STREAM("X size " << (bbInstances[currentIdx].maxX - bbInstances[currentIdx].minX) << "    Y size " << (bbInstances[currentIdx].maxY - bbInstances[currentIdx].minY) << '\n');
+    // ROS_INFO_STREAM("Bounding box area is " << currentArea << '\n');
     
     if(currentArea < minArea){
       bbInstances.erase(bbInstances.begin() + currentIdx);
       numErased++;
       
-      ROS_INFO_STREAM("Current vector size = " << bbInstances.size() << '\n');
+      // ROS_INFO_STREAM("Current vector size = " << bbInstances.size() << '\n');
     }
-    else if(currentArea > bbArea){
-      
+    else if(currentArea > bbArea){    
       bbArea = currentArea;
       idx = currentIdx;
-      ROS_INFO_STREAM("Current vector size = " << bbInstances.size() << " and idx = " << idx << '\n');
+      // ROS_INFO_STREAM("Current vector size = " << bbInstances.size() << " and idx = " << idx << '\n');
       
       // make newGoal and push into newGoals
-      geometry_msgs::Point newGoal = inflateGoal(robotX, robotY, bbInstances[currentIdx]);
-      newGoals.push_back(newGoal);
+      geometry_msgs::Pose newGoal = inflateGoal(robotX, robotY, bbInstances[currentIdx]);
+      myGoal = newGoal;
+      
+      ROS_INFO_STREAM("New message with area " << currentArea << " with x at " << newGoal.position.x << " and y at " << newGoal.position.y);
+      
+      // newGoals.push_back(newGoal);
+      msgPoses.poses.push_back(newGoal);
+      
+      msgLength++;
+    }
+    else{  
+      geometry_msgs::Pose newGoal = inflateGoal(robotX, robotY, bbInstances[currentIdx]);
+      
+      ROS_INFO_STREAM("New message with area " << currentArea << " with x at " << newGoal.position.x << " and y at " << newGoal.position.y);
+      
+      msgPoses.poses.push_back(newGoal);
+      
+      msgLength++;    
     }
   }
     
-  ROS_INFO_STREAM("Vector size is " << bbInstances.size() << " after trimming" << '\n');
+  ROS_INFO_STREAM("Vector size is " << bbInstances.size() << " after trimming, message array length is " << msgLength);
   
-  ROS_INFO_STREAM("Max area was " << bbArea << " = " << bbInstances[idx].maxX - bbInstances[idx].minX << " x " << bbInstances[idx].maxY - bbInstances[idx].minY << '\n');
+  ROS_INFO_STREAM("Max area was " << bbArea << " = " << bbInstances[idx].maxX - bbInstances[idx].minX << " x " << bbInstances[idx].maxY - bbInstances[idx].minY);
   
-  ROS_INFO_STREAM("Idx is " << idx << "    X at " << bbInstances[idx].xCenter << "    Y at " << bbInstances[idx].yCenter << '\n');
+  ROS_INFO_STREAM("Idx is " << idx << "    X at " << myGoal.position.x << "    Y at " << myGoal.position.y << '\n');
   
-  ROS_INFO_STREAM("When adjusted, X at " << newGoals[idx].x << "    Y at " << newGoals[idx].y << '\n');
+  // ROS_INFO_STREAM("When adjusted, X at " << newGoals[idx].position.x << "    Y at " << newGoals[idx].position.y << '\n');
   
   sGoal.target_pose.header.frame_id = "map"; //global frame
   sGoal.target_pose.header.stamp = ros::Time::now();
 
-  sGoal.target_pose.pose.position.x = bbArea <= minArea ? 0 : newGoals[idx].x;
-  sGoal.target_pose.pose.position.y = bbArea <= minArea ? 0 : newGoals[idx].y;
+  sGoal.target_pose.pose.position.x = bbArea <= minArea ? 0 : myGoal.position.x;
+  sGoal.target_pose.pose.position.y = bbArea <= minArea ? 0 : myGoal.position.y;
   sGoal.target_pose.pose.position.z = 0; // can we just leave this as 0?
   
-  ROS_INFO_STREAM("X AT " << sGoal.target_pose.pose.position.x << "    Y AT " <<  sGoal.target_pose.pose.position.y << '\n');
+  ROS_INFO_STREAM("X AT " << sGoal.target_pose.pose.position.x << "    Y AT " <<  sGoal.target_pose.pose.position.y);
 
-  sGoal.target_pose.pose.orientation.x = 0.0;
-  sGoal.target_pose.pose.orientation.y = 0.0;
-  sGoal.target_pose.pose.orientation.z = 0.0;
+  sGoal.target_pose.pose.orientation.x = bbArea <= minArea ? 0 : myGoal.orientation.x;
+  sGoal.target_pose.pose.orientation.y = bbArea <= minArea ? 0 : myGoal.orientation.y;
+  sGoal.target_pose.pose.orientation.z = bbArea <= minArea ? 0 : myGoal.orientation.z;
   sGoal.target_pose.pose.orientation.w = 1.0;
   
-  // do we need something to send the action goals? If we send the goal up here, ac is not in scope
+  // publish goals
+  pub_.publish(msgPoses);
+  
+  // clear vectors
+  bbInstances.clear();
+  // newGoals.clear();
+  msgPoses.poses.clear();
 }
 
 geometry_msgs::Pose semanticExplore::getCurrentPose(){
-
-  ROS_INFO("Getting pose");  
-  
+ 
   tf::Stamped<tf::Pose> globalPose; 
-  ROS_INFO("Before set id"); 
   globalPose.setIdentity();
-  
-  ROS_INFO("Init global pose");
   
   tf::Stamped<tf::Pose> currentPose;
   currentPose.setIdentity();
   
-  ROS_INFO("Init current pose");
-  
   currentPose.frame_id_ = "base_link";
   currentPose.stamp_ = ros::Time();
-  ROS_INFO("Frame and stamp");
   ros::Time currentTime = ros::Time::now();
-  ROS_INFO("Set time");
   
   // get the global pose of the robot
   try{
     tf_->transformPose("map", currentPose, globalPose);
-    ROS_INFO("Transforming pose");
   } catch (tf::LookupException& ex){
     ROS_ERROR_THROTTLE(1.0, "No Transform available Error looking up robot pose: %s\n", ex.what());
     return {};
@@ -243,10 +257,8 @@ geometry_msgs::Pose semanticExplore::getCurrentPose(){
   }
 
   geometry_msgs::PoseStamped msg;
-  ROS_INFO("Message made");
   
   tf::poseStampedTFToMsg(globalPose, msg);
-  ROS_INFO("Pop message");
   
   return msg.pose;
 }
@@ -265,9 +277,9 @@ bool semanticExplore::checkAdjacency(double newX,
 }
 
 
-geometry_msgs::Point semanticExplore::inflateGoal(float robotX,
-                                                  float robotY,
-                                                  const boundingBox currentBB){
+geometry_msgs::Pose semanticExplore::inflateGoal(float robotX,
+                                                 float robotY,
+                                                 const boundingBox currentBB){
   // x and y distances
   float dx = currentBB.xCenter - robotX;
   float dy = currentBB.yCenter - robotY;
@@ -276,14 +288,22 @@ geometry_msgs::Point semanticExplore::inflateGoal(float robotX,
   double theta = atan2(dy, dx);
   
   // radius of bounding box (distance from center to a corner), add an additional couple of inches to account for inflation layer
-  float radius = sqrt(pow((currentBB.maxX - currentBB.minX) / 2, 2) + pow((currentBB.maxY - currentBB.minY) / 2, 2)) + 0.1;
+  float radius = sqrt(pow((currentBB.maxX - currentBB.minX) / 2, 2) + pow((currentBB.maxY - currentBB.minY) / 2, 2)) + 0.2;
   
   // new goal
-  geometry_msgs::Point newGoal;
+  geometry_msgs::Pose newGoal;
   
-  newGoal.x = currentBB.xCenter - radius * cos(theta);
-  newGoal.y = currentBB.yCenter - radius * sin(theta);      
-  newGoal.z = 0;      
+  newGoal.position.x = currentBB.xCenter - radius * cos(theta);
+  newGoal.position.y = currentBB.yCenter - radius * sin(theta);      
+  newGoal.position.z = 0;      
+  
+  // orientation
+  quat_.setRPY(0, 0, theta);
+    
+  newGoal.orientation.x = quat_.getX();
+  newGoal.orientation.y = quat_.getY();
+  newGoal.orientation.z = quat_.getZ();
+  newGoal.orientation.w = quat_.getW();
   
   return newGoal;                                       
 }
@@ -304,7 +324,7 @@ int main(int argc, char** argv){
   // create an object of class semanticExplore that will take care of everything
   semanticExplore semanticExplorer;
   
-  ros::Rate r(0.1); // every 10 seconds
+  ros::Rate r(0.2); // every 10 seconds
   
   while(ros::ok()){
     
@@ -321,14 +341,27 @@ int main(int argc, char** argv){
 
     ac.waitForResult();
 
-    if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+    if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
       ROS_INFO("Object reached");
-    else
+      
+      // reset goal
+      sGoal.target_pose.pose.position.x = 0;
+      sGoal.target_pose.pose.position.y = 0;
+      sGoal.target_pose.pose.position.z = 0;
+
+      sGoal.target_pose.pose.orientation.x = 0;
+      sGoal.target_pose.pose.orientation.y = 0;
+      sGoal.target_pose.pose.orientation.z = 0;
+      sGoal.target_pose.pose.orientation.w = 1.0;
+    }
+    else{
       ROS_INFO("Exploration failed");
+      ac.cancelGoal();
+    }
       
     // try here
     // ros::spinOnce();
-      
+    
     r.sleep();
   }
 

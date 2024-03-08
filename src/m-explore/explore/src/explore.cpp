@@ -68,6 +68,9 @@ Explore::Explore()
   private_nh_.param("orientation_scale", orientation_scale_, 0.0);
   private_nh_.param("gain_scale", gain_scale_, 1.0);
   private_nh_.param("min_frontier_size", min_frontier_size, 0.5);
+  
+  // do we really need a callback for everything xd, edit this
+  sub_ = nh_.subscribe("/semantic_goals", 1, &semanticExplore::semanticCallback, this);
 
   search_ = frontier_exploration::FrontierSearch(costmap_client_.getCostmap(),
                                                  potential_scale_, gain_scale_,

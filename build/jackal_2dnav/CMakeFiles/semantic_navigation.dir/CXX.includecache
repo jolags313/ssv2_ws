@@ -6,6 +6,24 @@
 
 #IncludeRegexTransform: 
 
+/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include/jackal_2dnav/sPoses.h
+string
+-
+vector
+-
+memory
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+geometry_msgs/Pose.h
+-
+
 /home/conlab/ssv2_ws/src/jackal_2dnav/include/semantic_navigation.h
 ros/ros.h
 -
@@ -29,13 +47,15 @@ octomap_msgs/Octomap.h
 -
 octomap_msgs/conversions.h
 -
-geometry_msgs/Point.h
--
 geometry_msgs/Pose.h
 -
+jackal_2dnav/sPoses.h
+/home/conlab/ssv2_ws/src/jackal_2dnav/include/jackal_2dnav/sPoses.h
 tf/tf.h
 -
 tf/transform_listener.h
+-
+tf2/LinearMath/Quaternion.h
 -
 move_base_msgs/MoveBaseAction.h
 -

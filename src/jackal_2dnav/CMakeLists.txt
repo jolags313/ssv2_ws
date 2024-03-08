@@ -12,6 +12,9 @@ find_package(catkin REQUIRED COMPONENTS
   move_base_msgs
   actionlib
   roscpp
+  
+  std_msgs
+  message_generation
 
 )
 
@@ -76,11 +79,10 @@ find_package(catkin REQUIRED COMPONENTS ${PACKAGE_DEPENDENCIES})
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+   FILES
+   sPoses.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -97,10 +99,11 @@ find_package(catkin REQUIRED COMPONENTS ${PACKAGE_DEPENDENCIES})
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+generate_messages(
+   DEPENDENCIES
+   std_msgs
+   geometry_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -135,7 +138,7 @@ catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES jackal_2dnav
    LIBRARIES ${PROJECT_NAME}
-   CATKIN_DEPENDS ${PACKAGE_DEPENDENCIES}
+   CATKIN_DEPENDS message_runtime ${PACKAGE_DEPENDENCIES}
    DEPENDS octomap PCL
 )
 

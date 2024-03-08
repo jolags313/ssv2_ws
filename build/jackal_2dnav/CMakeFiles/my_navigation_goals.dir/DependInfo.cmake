@@ -19,6 +19,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include"
   "/usr/include/vtk-7.1"
   "/usr/include/freetype2"
   "/home/conlab/ssv2_ws/src/jackal_2dnav/include"

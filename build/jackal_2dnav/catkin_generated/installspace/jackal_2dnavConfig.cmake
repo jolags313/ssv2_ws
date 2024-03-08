@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(jackal_2dnav_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/opt/ros/noetic/include;/usr/include/pcl-1.10;/usr/include/eigen3;/usr/include;/usr/include/ni;/usr/include/openni2;/usr/include/vtk-7.1;/usr/include/freetype2;/usr/include/x86_64-linux-gnu " STREQUAL " ")
+if(NOT "include;/opt/ros/noetic/include;/usr/include/pcl-1.10;/usr/include/eigen3;/usr/include;/usr/include/ni;/usr/include/openni2;/usr/include/vtk-7.1;/usr/include/freetype2;/usr/include/x86_64-linux-gnu " STREQUAL " ")
   set(jackal_2dnav_INCLUDE_DIRS "")
-  set(_include_dirs "/opt/ros/noetic/include;/usr/include/pcl-1.10;/usr/include/eigen3;/usr/include;/usr/include/ni;/usr/include/openni2;/usr/include/vtk-7.1;/usr/include/freetype2;/usr/include/x86_64-linux-gnu")
+  set(_include_dirs "include;/opt/ros/noetic/include;/usr/include/pcl-1.10;/usr/include/eigen3;/usr/include;/usr/include/ni;/usr/include/openni2;/usr/include/vtk-7.1;/usr/include/freetype2;/usr/include/x86_64-linux-gnu")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -177,7 +177,7 @@ foreach(library ${libraries})
   endif()
 endforeach()
 
-set(jackal_2dnav_EXPORTED_TARGETS "")
+set(jackal_2dnav_EXPORTED_TARGETS "jackal_2dnav_generate_messages_cpp;jackal_2dnav_generate_messages_eus;jackal_2dnav_generate_messages_lisp;jackal_2dnav_generate_messages_nodejs;jackal_2dnav_generate_messages_py")
 # create dummy targets for exported code generation targets to make life of users easier
 foreach(t ${jackal_2dnav_EXPORTED_TARGETS})
   if(NOT TARGET ${t})
@@ -185,7 +185,7 @@ foreach(t ${jackal_2dnav_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "roscpp;sensor_msgs;pcl_ros;pcl_conversions;std_srvs;octomap_msgs")
+set(depends "message_runtime;roscpp;sensor_msgs;pcl_ros;pcl_conversions;std_srvs;octomap_msgs")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls
@@ -214,7 +214,7 @@ foreach(depend ${depends})
   _list_append_deduplicate(jackal_2dnav_EXPORTED_TARGETS ${${jackal_2dnav_dep}_EXPORTED_TARGETS})
 endforeach()
 
-set(pkg_cfg_extras "")
+set(pkg_cfg_extras "jackal_2dnav-msg-extras.cmake")
 foreach(extra ${pkg_cfg_extras})
   if(NOT IS_ABSOLUTE ${extra})
     set(extra ${jackal_2dnav_DIR}/${extra})
