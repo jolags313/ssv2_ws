@@ -31,7 +31,7 @@ catkin_package(
     roscpp
     std_msgs
     tf
-    visualization_msgs
+    visualization_msgs    
 )
 
 ###########
@@ -52,7 +52,10 @@ add_executable(explore
   src/explore.cpp
   src/frontier_search.cpp
 )
+
 add_dependencies(explore ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(explore ${catkin_EXPORTED_TARGETS})
+
 target_link_libraries(explore ${catkin_LIBRARIES})
 
 #############

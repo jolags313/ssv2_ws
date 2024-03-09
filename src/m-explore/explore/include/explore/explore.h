@@ -51,6 +51,8 @@
 #include <explore/costmap_client.h>
 #include <explore/frontier_search.h>
 
+#include <jackal_2dnav/sPoses.h>
+
 namespace explore
 {
 /**
@@ -72,26 +74,43 @@ private:
    * @brief  Make a global plan
    */
   void makePlan();
+  
+  // populate sGoals_ with the points from semantic_navigation
+  void sPoseCallback(const jackal_2dnav::sPoses& sPose_msg);
+  
+  // set semantic goal cost, sort just by cost just like is done in FrontierSearch::searchFrom, pass sPoints_ by reference so we can sort it inside; take in sPoints_ and the robot pose
+  void sGoalSort(std::vector<sGoal> &sGoals, const geometry_msgs::Point position);
 
   /**
    * @brief  Publish a frontiers as markers
    */
   void visualizeFrontiers(
       const std::vector<frontier_exploration::Frontier>& frontiers);
+      
+  // void visualizeBoundingBoxes()?
 
   void reachedGoal(const actionlib::SimpleClientGoalState& status,
                    const move_base_msgs::MoveBaseResultConstPtr& result,
                    const geometry_msgs::Point& frontier_goal);
 
   bool goalOnBlacklist(const geometry_msgs::Point& goal);
-
+  
+  // struct with minimum distances included as a member to sort semantic goals
+  struct sGoal{
+    geometry_msgs::Point sPoint;
+    float distance;
+  }
+  
+  // semantic objects, populate with points from semantic_navigation
+  std::vector<sGoal> sGoals_;
+  
   ros::NodeHandle private_nh_;
   ros::NodeHandle relative_nh_;
   ros::Publisher marker_array_publisher_;
   tf::TransformListener tf_listener_;
   
-  // my stuff
-  ros::Subscriber sPose_subscriber_;
+  // subscribes to /semantic_goals
+  ros::Subscriber sub_;
 
   Costmap2DClient costmap_client_;
   actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>

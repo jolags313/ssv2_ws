@@ -17,6 +17,8 @@
   <url>https://github.com/paulbovbel/frontier_exploration</url>
   -->
   <buildtool_depend>catkin</buildtool_depend>
+  
+  <depend>jackal_2dnav</depend>
 
   <depend>roscpp</depend>
   <depend>std_msgs</depend>
@@ -31,4 +33,5 @@
   <depend>actionlib</depend>
 
   <test_depend>roslaunch</test_depend>
+  
 </package>

@@ -1,0 +1,13 @@
+[31m[1mCMake Error[0m at /home/conlab/ssv2_ws/devel/share/jackal_2dnav/cmake/jackal_2dnavConfig.cmake:173 (message):
+  Project 'explore_lite' tried to find library 'jackal_2dnav'.  The library
+  is neither a target nor built/installed properly.  Did you compile project
+  'jackal_2dnav'? Did you find_package() it before the subdirectory
+  containing its code is included?
+[36mCall Stack (most recent call first):[0m
+  CMakeLists.txt:5 (find_package)
+
+
+[36m--[0m Configuring incomplete, errors occurred!
+See also "/home/conlab/ssv2_ws/build/explore_lite/CMakeFiles/CMakeOutput.log".
+See also "/home/conlab/ssv2_ws/build/explore_lite/CMakeFiles/CMakeError.log".
+make: *** [Makefile:1633: cmake_check_build_system] Error 1

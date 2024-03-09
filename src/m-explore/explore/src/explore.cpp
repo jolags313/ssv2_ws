@@ -69,8 +69,8 @@ Explore::Explore()
   private_nh_.param("gain_scale", gain_scale_, 1.0);
   private_nh_.param("min_frontier_size", min_frontier_size, 0.5);
   
-  // do we really need a callback for everything xd, edit this
-  sub_ = nh_.subscribe("/semantic_goals", 1, &semanticExplore::semanticCallback, this);
+  // do we really need a callback for everything? edit this
+  sub_ = nh_.subscribe("/semantic_goals", 1, &Explore::sPoseCallback, this);
 
   search_ = frontier_exploration::FrontierSearch(costmap_client_.getCostmap(),
                                                  potential_scale_, gain_scale_,
@@ -179,47 +179,112 @@ void Explore::visualizeFrontiers(
   marker_array_publisher_.publish(markers_msg);
 }
 
+void Explore::sPoseCallback(const jackal_2dnav::sPoses& sPose_msg){
+  
+  // make temporary point
+  sGoal temp; 
+  
+  // iterate through and then push back 
+  for(int i = 0; i < sPose_msg.poses.size(); ++i){
+  
+    temp.sPoint.x = sPose_msg.poses[i].position.x;
+    temp.sPoint.y = sPose_msg.poses[i].position.y;
+    
+    sGoals_.push_back(temp); 
+  }
+}
+
+void Explore::sGoalSort(std::vector<sGoal> &sGoals, const geometry_msgs::Point position){
+  // assign cost to each semantic goal based on distance
+  for(int i = 0; i < sGoals.size(); ++i){
+    float dx = sGoals[i].sPoint.x - position.x;
+    float dy = sGoals[i].sPoint.y - position.y;
+    
+    sGoals[i].distance = sqrt(pow(dx, 2) + pow(dy, 2));
+  }
+  
+  // sort
+  std::sort(sGoals.begin(), sGoals.end(), [](const sGoal& s1, const sGoal& s2) { return s1.distance < s2.distance; });
+}
+
 void Explore::makePlan()
 {
   // find frontiers
   auto pose = costmap_client_.getRobotPose();
+  
   // get frontiers sorted according to cost
   auto frontiers = search_.searchFrom(pose.position);
   ROS_DEBUG("found %lu frontiers", frontiers.size());
+  
+  // get semantic goals sorted according to distance
+  sGoalSort(sGoals_, pose);
+  
   for (size_t i = 0; i < frontiers.size(); ++i) {
     ROS_DEBUG("frontier %zd cost: %f", i, frontiers[i].cost);
   }
 
-  if (frontiers.empty()) {
+  if (frontiers.empty() && sGoals_.empty()) {
     stop();
+    ROS_INFO("No frontiers or semantic goals found");
     return;
   }
 
-  // publish frontiers as visualization markers
+  // publish frontiers as visualization markers, should edit this as well to visualize objects
   if (visualize_) {
     visualizeFrontiers(frontiers);
   }
 
-  // find non blacklisted frontier
+  // find non blacklisted frontier -> returns the first non blacklisted frontier, note the frontiers are already sorted by cost
   auto frontier =
       std::find_if_not(frontiers.begin(), frontiers.end(),
                        [this](const frontier_exploration::Frontier& f) {
                          return goalOnBlacklist(f.centroid);
                        });
+                       
+  // do the same for semantic goals
+  auto bestS = std::find_if_not(sGoals_.begin(), sGoals_.end(),
+                                [this](const sGoal& s) {
+                                return goalOnBlacklist(s.sPoint);
+  
   if (frontier == frontiers.end()) {
     stop();
+    ROS_INFO("No more frontiers found");
     return;
   }
-  geometry_msgs::Point target_position = frontier->centroid;
+  
+  bool isFrontier;
+  
+  // if semantic goal is present, prioritize it
+  if(bestS.sPoint.x != 0 && bestS.sPoint.y != 0){
+    geometry_msgs::Point target_position = bestS.sPoint;
+    isFrontier = false;
+  }
+  else{
+    geometry_msgs::Point target_position = frontier->centroid;
+    isFrontier = true;
+  }
 
   // time out if we are not making any progress
   bool same_goal = prev_goal_ == target_position;
   prev_goal_ = target_position;
-  if (!same_goal || prev_distance_ > frontier->min_distance) {
-    // we have different goal or we made some progress
-    last_progress_ = ros::Time::now();
-    prev_distance_ = frontier->min_distance;
+  
+  if(isFrontier){
+  
+    if (!same_goal || prev_distance_ > frontier->min_distance) {
+      // we have different goal or we made some progress
+      last_progress_ = ros::Time::now();
+      prev_distance_ = frontier->min_distance;
+    }
   }
+  else{
+  
+    if (!same_goal || prev_distance_ > bestS.distance) {
+      // we have different goal or we made some progress
+      last_progress_ = ros::Time::now();
+      prev_distance_ = frontier->min_distance;
+    }
+  }
+  
   // black list if we've made no progress for a long time
   if (ros::Time::now() - last_progress_ > progress_timeout_) {
     frontier_blacklist_.push_back(target_position);
@@ -249,7 +314,7 @@ void Explore::makePlan()
 
 bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal)
 {
-  constexpr static size_t tolerace = 5;
+  constexpr static size_t tolerance = 5;
   costmap_2d::Costmap2D* costmap2d = costmap_client_.getCostmap();
 
   // check if a goal is on the blacklist for goals that we're pursuing
@@ -257,8 +322,8 @@ bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal)
     double x_diff = fabs(goal.x - frontier_goal.x);
     double y_diff = fabs(goal.y - frontier_goal.y);
 
-    if (x_diff < tolerace * costmap2d->getResolution() &&
-        y_diff < tolerace * costmap2d->getResolution())
+    if (x_diff < tolerance * costmap2d->getResolution() &&
+        y_diff < tolerance * costmap2d->getResolution())
       return true;
   }
   return false;
