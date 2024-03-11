@@ -185,7 +185,7 @@ foreach(t ${explore_lite_EXPORTED_TARGETS})
   endif()
 endforeach()
 
-set(depends "actionlib;actionlib_msgs;costmap_2d;geometry_msgs;map_msgs;move_base_msgs;nav_msgs;roscpp;std_msgs;tf;visualization_msgs")
+set(depends "actionlib;actionlib_msgs;costmap_2d;geometry_msgs;map_msgs;move_base_msgs;nav_msgs;roscpp;std_msgs;tf;visualization_msgs;jackal_2dnav")
 foreach(depend ${depends})
   string(REPLACE " " ";" depend_list ${depend})
   # the package name of the dependency must be kept in a unique variable so that it is not overwritten in recursive calls

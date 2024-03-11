@@ -663,7 +663,7 @@ jackal_2dnav_DIR:PATH=/home/conlab/ssv2_ws/devel/share/jackal_2dnav/cmake
 laser_geometry_DIR:PATH=/opt/ros/noetic/share/laser_geometry/cmake
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/noetic/lib/libvoxel_grid.so
+lib:FILEPATH=/opt/ros/noetic/lib/libtopic_tools.so
 
 //The directory containing a CMake configuration file for map_msgs.
 map_msgs_DIR:PATH=/opt/ros/noetic/share/map_msgs/cmake

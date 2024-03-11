@@ -72,8 +72,8 @@ CMAKE_BINARY_DIR = /home/conlab/ssv2_ws/build/jackal_2dnav
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/semantic_navigator.dir/all
 all: CMakeFiles/my_navigation_goals.dir/all
-all: CMakeFiles/semantic_navigation.dir/all
 all: CMakeFiles/jackal_2dnav_generate_messages.dir/all
 all: gtest/all
 
@@ -85,6 +85,7 @@ preinstall: gtest/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/semantic_navigator.dir/clean
 clean: CMakeFiles/my_navigation_goals.dir/clean
 clean: CMakeFiles/jackal_2dnav_genpy.dir/clean
 clean: CMakeFiles/jackal_2dnav_generate_messages_py.dir/clean
@@ -131,7 +132,6 @@ clean: CMakeFiles/move_base_msgs_generate_messages_cpp.dir/clean
 clean: CMakeFiles/actionlib_msgs_generate_messages_py.dir/clean
 clean: CMakeFiles/actionlib_msgs_generate_messages_eus.dir/clean
 clean: CMakeFiles/actionlib_generate_messages_lisp.dir/clean
-clean: CMakeFiles/semantic_navigation.dir/clean
 clean: CMakeFiles/run_tests.dir/clean
 clean: CMakeFiles/octomap_msgs_generate_messages_lisp.dir/clean
 clean: CMakeFiles/topic_tools_generate_messages_py.dir/clean
@@ -259,6 +259,33 @@ gtest/googletest/clean: gtest/googletest/CMakeFiles/gtest_main.dir/clean
 gtest/googletest/clean: gtest/googletest/CMakeFiles/gtest.dir/clean
 
 .PHONY : gtest/googletest/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/semantic_navigator.dir
+
+# All Build rule for target.
+CMakeFiles/semantic_navigator.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigator.dir/build.make CMakeFiles/semantic_navigator.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigator.dir/build.make CMakeFiles/semantic_navigator.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/conlab/ssv2_ws/build/jackal_2dnav/CMakeFiles --progress-num=18,19 "Built target semantic_navigator"
+.PHONY : CMakeFiles/semantic_navigator.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/semantic_navigator.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/conlab/ssv2_ws/build/jackal_2dnav/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/semantic_navigator.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/conlab/ssv2_ws/build/jackal_2dnav/CMakeFiles 0
+.PHONY : CMakeFiles/semantic_navigator.dir/rule
+
+# Convenience name for target.
+semantic_navigator: CMakeFiles/semantic_navigator.dir/rule
+
+.PHONY : semantic_navigator
+
+# clean rule for target.
+CMakeFiles/semantic_navigator.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigator.dir/build.make CMakeFiles/semantic_navigator.dir/clean
+.PHONY : CMakeFiles/semantic_navigator.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/my_navigation_goals.dir
@@ -1511,33 +1538,6 @@ actionlib_generate_messages_lisp: CMakeFiles/actionlib_generate_messages_lisp.di
 CMakeFiles/actionlib_generate_messages_lisp.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/actionlib_generate_messages_lisp.dir/build.make CMakeFiles/actionlib_generate_messages_lisp.dir/clean
 .PHONY : CMakeFiles/actionlib_generate_messages_lisp.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/semantic_navigation.dir
-
-# All Build rule for target.
-CMakeFiles/semantic_navigation.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigation.dir/build.make CMakeFiles/semantic_navigation.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigation.dir/build.make CMakeFiles/semantic_navigation.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/conlab/ssv2_ws/build/jackal_2dnav/CMakeFiles --progress-num=18,19 "Built target semantic_navigation"
-.PHONY : CMakeFiles/semantic_navigation.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/semantic_navigation.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/conlab/ssv2_ws/build/jackal_2dnav/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/semantic_navigation.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/conlab/ssv2_ws/build/jackal_2dnav/CMakeFiles 0
-.PHONY : CMakeFiles/semantic_navigation.dir/rule
-
-# Convenience name for target.
-semantic_navigation: CMakeFiles/semantic_navigation.dir/rule
-
-.PHONY : semantic_navigation
-
-# clean rule for target.
-CMakeFiles/semantic_navigation.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigation.dir/build.make CMakeFiles/semantic_navigation.dir/clean
-.PHONY : CMakeFiles/semantic_navigation.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/run_tests.dir

@@ -135,9 +135,8 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES jackal_2dnav
-   LIBRARIES ${PROJECT_NAME}
+   INCLUDE_DIRS include
+   # LIBRARIES ${PROJECT_NAME}
    CATKIN_DEPENDS message_runtime ${PACKAGE_DEPENDENCIES}
    DEPENDS octomap PCL
 )
@@ -170,7 +169,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/jackal_2dnav_node.cpp)
 add_executable(my_navigation_goals src/my_navigation_goals.cpp)
-add_executable(semantic_navigation src/semantic_navigation.cpp)
+add_executable(semantic_navigator src/semantic_navigator.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -192,7 +191,7 @@ target_link_libraries(
 )
 
 target_link_libraries(
-  semantic_navigation 
+  semantic_navigator 
   ${catkin_LIBRARIES}
   ${OCTOMAP_LIBRARIES}
 )

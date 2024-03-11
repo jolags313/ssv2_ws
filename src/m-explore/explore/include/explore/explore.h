@@ -70,16 +70,26 @@ public:
   void stop();
 
 private:
+  
+  // struct with minimum distances included as a member to sort semantic goals
+  struct sGoal{
+    geometry_msgs::Point sPoint;
+    float distance;
+  };
+  
+  // semantic objects, populate with points from semantic_navigator
+  std::vector<sGoal> sGoals_;
+  
   /**
    * @brief  Make a global plan
    */
   void makePlan();
   
-  // populate sGoals_ with the points from semantic_navigation
+  // populate sGoals_ with the points from semantic_navigator
   void sPoseCallback(const jackal_2dnav::sPoses& sPose_msg);
   
   // set semantic goal cost, sort just by cost just like is done in FrontierSearch::searchFrom, pass sPoints_ by reference so we can sort it inside; take in sPoints_ and the robot pose
-  void sGoalSort(std::vector<sGoal> &sGoals, const geometry_msgs::Point position);
+  void sGoalSort(std::vector<sGoal> &sGoals, const geometry_msgs::Pose currPose);
 
   /**
    * @brief  Publish a frontiers as markers
@@ -94,15 +104,6 @@ private:
                    const geometry_msgs::Point& frontier_goal);
 
   bool goalOnBlacklist(const geometry_msgs::Point& goal);
-  
-  // struct with minimum distances included as a member to sort semantic goals
-  struct sGoal{
-    geometry_msgs::Point sPoint;
-    float distance;
-  }
-  
-  // semantic objects, populate with points from semantic_navigation
-  std::vector<sGoal> sGoals_;
   
   ros::NodeHandle private_nh_;
   ros::NodeHandle relative_nh_;

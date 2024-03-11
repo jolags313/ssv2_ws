@@ -36,9 +36,12 @@
               <remap from="camera_info" to="/camera/depth_registered/camera_info" />
 </node-->
 
+<!-- run semantic_navigation -->
+<!--node pkg="jackal_2dnav" type="semantic_navigator" name="semantic_navigator" output="screen"/-->
+
 <include file="$(find jackal_2dnav)/launch/move_base.launch"/>
 
-<!--include file="$(find explore_lite)/launch/explore.launch"/-->
+<include file="$(find explore_lite)/launch/explore.launch"/>
 
 <!-- node pkg="map_server" type="map_saver" name="map_saver" args="-f $(find semantic_slam)/maps/occupancy_map">
 

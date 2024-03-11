@@ -18,7 +18,7 @@
   -->
   <buildtool_depend>catkin</buildtool_depend>
   
-  <depend>jackal_2dnav</depend>
+  <build_depend>jackal_2dnav</build_depend>
 
   <depend>roscpp</depend>
   <depend>std_msgs</depend>
@@ -31,6 +31,8 @@
   <depend>tf</depend>
   <depend>costmap_2d</depend>
   <depend>actionlib</depend>
+  
+  <exec_depend>jackal_2dnav</exec_depend>
 
   <test_depend>roslaunch</test_depend>
   

@@ -187,6 +187,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named semantic_navigator
+
+# Build rule for target.
+semantic_navigator: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 semantic_navigator
+.PHONY : semantic_navigator
+
+# fast build rule for target.
+semantic_navigator/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigator.dir/build.make CMakeFiles/semantic_navigator.dir/build
+.PHONY : semantic_navigator/fast
+
+#=============================================================================
 # Target rules for targets named my_navigation_goals
 
 # Build rule for target.
@@ -783,19 +796,6 @@ actionlib_generate_messages_lisp: cmake_check_build_system
 actionlib_generate_messages_lisp/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/actionlib_generate_messages_lisp.dir/build.make CMakeFiles/actionlib_generate_messages_lisp.dir/build
 .PHONY : actionlib_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named semantic_navigation
-
-# Build rule for target.
-semantic_navigation: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 semantic_navigation
-.PHONY : semantic_navigation
-
-# fast build rule for target.
-semantic_navigation/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigation.dir/build.make CMakeFiles/semantic_navigation.dir/build
-.PHONY : semantic_navigation/fast
 
 #=============================================================================
 # Target rules for targets named run_tests
@@ -1747,32 +1747,32 @@ src/my_navigation_goals.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_navigation_goals.dir/build.make CMakeFiles/my_navigation_goals.dir/src/my_navigation_goals.cpp.s
 .PHONY : src/my_navigation_goals.cpp.s
 
-src/semantic_navigation.o: src/semantic_navigation.cpp.o
+src/semantic_navigator.o: src/semantic_navigator.cpp.o
 
-.PHONY : src/semantic_navigation.o
+.PHONY : src/semantic_navigator.o
 
 # target to build an object file
-src/semantic_navigation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigation.dir/build.make CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o
-.PHONY : src/semantic_navigation.cpp.o
+src/semantic_navigator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigator.dir/build.make CMakeFiles/semantic_navigator.dir/src/semantic_navigator.cpp.o
+.PHONY : src/semantic_navigator.cpp.o
 
-src/semantic_navigation.i: src/semantic_navigation.cpp.i
+src/semantic_navigator.i: src/semantic_navigator.cpp.i
 
-.PHONY : src/semantic_navigation.i
+.PHONY : src/semantic_navigator.i
 
 # target to preprocess a source file
-src/semantic_navigation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigation.dir/build.make CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.i
-.PHONY : src/semantic_navigation.cpp.i
+src/semantic_navigator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigator.dir/build.make CMakeFiles/semantic_navigator.dir/src/semantic_navigator.cpp.i
+.PHONY : src/semantic_navigator.cpp.i
 
-src/semantic_navigation.s: src/semantic_navigation.cpp.s
+src/semantic_navigator.s: src/semantic_navigator.cpp.s
 
-.PHONY : src/semantic_navigation.s
+.PHONY : src/semantic_navigator.s
 
 # target to generate assembly for a file
-src/semantic_navigation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigation.dir/build.make CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.s
-.PHONY : src/semantic_navigation.cpp.s
+src/semantic_navigator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/semantic_navigator.dir/build.make CMakeFiles/semantic_navigator.dir/src/semantic_navigator.cpp.s
+.PHONY : src/semantic_navigator.cpp.s
 
 # Help Target
 help:
@@ -1904,13 +1904,13 @@ help:
 	@echo "... gtest"
 	@echo "... gtest_main"
 	@echo "... my_navigation_goals"
-	@echo "... semantic_navigation"
+	@echo "... semantic_navigator"
 	@echo "... src/my_navigation_goals.o"
 	@echo "... src/my_navigation_goals.i"
 	@echo "... src/my_navigation_goals.s"
-	@echo "... src/semantic_navigation.o"
-	@echo "... src/semantic_navigation.i"
-	@echo "... src/semantic_navigation.s"
+	@echo "... src/semantic_navigator.o"
+	@echo "... src/semantic_navigator.i"
+	@echo "... src/semantic_navigator.s"
 .PHONY : help
 
 

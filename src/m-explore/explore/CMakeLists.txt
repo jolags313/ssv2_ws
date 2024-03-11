@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   tf
   visualization_msgs
+  jackal_2dnav
 )
 
 ###################################
@@ -31,7 +32,8 @@ catkin_package(
     roscpp
     std_msgs
     tf
-    visualization_msgs    
+    visualization_msgs  
+    jackal_2dnav  
 )
 
 ###########

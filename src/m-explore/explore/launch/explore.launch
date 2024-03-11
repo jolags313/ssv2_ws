@@ -1,4 +1,8 @@
 <launch>
+
+<!-- run semantic_navigation -->
+<node pkg="jackal_2dnav" type="semantic_navigator" name="semantic_navigator" output="screen"/>
+
 <node pkg="explore_lite" type="explore" respawn="false" name="explore" output="screen">
 
   <param name="robot_base_frame" value="base_link"/>
@@ -18,4 +22,5 @@
   <param name="min_frontier_size" value="0.5"/-->
   
 </node>
+
 </launch>

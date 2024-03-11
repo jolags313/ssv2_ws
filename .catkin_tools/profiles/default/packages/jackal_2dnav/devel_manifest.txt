@@ -8,6 +8,7 @@ jackal_2dnav
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/simple_navigation_goals /home/conlab/ssv2_ws/devel/lib/jackal_2dnav/simple_navigation_goals
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigation /home/conlab/ssv2_ws/devel/lib/jackal_2dnav/semantic_navigation
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/my_navigation_goals /home/conlab/ssv2_ws/devel/lib/jackal_2dnav/my_navigation_goals
+/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/jackal_2dnav/semantic_navigator /home/conlab/ssv2_ws/devel/lib/jackal_2dnav/semantic_navigator
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include/jackal_2dnav/sPoses.h /home/conlab/ssv2_ws/devel/include/jackal_2dnav/sPoses.h
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/share/roseus/ros/jackal_2dnav/manifest.l /home/conlab/ssv2_ws/devel/share/roseus/ros/jackal_2dnav/manifest.l
 /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/share/roseus/ros/jackal_2dnav/msg/sPoses.l /home/conlab/ssv2_ws/devel/share/roseus/ros/jackal_2dnav/msg/sPoses.l

@@ -1,6 +1,6 @@
 global_costmap:
 
-  # world? -> odom now, see tf issue fix
+  # world? -> map now, see tf issue fix
   global_frame: map
   
   # check this on Jackal tf

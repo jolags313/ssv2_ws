@@ -1,6 +1,0 @@
-Symlinking /home/conlab/ssv2_ws/devel/lib/librealsense_gazebo_accel_sensor.so
-Symlinking /home/conlab/ssv2_ws/devel/lib/librealsense_gazebo_gyro_sensor.so
-Symlinking /home/conlab/ssv2_ws/devel/lib/librealsense_gazebo_plugin.so
-Symlinking /home/conlab/ssv2_ws/devel/lib/pkgconfig/realsense_gazebo_plugin.pc
-Symlinking /home/conlab/ssv2_ws/devel/share/realsense_gazebo_plugin/cmake/realsense_gazebo_pluginConfig.cmake
-Symlinking /home/conlab/ssv2_ws/devel/share/realsense_gazebo_plugin/cmake/realsense_gazebo_pluginConfig-version.cmake

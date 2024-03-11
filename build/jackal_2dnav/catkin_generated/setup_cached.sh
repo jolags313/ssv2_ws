@@ -11,5 +11,6 @@ export CMAKE_PREFIX_PATH="/home/conlab/ssv2_ws/devel/.private/jackal_2dnav:$CMAK
 export LD_LIBRARY_PATH="/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib:$LD_LIBRARY_PATH"
 export PKG_CONFIG_PATH="/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD='/home/conlab/ssv2_ws/build/jackal_2dnav'
+export PYTHONPATH="/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/python3/dist-packages:$PYTHONPATH"
 export ROSLISP_PACKAGE_DIRECTORIES="/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
 export ROS_PACKAGE_PATH="/home/conlab/ssv2_ws/src/jackal_2dnav:$ROS_PACKAGE_PATH"
