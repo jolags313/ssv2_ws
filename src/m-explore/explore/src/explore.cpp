@@ -69,7 +69,7 @@ Explore::Explore()
   private_nh_.param("gain_scale", gain_scale_, 1.0);
   private_nh_.param("min_frontier_size", min_frontier_size, 0.5);
   
-  // do we really need a callback for everything? edit this
+  // subscribe to semantic_goals
   sub_ = relative_nh_.subscribe("/semantic_goals", 1, &Explore::sPoseCallback, this);
 
   search_ = frontier_exploration::FrontierSearch(costmap_client_.getCostmap(),

@@ -282,7 +282,6 @@ bool semanticExplore::checkAdjacency(double newX,
     return false;      
 }
 
-
 geometry_msgs::Pose semanticExplore::inflateGoal(float robotX,
                                                  float robotY,
                                                  const boundingBox currentBB){
@@ -330,15 +329,15 @@ int main(int argc, char** argv){
   // create an object of class semanticExplore that will take care of everything
   semanticExplore semanticExplorer;
   
-  ros::Rate r(0.2); // every 10 seconds
+  ros::Rate r(0.5); // every 2 seconds
   
   while(ros::ok()){
     
     ROS_INFO("Before callback call");
-    ros::getGlobalCallbackQueue()->callOne();
-    ROS_INFO("After callback call");
-    ros::getGlobalCallbackQueue()->clear();
-    ROS_INFO("After callback clear");
+    // ros::getGlobalCallbackQueue()->callOne();
+    // ROS_INFO("After callback call");
+    // ros::getGlobalCallbackQueue()->clear();
+    // ROS_INFO("After callback clear");
     
     /*
     // send goal of the location input using callback -> how can we get the goal from inside? -> just make it a global variable for now
@@ -368,7 +367,9 @@ int main(int argc, char** argv){
     */
       
     // try here
+    
     ros::spinOnce();
+    ROS_INFO("After");
     
     r.sleep();
   }
