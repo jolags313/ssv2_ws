@@ -293,7 +293,7 @@ geometry_msgs::Pose semanticExplore::inflateGoal(float robotX,
   double theta = atan2(dy, dx);
   
   // radius of bounding box (distance from center to a corner), add an additional couple of inches to account for inflation layer
-  float radius = sqrt(pow((currentBB.maxX - currentBB.minX) / 2, 2) + pow((currentBB.maxY - currentBB.minY) / 2, 2)) + 0.2;
+  float radius = sqrt(pow((currentBB.maxX - currentBB.minX) / 2, 2) + pow((currentBB.maxY - currentBB.minY) / 2, 2)) + 0.3;
   
   // new goal
   geometry_msgs::Pose newGoal;

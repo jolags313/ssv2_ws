@@ -72,7 +72,7 @@ private:
   jackal_2dnav::sPoses msgPoses;
   
   // minimum distance the center of a voxel can be from the bounding box to be considered adjacent (m)
-  float minDistance = 0.1; // about 3.93 inches
+  float minDistance = 0.2; // 0.1 m is about 3.93 inches
   
   // check for adjacency
   bool checkAdjacency(double newX, 

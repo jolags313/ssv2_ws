@@ -1,16 +1,16 @@
 <launch>
 
 <rosparam file="$(find semantic_slam)/params/semantic_cloud.yaml" command="load"/>
-<node pkg="semantic_cloud" type="semantic_cloud.py" name="semantic_cloud" output="screen"/>
+<node pkg="semantic_cloud" type="semantic_cloud.py" name="semantic_cloud" output="log"/>
 
 <rosparam file="$(find semantic_slam)/params/octomap_generator.yaml" command="load"/>
-<node pkg="octomap_generator" type="octomap_generator" name="octomap_generator" output="screen"/>
+<node pkg="octomap_generator" type="octomap_generator" name="octomap_generator" output="log"/>
 
 <!--rviz-->
 <node pkg="rviz" type="rviz" name="ss_rviz" args="-d $(find semantic_slam)/semantic_mapping_nav.rviz"/>
 
 <!-- start octomap_server to publish an occupancy map -->
-<node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+<node pkg="octomap_server" type="octomap_server_node" name="octomap_server" output="log">
 
               <param name="resolution" value="0.02" />
               <param name="frame_id" type="string" value="map" />

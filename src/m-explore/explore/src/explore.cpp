@@ -34,7 +34,7 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *
  *********************************************************************/
-
+/*
 #include <explore/explore.h>
 
 #include <thread>
@@ -114,7 +114,7 @@ void Explore::visualizeFrontiers(
   green.b = 0;
   green.a = 1.0;
 
-  ROS_DEBUG("visualising %lu frontiers", frontiers.size());
+  ROS_INFO("visualising %lu frontiers", frontiers.size());
   visualization_msgs::MarkerArray markers_msg;
   std::vector<visualization_msgs::Marker>& markers = markers_msg.markers;
   visualization_msgs::Marker m;
@@ -220,13 +220,13 @@ void Explore::makePlan()
   
   // get frontiers sorted according to cost
   auto frontiers = search_.searchFrom(pose.position);
-  ROS_DEBUG("found %lu frontiers", frontiers.size());
+  ROS_INFO("found %lu frontiers", frontiers.size());
   
   // get semantic goals sorted according to distance
   sGoalSort(sGoals_, pose);
   
   for (size_t i = 0; i < frontiers.size(); ++i) {
-    ROS_DEBUG("frontier %zd cost: %f", i, frontiers[i].cost);
+    ROS_INFO("frontier %zd cost: %f", i, frontiers[i].cost);
   }
 
   if (frontiers.empty() && sGoals_.empty()) {
@@ -268,7 +268,7 @@ void Explore::makePlan()
   geometry_msgs::Point target_position;
   
   // if semantic goal is present, prioritize it
-  if(sGoals_.size() > 0){
+  if(sGoals_.size() > 0 && (bestS->sPoint.x != 0 && bestS->sPoint.y != 0)){
     target_position = bestS->sPoint;
     isFrontier = false;
   }
@@ -301,7 +301,7 @@ void Explore::makePlan()
   // black list if we've made no progress for a long time
   if (ros::Time::now() - last_progress_ > progress_timeout_) {
     frontier_blacklist_.push_back(target_position);
-    ROS_DEBUG("Adding current goal to black list");
+    ROS_INFO("Adding current goal to black list");
     makePlan();
     return;
   }
@@ -327,7 +327,7 @@ void Explore::makePlan()
 
 bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal)
 {
-  constexpr static size_t tolerance = 5;
+  constexpr static size_t tolerance = 10;
   costmap_2d::Costmap2D* costmap2d = costmap_client_.getCostmap();
 
   // check if a goal is on the blacklist for goals that we're pursuing
@@ -335,6 +335,7 @@ bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal)
     double x_diff = fabs(goal.x - frontier_goal.x);
     double y_diff = fabs(goal.y - frontier_goal.y);
 
+    // resolution is 0.02, tolerance = 0.1 m = 4 inches, double it to be safe to 8 inches
     if (x_diff < tolerance * costmap2d->getResolution() &&
         y_diff < tolerance * costmap2d->getResolution())
       return true;
@@ -346,10 +347,10 @@ void Explore::reachedGoal(const actionlib::SimpleClientGoalState& status,
                           const move_base_msgs::MoveBaseResultConstPtr&,
                           const geometry_msgs::Point& frontier_goal)
 {
-  ROS_DEBUG("Reached goal with status: %s", status.toString().c_str());
-  if (status == actionlib::SimpleClientGoalState::ABORTED) {
+  ROS_INFO("Reached goal with status: %s", status.toString().c_str());
+  if (status == actionlib::SimpleClientGoalState::ABORTED || status == actionlib::SimpleClientGoalState::SUCCEEDED) {
     frontier_blacklist_.push_back(frontier_goal);
-    ROS_DEBUG("Adding current goal to black list");
+    ROS_INFO("Adding current goal to black list");
   }
 
   // find new goal immediatelly regardless of planning frequency.
@@ -387,7 +388,7 @@ int main(int argc, char** argv)
 
   return 0;
 }
-
+*/
 
 /*********************************************************************
  *
@@ -425,7 +426,7 @@ int main(int argc, char** argv)
  *  POSSIBILITY OF SUCH DAMAGE.
  *
  *********************************************************************/
-/*
+
 #include <explore/explore.h>
 
 #include <thread>
@@ -502,7 +503,7 @@ void Explore::visualizeFrontiers(
   green.b = 0;
   green.a = 1.0;
 
-  ROS_DEBUG("visualising %lu frontiers", frontiers.size());
+  ROS_INFO("visualising %lu frontiers", frontiers.size());
   visualization_msgs::MarkerArray markers_msg;
   std::vector<visualization_msgs::Marker>& markers = markers_msg.markers;
   visualization_msgs::Marker m;
@@ -573,9 +574,9 @@ void Explore::makePlan()
   auto pose = costmap_client_.getRobotPose();
   // get frontiers sorted according to cost
   auto frontiers = search_.searchFrom(pose.position);
-  ROS_DEBUG("found %lu frontiers", frontiers.size());
+  ROS_INFO("found %lu frontiers", frontiers.size());
   for (size_t i = 0; i < frontiers.size(); ++i) {
-    ROS_DEBUG("frontier %zd cost: %f", i, frontiers[i].cost);
+    ROS_INFO("frontier %zd cost: %f", i, frontiers[i].cost);
   }
 
   if (frontiers.empty()) {
@@ -611,7 +612,7 @@ void Explore::makePlan()
   // black list if we've made no progress for a long time
   if (ros::Time::now() - last_progress_ > progress_timeout_) {
     frontier_blacklist_.push_back(target_position);
-    ROS_DEBUG("Adding current goal to black list");
+    ROS_INFO("Adding current goal to black list");
     makePlan();
     return;
   }
@@ -656,10 +657,10 @@ void Explore::reachedGoal(const actionlib::SimpleClientGoalState& status,
                           const move_base_msgs::MoveBaseResultConstPtr&,
                           const geometry_msgs::Point& frontier_goal)
 {
-  ROS_DEBUG("Reached goal with status: %s", status.toString().c_str());
+  ROS_INFO("Reached goal with status: %s", status.toString().c_str());
   if (status == actionlib::SimpleClientGoalState::ABORTED) {
     frontier_blacklist_.push_back(frontier_goal);
-    ROS_DEBUG("Adding current goal to black list");
+    ROS_INFO("Adding current goal to black list");
   }
 
   // find new goal immediatelly regardless of planning frequency.
@@ -697,4 +698,4 @@ int main(int argc, char** argv)
 
   return 0;
 }
-*/
+

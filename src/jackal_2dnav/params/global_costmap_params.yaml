@@ -14,6 +14,9 @@ global_costmap:
   
   map_type: costmap
   
+  # new
+  rolling_window: true
+  
   # false since even though the map is from map_server it's on a topic and not already saved -> rtab says true?
   static_map: false
   
