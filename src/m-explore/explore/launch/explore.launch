@@ -11,7 +11,8 @@
   
   <param name="visualize" value="true"/>
   
-  <param name="planner_frequency" value="0.2"/>
+  <!-- planner_frequency was 0.2 -->
+  <param name="planner_frequency" value="1"/>
   <param name="progress_timeout" value="10.0"/>
   
   <!--param name="potential_scale" value="3.0"/>

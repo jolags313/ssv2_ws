@@ -50,8 +50,8 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
     // ROS_INFO("Color extracted");
     // ROS_INFO_STREAM("R is " << currentColor.r << "    G is " << currentColor.g << "    B is " << currentColor.b << '\n');
     
-    // values are for the color of a person
-    if(currentColor.r == 64 && currentColor.g == 0 && currentColor.b == 128){
+    // values are for the color of a person, add a z requirement to avoid counting shadows as goals
+    if((currentColor.r == 64 && currentColor.g == 0 && currentColor.b == 128) && it.getZ() > 0.3){
     
       // ROS_INFO("Person found");
         

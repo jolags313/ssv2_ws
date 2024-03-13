@@ -1,9 +1,11 @@
+map_type: costmap # from Jackal Navigation
+
 # 4.5 and 5
 obstacle_range: 3
 raytrace_range: 4
 
-# found using https://answers.ros.org/question/385798/how-can-i-find-the-appropriate-robot-footprint + jackal dimensions
-footprint: [[-0.215, -0.254], [0.215, -0.254], [0.215, 0.254], [-0.215, 0.254]]
+footprint: [[-0.21, -0.165], [-0.21, 0.165], [0.21, 0.165], [0.21, -0.165]]
+footprint_padding: 0.1
 
 inflation_radius: 0.3 # was 0.3
 transform_tolerance: 1
@@ -24,6 +26,17 @@ conservative_clear:
 aggressive_clear:
     reset_distance: 1.84
 
-observation_sources: laser_scan_sensor
-laser_scan_sensor: {sensor_frame: front_laser, data_type: LaserScan, topic: front/scan, marking: true, clearing: true}
+# observation_sources: laser_scan_sensor
+# laser_scan_sensor: {sensor_frame: front_laser, data_type: LaserScan, topic: front/scan, marking: true, clearing: true}
+
+plugins:
+- {name: obstacles_layer, type: "costmap_2d::ObstacleLayer"}
+- {name: inflate_layer, type: "costmap_2d::InflationLayer"}
+
+obstacles_layer:
+  observation_sources: scan
+  scan: {sensor_frame: front_laser, data_type: LaserScan, topic: front/scan, marking: true, clearing: true, obstacle_range: 3.0, raytrace_range: 4.0}
+
+inflate_layer:
+ inflation_radius: 0.30
 

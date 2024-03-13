@@ -34,7 +34,7 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *
  *********************************************************************/
-/*
+
 #include <explore/explore.h>
 
 #include <thread>
@@ -61,7 +61,7 @@ Explore::Explore()
   double timeout;
   double min_frontier_size;
   private_nh_.param("planner_frequency", planner_frequency_, 1.0);
-  private_nh_.param("progress_timeout", timeout, 30.0);
+  private_nh_.param("progress_timeout", timeout, 10.0);
   progress_timeout_ = ros::Duration(timeout);
   private_nh_.param("visualize", visualize_, false);
   private_nh_.param("potential_scale", potential_scale_, 1e-3);
@@ -312,6 +312,11 @@ void Explore::makePlan()
   }
 
   // send goal to move_base if we have something new to pursue
+  if(isFrontier)
+    ROS_INFO("New goal is a frontier");
+  else
+    ROS_INFO("New goal is a semantic goal");
+  
   move_base_msgs::MoveBaseGoal goal;
   goal.target_pose.pose.position = target_position;
   goal.target_pose.pose.orientation.w = 1.;
@@ -388,7 +393,7 @@ int main(int argc, char** argv)
 
   return 0;
 }
-*/
+
 
 /*********************************************************************
  *
@@ -426,7 +431,7 @@ int main(int argc, char** argv)
  *  POSSIBILITY OF SUCH DAMAGE.
  *
  *********************************************************************/
-
+/*
 #include <explore/explore.h>
 
 #include <thread>
@@ -698,4 +703,4 @@ int main(int argc, char** argv)
 
   return 0;
 }
-
+*/

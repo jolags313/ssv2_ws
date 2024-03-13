@@ -109,6 +109,7 @@ class SemanticCloud:
             dataset = rospy.get_param('/semantic_pcl/dataset')
             # Setup model
             model_name ='pspnet'
+            # model_name = {"model_state":"pspnet"}
             model_path = rospy.get_param('/semantic_pcl/model_path')
             if dataset == 'sunrgbd': # If use version fine tuned on sunrgbd dataset
                 self.n_classes = 38 # Semantic class number
@@ -120,6 +121,7 @@ class SemanticCloud:
             elif dataset == 'ade20k':
                 self.n_classes = 150 # Semantic class number
                 self.model = get_model(model_name, self.n_classes, version = 'ade20k')
+                # self.model = get_model(model_name['model_state'], self.n_classes, version = 'ade20k')
                 state = torch.load(model_path)
                 self.model.load_state_dict(convert_state_dict(state['model_state'])) # Remove 'module' from dictionary keys
                 self.cnn_input_size = (473, 473)
