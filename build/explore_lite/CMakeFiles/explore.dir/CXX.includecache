@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include/jackal_2dnav/sPoses.h
+/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include/jackal_2dnav/sInstance.h
 string
 -
 vector
@@ -22,6 +22,24 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 geometry_msgs/Pose.h
+-
+
+/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include/jackal_2dnav/sPoses.h
+string
+-
+vector
+-
+memory
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+jackal_2dnav/sInstance.h
 -
 
 /home/conlab/ssv2_ws/src/m-explore/explore/include/explore/costmap_client.h
@@ -62,6 +80,8 @@ visualization_msgs/MarkerArray.h
 explore/costmap_client.h
 -
 explore/frontier_search.h
+-
+jackal_2dnav/sInstance.h
 -
 jackal_2dnav/sPoses.h
 -

@@ -1,4 +1,4 @@
-// should just need this explore.h from explore_lite
+
 #include <semantic_navigator.h>
 
 // Note- following https://answers.ros.org/question/59725/publishing-to-a-topic-via-subscriber-callback-function/
@@ -12,7 +12,6 @@ semanticExplore::semanticExplore(){
   
   // Topic to subscribe to (full octomap message from octomap_generator)
   sub_ = nh_.subscribe("floatlazer/octomap_full", 1, &semanticExplore::semanticCallback, this);
-  
 }
 
 // populate goal (geometry_msgs/PoseStamped)
@@ -28,16 +27,13 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
   octomap::ColorOcTree* octree = dynamic_cast<octomap::ColorOcTree*>(tree);
   // ROS_INFO("Dynamic Casted");
   
-  /*
-  // declare vector of bounding boxes -> comment out since already declared as private below
-  std::vector<boundingBox> bbInstances;
-  ROS_INFO("BB vector declared");
-  */
-  
   // get current robot pose
   geometry_msgs::Pose robotPose = getCurrentPose();
   float robotX = robotPose.position.x;
   float robotY = robotPose.position.y; 
+  
+  // string for label
+  std::string label;
   
   // iterator
   for(octomap::ColorOcTree::leaf_iterator it = octree->begin_leafs(), end = octree->end_leafs(); it!=end; ++it){
@@ -51,9 +47,19 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
     // ROS_INFO_STREAM("R is " << currentColor.r << "    G is " << currentColor.g << "    B is " << currentColor.b << '\n');
     
     // values are for the color of a person, add a z requirement to avoid counting shadows as goals
-    if((currentColor.r == 64 && currentColor.g == 0 && currentColor.b == 128) && (it.getZ() > 0.3 && it.getZ() < 1.5)){
+    if(((currentColor.r == 64  && currentColor.g == 0   && currentColor.b == 128) || 
+        (currentColor.r == 128 && currentColor.g == 192 && currentColor.b == 0)) && 
+        (it.getZ() > 0.3 && it.getZ() < 1.5)){
     
-      // ROS_INFO("Person found");
+      if(currentColor.r == 64  && currentColor.g == 0   && currentColor.b == 128){
+        // ROS_INFO("Person found");
+        label = "person";
+      }
+      else if(currentColor.r == 128 && currentColor.g == 192 && currentColor.b == 0){
+        // ROS_INFO("Chair found");
+        label = "chair";
+      }
+      
         
       // check if the vector of bounding boxes is empty
       if(bbInstances.size() == 0){
@@ -73,6 +79,8 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
                 
           it.getY() - it.getSize(), // minimum y
           it.getY() + it.getSize(), // maximum y  
+          
+          label,
         };
             
         // add to vector
@@ -105,7 +113,9 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
             bbInstances[i].yCenter = bbInstances[i].minY + (bbInstances[i].maxY - bbInstances[i].minY) / 2;
             
             // ROS_INFO("Existing bounding box"); 
+            
             // ROS_INFO_STREAM("Adjacent, current center at (" << bbInstances[i].xCenter << ", " << bbInstances[i].yCenter << ") with size " << (bbInstances[i].maxX - bbInstances[i].minX) << " by " << (bbInstances[i].maxY - bbInstances[i].minY)); 
+            
             // ROS_INFO_STREAM("^ New X at " << it.getX() << "    New Y at " << it.getY() << "    with size " << it.getSize() << '\n');  
             
             break;                
@@ -123,6 +133,8 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
                 
               it.getY() - it.getSize() / 2, // minimum y
               it.getY() + it.getSize() / 2, // maximum y  
+              
+              label,
             };
             
             // add to vector
@@ -147,7 +159,7 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
   int numErased = 0;
   
   int msgLength = 0;
-     
+  
   // make sure we have bounding box(es)
   if(currentSize > 0){   
          
@@ -159,6 +171,7 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
       float currentArea = (bbInstances[currentIdx].maxX - bbInstances[currentIdx].minX) * (bbInstances[currentIdx].maxY - bbInstances[currentIdx].minY);
     
       // ROS_INFO_STREAM("X size " << (bbInstances[currentIdx].maxX - bbInstances[currentIdx].minX) << "    Y size " << (bbInstances[currentIdx].maxY - bbInstances[currentIdx].minY) << '\n');
+      
       // ROS_INFO_STREAM("Bounding box area is " << currentArea << '\n');
       
       if(currentArea < minArea){
@@ -174,56 +187,36 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
         
         // make newGoal and push into newGoals
         geometry_msgs::Pose newGoal = inflateGoal(robotX, robotY, bbInstances[currentIdx]);
-        myGoal = newGoal;
+        // myGoal = newGoal;
+        msgInstance.objPose = newGoal;
+        msgInstance.objLabel = bbInstances[currentIdx].label;
         
         // ROS_INFO_STREAM("New message with area " << currentArea << " with x at " << newGoal.position.x << " and y at " << newGoal.position.y);
         
         // newGoals.push_back(newGoal);
-        msgPoses.poses.push_back(newGoal);      
+        msgPoses.sPoses.push_back(msgInstance); 
         msgLength++;
       }
       else{  
         geometry_msgs::Pose newGoal = inflateGoal(robotX, robotY, bbInstances[currentIdx]);
         
+        msgInstance.objPose = newGoal;
+        msgInstance.objLabel = bbInstances[currentIdx].label;
+        
         // ROS_INFO_STREAM("New message with area " << currentArea << " with x at " << newGoal.position.x << " and y at " << newGoal.position.y);
         
-        msgPoses.poses.push_back(newGoal);      
+        msgPoses.sPoses.push_back(msgInstance);
         msgLength++;    
       }
     }
   }
-    
-  // ROS_INFO_STREAM("Vector size is " << bbInstances.size() << " after trimming, message array length is " << msgLength);
-  
-  // ROS_INFO_STREAM("Max area was " << bbArea << " = " << bbInstances[idx].maxX - bbInstances[idx].minX << " x " << bbInstances[idx].maxY - bbInstances[idx].minY);
-  
-  // ROS_INFO_STREAM("Idx is " << idx << "    X at " << myGoal.position.x << "    Y at " << myGoal.position.y << '\n');
-  
-  // ROS_INFO_STREAM("When adjusted, X at " << newGoals[idx].position.x << "    Y at " << newGoals[idx].position.y << '\n');
-  
-  /*
-  sGoal.target_pose.header.frame_id = "map"; //global frame
-  sGoal.target_pose.header.stamp = ros::Time::now();
-
-  sGoal.target_pose.pose.position.x = bbArea <= minArea ? 0 : myGoal.position.x;
-  sGoal.target_pose.pose.position.y = bbArea <= minArea ? 0 : myGoal.position.y;
-  sGoal.target_pose.pose.position.z = 0; // can we just leave this as 0?
-  
-  ROS_INFO_STREAM("X AT " << sGoal.target_pose.pose.position.x << "    Y AT " <<  sGoal.target_pose.pose.position.y);
-
-  sGoal.target_pose.pose.orientation.x = bbArea <= minArea ? 0 : myGoal.orientation.x;
-  sGoal.target_pose.pose.orientation.y = bbArea <= minArea ? 0 : myGoal.orientation.y;
-  sGoal.target_pose.pose.orientation.z = bbArea <= minArea ? 0 : myGoal.orientation.z;
-  sGoal.target_pose.pose.orientation.w = 1.0;
-  */
   
   // publish goals
   pub_.publish(msgPoses);
   
   // clear vectors
   bbInstances.clear();
-  // newGoals.clear();
-  msgPoses.poses.clear();
+  msgPoses.sPoses.clear();
 }
 
 geometry_msgs::Pose semanticExplore::getCurrentPose(){
@@ -315,16 +308,6 @@ geometry_msgs::Pose semanticExplore::inflateGoal(float robotX,
 
 int main(int argc, char** argv){
   ros::init(argc, argv, "semantic_explorer"); //node name
-
-  /*
-  // tell the action client that we want to spin a thread by default
-  MoveBaseClient ac("move_base", true);
-
-  // wait for the action server to come up
-  while(!ac.waitForServer(ros::Duration(5.0))){
-    ROS_INFO("Waiting for the move_base action server to come up");
-  }
-  */
   
   // create an object of class semanticExplore that will take care of everything
   semanticExplore semanticExplorer;
@@ -332,45 +315,8 @@ int main(int argc, char** argv){
   ros::Rate r(0.5); // every 2 seconds
   
   while(ros::ok()){
-    
-    // ROS_INFO("Before callback call");
-    // ros::getGlobalCallbackQueue()->callOne();
-    // ROS_INFO("After callback call");
-    // ros::getGlobalCallbackQueue()->clear();
-    // ROS_INFO("After callback clear");
-    
-    /*
-    // send goal of the location input using callback -> how can we get the goal from inside? -> just make it a global variable for now
-    ROS_INFO("Sending goal");
-    ROS_INFO_STREAM("X AT " << sGoal.target_pose.pose.position.x << "    Y AT " <<  sGoal.target_pose.pose.position.y << '\n');
-    ac.sendGoal(sGoal);
-
-    ac.waitForResult();
-
-    if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED){
-      ROS_INFO("Object reached");
-      
-      // reset goal
-      sGoal.target_pose.pose.position.x = 0;
-      sGoal.target_pose.pose.position.y = 0;
-      sGoal.target_pose.pose.position.z = 0;
-
-      sGoal.target_pose.pose.orientation.x = 0;
-      sGoal.target_pose.pose.orientation.y = 0;
-      sGoal.target_pose.pose.orientation.z = 0;
-      sGoal.target_pose.pose.orientation.w = 1.0;
-    }
-    else{
-      ROS_INFO("Exploration failed");
-      ac.cancelGoal();
-    }
-    */
-      
-    // try here
-    
-    ros::spinOnce();
-    // ROS_INFO("After");
-    
+        
+    ros::spinOnce();   
     r.sleep();
   }
 

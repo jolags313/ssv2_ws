@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "jackal_2dnav: 1 messages, 0 services")
+message(STATUS "jackal_2dnav: 2 messages, 0 services")
 
 set(MSG_I_FLAGS "-Ijackal_2dnav:/home/conlab/ssv2_ws/src/jackal_2dnav/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg")
 
@@ -19,7 +19,12 @@ add_custom_target(jackal_2dnav_generate_messages ALL)
 
 get_filename_component(_filename "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg" NAME_WE)
 add_custom_target(_jackal_2dnav_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "jackal_2dnav" "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg" "geometry_msgs/Quaternion:geometry_msgs/Pose:geometry_msgs/Point"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "jackal_2dnav" "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg" "geometry_msgs/Point:jackal_2dnav/sInstance:geometry_msgs/Quaternion:geometry_msgs/Pose"
+)
+
+get_filename_component(_filename "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg" NAME_WE)
+add_custom_target(_jackal_2dnav_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "jackal_2dnav" "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg" "geometry_msgs/Point:geometry_msgs/Quaternion:geometry_msgs/Pose"
 )
 
 #
@@ -31,7 +36,13 @@ add_custom_target(_jackal_2dnav_generate_messages_check_deps_${_filename}
 _generate_msg_cpp(jackal_2dnav
   "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/jackal_2dnav
+)
+_generate_msg_cpp(jackal_2dnav
+  "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/jackal_2dnav
 )
 
@@ -51,6 +62,8 @@ add_dependencies(jackal_2dnav_generate_messages jackal_2dnav_generate_messages_c
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg" NAME_WE)
 add_dependencies(jackal_2dnav_generate_messages_cpp _jackal_2dnav_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg" NAME_WE)
+add_dependencies(jackal_2dnav_generate_messages_cpp _jackal_2dnav_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(jackal_2dnav_gencpp)
@@ -64,7 +77,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS jackal_2dnav_generate_messages_cpp)
 _generate_msg_eus(jackal_2dnav
   "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/jackal_2dnav
+)
+_generate_msg_eus(jackal_2dnav
+  "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/jackal_2dnav
 )
 
@@ -84,6 +103,8 @@ add_dependencies(jackal_2dnav_generate_messages jackal_2dnav_generate_messages_e
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg" NAME_WE)
 add_dependencies(jackal_2dnav_generate_messages_eus _jackal_2dnav_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg" NAME_WE)
+add_dependencies(jackal_2dnav_generate_messages_eus _jackal_2dnav_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(jackal_2dnav_geneus)
@@ -97,7 +118,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS jackal_2dnav_generate_messages_eus)
 _generate_msg_lisp(jackal_2dnav
   "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/jackal_2dnav
+)
+_generate_msg_lisp(jackal_2dnav
+  "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/jackal_2dnav
 )
 
@@ -117,6 +144,8 @@ add_dependencies(jackal_2dnav_generate_messages jackal_2dnav_generate_messages_l
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg" NAME_WE)
 add_dependencies(jackal_2dnav_generate_messages_lisp _jackal_2dnav_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg" NAME_WE)
+add_dependencies(jackal_2dnav_generate_messages_lisp _jackal_2dnav_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(jackal_2dnav_genlisp)
@@ -130,7 +159,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS jackal_2dnav_generate_messages_lisp
 _generate_msg_nodejs(jackal_2dnav
   "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/jackal_2dnav
+)
+_generate_msg_nodejs(jackal_2dnav
+  "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/jackal_2dnav
 )
 
@@ -150,6 +185,8 @@ add_dependencies(jackal_2dnav_generate_messages jackal_2dnav_generate_messages_n
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg" NAME_WE)
 add_dependencies(jackal_2dnav_generate_messages_nodejs _jackal_2dnav_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg" NAME_WE)
+add_dependencies(jackal_2dnav_generate_messages_nodejs _jackal_2dnav_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(jackal_2dnav_gennodejs)
@@ -163,7 +200,13 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS jackal_2dnav_generate_messages_node
 _generate_msg_py(jackal_2dnav
   "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/jackal_2dnav
+)
+_generate_msg_py(jackal_2dnav
+  "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/jackal_2dnav
 )
 
@@ -182,6 +225,8 @@ add_dependencies(jackal_2dnav_generate_messages jackal_2dnav_generate_messages_p
 
 # add dependencies to all check dependencies targets
 get_filename_component(_filename "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg" NAME_WE)
+add_dependencies(jackal_2dnav_generate_messages_py _jackal_2dnav_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg" NAME_WE)
 add_dependencies(jackal_2dnav_generate_messages_py _jackal_2dnav_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

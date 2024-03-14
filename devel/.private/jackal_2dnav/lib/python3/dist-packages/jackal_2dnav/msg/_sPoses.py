@@ -7,13 +7,18 @@ import genpy
 import struct
 
 import geometry_msgs.msg
+import jackal_2dnav.msg
 
 class sPoses(genpy.Message):
-  _md5sum = "db8ce58a1deaf0d1f2e7fdd257963e81"
+  _md5sum = "89f29c293b2e6dbeec18915c4b5a83f6"
   _type = "jackal_2dnav/sPoses"
   _has_header = False  # flag to mark the presence of a Header object
-  _full_text = """geometry_msgs/Pose[] poses
+  _full_text = """jackal_2dnav/sInstance[] sPoses
 
+================================================================================
+MSG: jackal_2dnav/sInstance
+geometry_msgs/Pose objPose
+string objLabel
 
 ================================================================================
 MSG: geometry_msgs/Pose
@@ -37,8 +42,8 @@ float64 y
 float64 z
 float64 w
 """
-  __slots__ = ['poses']
-  _slot_types = ['geometry_msgs/Pose[]']
+  __slots__ = ['sPoses']
+  _slot_types = ['jackal_2dnav/sInstance[]']
 
   def __init__(self, *args, **kwds):
     """
@@ -48,7 +53,7 @@ float64 w
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       poses
+       sPoses
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -57,10 +62,10 @@ float64 w
     if args or kwds:
       super(sPoses, self).__init__(*args, **kwds)
       # message fields cannot be None, assign default values for those that are
-      if self.poses is None:
-        self.poses = []
+      if self.sPoses is None:
+        self.sPoses = []
     else:
-      self.poses = []
+      self.sPoses = []
 
   def _get_types(self):
     """
@@ -74,15 +79,22 @@ float64 w
     :param buff: buffer, ``StringIO``
     """
     try:
-      length = len(self.poses)
+      length = len(self.sPoses)
       buff.write(_struct_I.pack(length))
-      for val1 in self.poses:
-        _v1 = val1.position
-        _x = _v1
-        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
-        _v2 = val1.orientation
+      for val1 in self.sPoses:
+        _v1 = val1.objPose
+        _v2 = _v1.position
         _x = _v2
+        buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
+        _v3 = _v1.orientation
+        _x = _v3
         buff.write(_get_struct_4d().pack(_x.x, _x.y, _x.z, _x.w))
+        _x = val1.objLabel
+        length = len(_x)
+        if python3 or type(_x) == unicode:
+          _x = _x.encode('utf-8')
+          length = len(_x)
+        buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -94,26 +106,36 @@ float64 w
     if python3:
       codecs.lookup_error("rosmsg").msg_type = self._type
     try:
-      if self.poses is None:
-        self.poses = None
+      if self.sPoses is None:
+        self.sPoses = None
       end = 0
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
-      self.poses = []
+      self.sPoses = []
       for i in range(0, length):
-        val1 = geometry_msgs.msg.Pose()
-        _v3 = val1.position
-        _x = _v3
+        val1 = jackal_2dnav.msg.sInstance()
+        _v4 = val1.objPose
+        _v5 = _v4.position
+        _x = _v5
         start = end
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
-        _v4 = val1.orientation
-        _x = _v4
+        _v6 = _v4.orientation
+        _x = _v6
         start = end
         end += 32
         (_x.x, _x.y, _x.z, _x.w,) = _get_struct_4d().unpack(str[start:end])
-        self.poses.append(val1)
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        if python3:
+          val1.objLabel = str[start:end].decode('utf-8', 'rosmsg')
+        else:
+          val1.objLabel = str[start:end]
+        self.sPoses.append(val1)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -126,15 +148,22 @@ float64 w
     :param numpy: numpy python module
     """
     try:
-      length = len(self.poses)
+      length = len(self.sPoses)
       buff.write(_struct_I.pack(length))
-      for val1 in self.poses:
-        _v5 = val1.position
-        _x = _v5
+      for val1 in self.sPoses:
+        _v7 = val1.objPose
+        _v8 = _v7.position
+        _x = _v8
         buff.write(_get_struct_3d().pack(_x.x, _x.y, _x.z))
-        _v6 = val1.orientation
-        _x = _v6
+        _v9 = _v7.orientation
+        _x = _v9
         buff.write(_get_struct_4d().pack(_x.x, _x.y, _x.z, _x.w))
+        _x = val1.objLabel
+        length = len(_x)
+        if python3 or type(_x) == unicode:
+          _x = _x.encode('utf-8')
+          length = len(_x)
+        buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -147,26 +176,36 @@ float64 w
     if python3:
       codecs.lookup_error("rosmsg").msg_type = self._type
     try:
-      if self.poses is None:
-        self.poses = None
+      if self.sPoses is None:
+        self.sPoses = None
       end = 0
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
-      self.poses = []
+      self.sPoses = []
       for i in range(0, length):
-        val1 = geometry_msgs.msg.Pose()
-        _v7 = val1.position
-        _x = _v7
+        val1 = jackal_2dnav.msg.sInstance()
+        _v10 = val1.objPose
+        _v11 = _v10.position
+        _x = _v11
         start = end
         end += 24
         (_x.x, _x.y, _x.z,) = _get_struct_3d().unpack(str[start:end])
-        _v8 = val1.orientation
-        _x = _v8
+        _v12 = _v10.orientation
+        _x = _v12
         start = end
         end += 32
         (_x.x, _x.y, _x.z, _x.w,) = _get_struct_4d().unpack(str[start:end])
-        self.poses.append(val1)
+        start = end
+        end += 4
+        (length,) = _struct_I.unpack(str[start:end])
+        start = end
+        end += length
+        if python3:
+          val1.objLabel = str[start:end].decode('utf-8', 'rosmsg')
+        else:
+          val1.objLabel = str[start:end]
+        self.sPoses.append(val1)
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill

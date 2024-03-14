@@ -1,0 +1,66 @@
+The dependencies of the message/service 'jackal_2dnav/sPoses' have changed. Please rerun cmake.
+make[2]: *** [CMakeFiles/_jackal_2dnav_generate_messages_check_deps_sPoses.dir/build.make:76: CMakeFiles/_jackal_2dnav_generate_messages_check_deps_sPoses] Error 1
+make[1]: *** [CMakeFiles/Makefile2:547: CMakeFiles/_jackal_2dnav_generate_messages_check_deps_sPoses.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+In file included from [01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:2[m[K:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/include/semantic_navigator.h:72:17:[m[K [01;31m[Kerror: [m[K‘[01m[KsInstance[m[K’ in namespace ‘[01m[Kjackal_2dnav[m[K’ does not name a type
+   72 |   jackal_2dnav::[01;31m[KsInstance[m[K msgInstance;
+      |                 [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:[m[K In member function ‘[01m[Kvoid semanticExplore::semanticCallback(const Octomap&)[m[K’:
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:80:18:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[Kit.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getX()[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+   80 |           [01;35m[Kit.getX()[m[K, // center x
+      |           [01;35m[K~~~~~~~^~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:81:18:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[Kit.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getY()[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+   81 |           [01;35m[Kit.getY()[m[K, // center y
+      |           [01;35m[K~~~~~~~^~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:84:21:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getX() - it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getSize())[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+   84 |           [01;35m[Kit.getX() - it.getSize()[m[K,
+      |           [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:85:21:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getX() + it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getSize())[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+   85 |           [01;35m[Kit.getX() + it.getSize()[m[K, // maximum x
+      |           [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:87:21:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getY() - it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getSize())[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+   87 |           [01;35m[Kit.getY() - it.getSize()[m[K, // minimum y
+      |           [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:88:21:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getY() + it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getSize())[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+   88 |           [01;35m[Kit.getY() + it.getSize()[m[K, // maximum y
+      |           [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:133:22:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[Kit.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getX()[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+  133 |               [01;35m[Kit.getX()[m[K, // center x
+      |               [01;35m[K~~~~~~~^~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:134:22:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[Kit.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getY()[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+  134 |               [01;35m[Kit.getY()[m[K, // center y
+      |               [01;35m[K~~~~~~~^~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:136:25:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getX() - (it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getSize() / (double)2))[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+  136 |               [01;35m[Kit.getX() - it.getSize() / 2[m[K, // minimum x
+      |               [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:137:25:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getX() + (it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getSize() / (double)2))[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+  137 |               [01;35m[Kit.getX() + it.getSize() / 2[m[K, // maximum x
+      |               [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:139:25:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getY() - (it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getSize() / (double)2))[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+  139 |               [01;35m[Kit.getY() - it.getSize() / 2[m[K, // minimum y
+      |               [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:140:25:[m[K [01;35m[Kwarning: [m[Knarrowing conversion of ‘[01m[K(it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getY() + (it.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::leaf_iterator::<anonymous>.octomap::OcTreeBaseImpl<octomap::ColorOcTreeNode, octomap::AbstractOccupancyOcTree>::iterator_base::getSize() / (double)2))[m[K’ from ‘[01m[Kdouble[m[K’ to ‘[01m[Kfloat[m[K’ [[01;35m[K-Wnarrowing[m[K]
+  140 |               [01;35m[Kit.getY() + it.getSize() / 2[m[K, // maximum y
+      |               [01;35m[K~~~~~~~~~~^~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:196:9:[m[K [01;31m[Kerror: [m[K‘[01m[KmsgInstance[m[K’ was not declared in this scope
+  196 |         [01;31m[KmsgInstance[m[K.objPose = newGoal;
+      |         [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:202:18:[m[K [01;31m[Kerror: [m[K‘[01m[Kjackal_2dnav::sPoses[m[K’ {aka ‘[01m[Kstruct jackal_2dnav::sPoses_<std::allocator<void> >[m[K’} has no member named ‘[01m[KsPoses[m[K’; did you mean ‘[01m[KsPoses_[m[K’?
+  202 |         msgPoses.[01;31m[KsPoses[m[K.push_back(msgInstance);
+      |                  [01;31m[K^~~~~~[m[K
+      |                  [32m[KsPoses_[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:208:9:[m[K [01;31m[Kerror: [m[K‘[01m[KmsgInstance[m[K’ was not declared in this scope
+  208 |         [01;31m[KmsgInstance[m[K.objPose = newGoal;
+      |         [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:213:18:[m[K [01;31m[Kerror: [m[K‘[01m[Kjackal_2dnav::sPoses[m[K’ {aka ‘[01m[Kstruct jackal_2dnav::sPoses_<std::allocator<void> >[m[K’} has no member named ‘[01m[KsPoses[m[K’; did you mean ‘[01m[KsPoses_[m[K’?
+  213 |         msgPoses.[01;31m[KsPoses[m[K.push_back(msgInstance);
+      |                  [01;31m[K^~~~~~[m[K
+      |                  [32m[KsPoses_[m[K
+[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigator.cpp:249:12:[m[K [01;31m[Kerror: [m[K‘[01m[Kjackal_2dnav::sPoses[m[K’ {aka ‘[01m[Kstruct jackal_2dnav::sPoses_<std::allocator<void> >[m[K’} has no member named ‘[01m[KsPoses[m[K’; did you mean ‘[01m[KsPoses_[m[K’?
+  249 |   msgPoses.[01;31m[KsPoses[m[K.clear();
+      |            [01;31m[K^~~~~~[m[K
+      |            [32m[KsPoses_[m[K
+make[2]: *** [CMakeFiles/semantic_navigator.dir/build.make:82: CMakeFiles/semantic_navigator.dir/src/semantic_navigator.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:269: CMakeFiles/semantic_navigator.dir/all] Error 2
+make: *** [Makefile:160: all] Error 2

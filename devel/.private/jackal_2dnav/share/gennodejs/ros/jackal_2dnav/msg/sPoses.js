@@ -11,7 +11,7 @@ const _deserializer = _ros_msg_utils.Deserialize;
 const _arrayDeserializer = _deserializer.Array;
 const _finder = _ros_msg_utils.Find;
 const _getByteLength = _ros_msg_utils.getByteLength;
-let geometry_msgs = _finder('geometry_msgs');
+let sInstance = require('./sInstance.js');
 
 //-----------------------------------------------------------
 
@@ -19,25 +19,25 @@ class sPoses {
   constructor(initObj={}) {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
-      this.poses = null;
+      this.sPoses = null;
     }
     else {
-      if (initObj.hasOwnProperty('poses')) {
-        this.poses = initObj.poses
+      if (initObj.hasOwnProperty('sPoses')) {
+        this.sPoses = initObj.sPoses
       }
       else {
-        this.poses = [];
+        this.sPoses = [];
       }
     }
   }
 
   static serialize(obj, buffer, bufferOffset) {
     // Serializes a message object of type sPoses
-    // Serialize message field [poses]
-    // Serialize the length for message field [poses]
-    bufferOffset = _serializer.uint32(obj.poses.length, buffer, bufferOffset);
-    obj.poses.forEach((val) => {
-      bufferOffset = geometry_msgs.msg.Pose.serialize(val, buffer, bufferOffset);
+    // Serialize message field [sPoses]
+    // Serialize the length for message field [sPoses]
+    bufferOffset = _serializer.uint32(obj.sPoses.length, buffer, bufferOffset);
+    obj.sPoses.forEach((val) => {
+      bufferOffset = sInstance.serialize(val, buffer, bufferOffset);
     });
     return bufferOffset;
   }
@@ -46,19 +46,21 @@ class sPoses {
     //deserializes a message object of type sPoses
     let len;
     let data = new sPoses(null);
-    // Deserialize message field [poses]
-    // Deserialize array length for message field [poses]
+    // Deserialize message field [sPoses]
+    // Deserialize array length for message field [sPoses]
     len = _deserializer.uint32(buffer, bufferOffset);
-    data.poses = new Array(len);
+    data.sPoses = new Array(len);
     for (let i = 0; i < len; ++i) {
-      data.poses[i] = geometry_msgs.msg.Pose.deserialize(buffer, bufferOffset)
+      data.sPoses[i] = sInstance.deserialize(buffer, bufferOffset)
     }
     return data;
   }
 
   static getMessageSize(object) {
     let length = 0;
-    length += 56 * object.poses.length;
+    object.sPoses.forEach((val) => {
+      length += sInstance.getMessageSize(val);
+    });
     return length + 4;
   }
 
@@ -69,14 +71,18 @@ class sPoses {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'db8ce58a1deaf0d1f2e7fdd257963e81';
+    return '89f29c293b2e6dbeec18915c4b5a83f6';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    geometry_msgs/Pose[] poses
+    jackal_2dnav/sInstance[] sPoses
     
+    ================================================================================
+    MSG: jackal_2dnav/sInstance
+    geometry_msgs/Pose objPose
+    string objLabel
     
     ================================================================================
     MSG: geometry_msgs/Pose
@@ -109,14 +115,14 @@ class sPoses {
       msg = {};
     }
     const resolved = new sPoses(null);
-    if (msg.poses !== undefined) {
-      resolved.poses = new Array(msg.poses.length);
-      for (let i = 0; i < resolved.poses.length; ++i) {
-        resolved.poses[i] = geometry_msgs.msg.Pose.Resolve(msg.poses[i]);
+    if (msg.sPoses !== undefined) {
+      resolved.sPoses = new Array(msg.sPoses.length);
+      for (let i = 0; i < resolved.sPoses.length; ++i) {
+        resolved.sPoses[i] = sInstance.Resolve(msg.sPoses[i]);
       }
     }
     else {
-      resolved.poses = []
+      resolved.sPoses = []
     }
 
     return resolved;

@@ -51,6 +51,7 @@
 #include <explore/costmap_client.h>
 #include <explore/frontier_search.h>
 
+#include <jackal_2dnav/sInstance.h>
 #include <jackal_2dnav/sPoses.h>
 
 namespace explore
@@ -75,6 +76,8 @@ private:
   struct sGoal{
     geometry_msgs::Point sPoint;
     float distance;
+    
+    std::string label;
   };
   
   // semantic objects, populate with points from semantic_navigator

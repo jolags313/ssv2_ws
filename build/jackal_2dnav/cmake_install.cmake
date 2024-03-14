@@ -134,7 +134,10 @@ file(INSTALL DESTINATION "/home/conlab/ssv2_ws/install" TYPE FILE FILES "/home/c
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/jackal_2dnav/msg" TYPE FILE FILES "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/jackal_2dnav/msg" TYPE FILE FILES
+    "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg"
+    "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg"
+    )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

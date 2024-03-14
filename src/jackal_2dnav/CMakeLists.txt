@@ -82,6 +82,7 @@ find_package(catkin REQUIRED COMPONENTS ${PACKAGE_DEPENDENCIES})
 add_message_files(
    FILES
    sPoses.msg
+   sInstance.msg
 )
 
 ## Generate services in the 'srv' folder

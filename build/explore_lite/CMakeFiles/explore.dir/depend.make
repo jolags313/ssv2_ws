@@ -116,6 +116,7 @@ CMakeFiles/explore.dir/src/costmap_client.cpp.o: /opt/ros/noetic/include/tf2_ros
 CMakeFiles/explore.dir/src/costmap_client.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcDecl.h
 CMakeFiles/explore.dir/src/costmap_client.cpp.o: /opt/ros/noetic/include/xmlrpcpp/XmlRpcValue.h
 
+CMakeFiles/explore.dir/src/explore.cpp.o: /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include/jackal_2dnav/sInstance.h
 CMakeFiles/explore.dir/src/explore.cpp.o: /home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include/jackal_2dnav/sPoses.h
 CMakeFiles/explore.dir/src/explore.cpp.o: /home/conlab/ssv2_ws/src/m-explore/explore/include/explore/costmap_client.h
 CMakeFiles/explore.dir/src/explore.cpp.o: /home/conlab/ssv2_ws/src/m-explore/explore/include/explore/explore.h

@@ -10,64 +10,66 @@
 
 (in-package "ROS")
 ;;//! \htmlinclude sPoses.msg.html
-(if (not (find-package "GEOMETRY_MSGS"))
-  (ros::roseus-add-msgs "geometry_msgs"))
 
 
 (defclass jackal_2dnav::sPoses
   :super ros::object
-  :slots (_poses ))
+  :slots (_sPoses ))
 
 (defmethod jackal_2dnav::sPoses
   (:init
    (&key
-    ((:poses __poses) ())
+    ((:sPoses __sPoses) ())
     )
    (send-super :init)
-   (setq _poses __poses)
+   (setq _sPoses __sPoses)
    self)
-  (:poses
-   (&rest __poses)
-   (if (keywordp (car __poses))
-       (send* _poses __poses)
+  (:sPoses
+   (&rest __sPoses)
+   (if (keywordp (car __sPoses))
+       (send* _sPoses __sPoses)
      (progn
-       (if __poses (setq _poses (car __poses)))
-       _poses)))
+       (if __sPoses (setq _sPoses (car __sPoses)))
+       _sPoses)))
   (:serialization-length
    ()
    (+
-    ;; geometry_msgs/Pose[] _poses
-    (apply #'+ (send-all _poses :serialization-length)) 4
+    ;; jackal_2dnav/sInstance[] _sPoses
+    (apply #'+ (send-all _sPoses :serialization-length)) 4
     ))
   (:serialize
    (&optional strm)
    (let ((s (if strm strm
               (make-string-output-stream (send self :serialization-length)))))
-     ;; geometry_msgs/Pose[] _poses
-     (write-long (length _poses) s)
-     (dolist (elem _poses)
+     ;; jackal_2dnav/sInstance[] _sPoses
+     (write-long (length _sPoses) s)
+     (dolist (elem _sPoses)
        (send elem :serialize s)
        )
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
    (buf &optional (ptr- 0))
-   ;; geometry_msgs/Pose[] _poses
+   ;; jackal_2dnav/sInstance[] _sPoses
    (let (n)
      (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4)
-     (setq _poses (let (r) (dotimes (i n) (push (instance geometry_msgs::Pose :init) r)) r))
-     (dolist (elem- _poses)
+     (setq _sPoses (let (r) (dotimes (i n) (push (instance jackal_2dnav::sInstance :init) r)) r))
+     (dolist (elem- _sPoses)
      (send elem- :deserialize buf ptr-) (incf ptr- (send elem- :serialization-length))
      ))
    ;;
    self)
   )
 
-(setf (get jackal_2dnav::sPoses :md5sum-) "db8ce58a1deaf0d1f2e7fdd257963e81")
+(setf (get jackal_2dnav::sPoses :md5sum-) "89f29c293b2e6dbeec18915c4b5a83f6")
 (setf (get jackal_2dnav::sPoses :datatype-) "jackal_2dnav/sPoses")
 (setf (get jackal_2dnav::sPoses :definition-)
-      "geometry_msgs/Pose[] poses
+      "jackal_2dnav/sInstance[] sPoses
 
+================================================================================
+MSG: jackal_2dnav/sInstance
+geometry_msgs/Pose objPose
+string objLabel
 
 ================================================================================
 MSG: geometry_msgs/Pose
@@ -95,6 +97,6 @@ float64 w
 
 
 
-(provide :jackal_2dnav/sPoses "db8ce58a1deaf0d1f2e7fdd257963e81")
+(provide :jackal_2dnav/sPoses "89f29c293b2e6dbeec18915c4b5a83f6")
 
 

@@ -184,16 +184,18 @@ void Explore::sPoseCallback(const jackal_2dnav::sPoses& sPose_msg){
   // empty out sGoals_
   sGoals_.clear();
   
-  if(sPose_msg.poses.size() > 0){
+  if(sPose_msg.sPoses.size() > 0){
   
     // make temporary point
     sGoal temp; 
     
     // iterate through and then push back 
-    for(int i = 0; i < sPose_msg.poses.size(); ++i){
+    for(int i = 0; i < sPose_msg.sPoses.size(); ++i){
     
-      temp.sPoint.x = sPose_msg.poses[i].position.x;
-      temp.sPoint.y = sPose_msg.poses[i].position.y;
+      temp.sPoint.x = sPose_msg.sPoses[i].objPose.position.x;
+      temp.sPoint.y = sPose_msg.sPoses[i].objPose.position.y;
+      
+      temp.label = sPose_msg.sPoses[i].objLabel;
       
       sGoals_.push_back(temp); 
     }

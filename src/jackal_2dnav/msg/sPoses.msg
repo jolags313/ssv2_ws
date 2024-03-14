@@ -1,2 +1,1 @@
-geometry_msgs/Pose[] poses
-
+jackal_2dnav/sInstance[] sPoses

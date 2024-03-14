@@ -5,6 +5,7 @@
 
 #include <math.h>
 #include <vector>
+#include <string>
 #include <algorithm>
 
 #include <octomap/octomap.h>
@@ -60,13 +61,15 @@ private:
       
     float minY;
     float maxY;
+    
+    std::string label;
   };
     
   // bounding boxes  
   std::vector<boundingBox> bbInstances;
   
-  // point to use as goal
-  geometry_msgs::Pose myGoal;
+  // instance to use as goal
+  jackal_2dnav::sInstance msgInstance;
   
   // message to publish
   jackal_2dnav::sPoses msgPoses;

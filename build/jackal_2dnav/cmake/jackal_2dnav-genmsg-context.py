@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg"
+messages_str = "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg;/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg"
 services_str = ""
 pkg_name = "jackal_2dnav"
 dependencies_str = "std_msgs;geometry_msgs"

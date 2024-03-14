@@ -15,7 +15,7 @@
 #include <ros/builtin_message_traits.h>
 #include <ros/message_operations.h>
 
-#include <geometry_msgs/Pose.h>
+#include <jackal_2dnav/sInstance.h>
 
 namespace jackal_2dnav
 {
@@ -25,17 +25,17 @@ struct sPoses_
   typedef sPoses_<ContainerAllocator> Type;
 
   sPoses_()
-    : poses()  {
+    : sPoses()  {
     }
   sPoses_(const ContainerAllocator& _alloc)
-    : poses(_alloc)  {
+    : sPoses(_alloc)  {
   (void)_alloc;
     }
 
 
 
-   typedef std::vector< ::geometry_msgs::Pose_<ContainerAllocator> , typename std::allocator_traits<ContainerAllocator>::template rebind_alloc< ::geometry_msgs::Pose_<ContainerAllocator> >> _poses_type;
-  _poses_type poses;
+   typedef std::vector< ::jackal_2dnav::sInstance_<ContainerAllocator> , typename std::allocator_traits<ContainerAllocator>::template rebind_alloc< ::jackal_2dnav::sInstance_<ContainerAllocator> >> _sPoses_type;
+  _sPoses_type sPoses;
 
 
 
@@ -66,7 +66,7 @@ return s;
 template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::jackal_2dnav::sPoses_<ContainerAllocator1> & lhs, const ::jackal_2dnav::sPoses_<ContainerAllocator2> & rhs)
 {
-  return lhs.poses == rhs.poses;
+  return lhs.sPoses == rhs.sPoses;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -123,12 +123,12 @@ struct MD5Sum< ::jackal_2dnav::sPoses_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "db8ce58a1deaf0d1f2e7fdd257963e81";
+    return "89f29c293b2e6dbeec18915c4b5a83f6";
   }
 
   static const char* value(const ::jackal_2dnav::sPoses_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xdb8ce58a1deaf0d1ULL;
-  static const uint64_t static_value2 = 0xf2e7fdd257963e81ULL;
+  static const uint64_t static_value1 = 0x89f29c293b2e6dbeULL;
+  static const uint64_t static_value2 = 0xec18915c4b5a83f6ULL;
 };
 
 template<class ContainerAllocator>
@@ -147,8 +147,12 @@ struct Definition< ::jackal_2dnav::sPoses_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "geometry_msgs/Pose[] poses\n"
+    return "jackal_2dnav/sInstance[] sPoses\n"
 "\n"
+"================================================================================\n"
+"MSG: jackal_2dnav/sInstance\n"
+"geometry_msgs/Pose objPose\n"
+"string objLabel\n"
 "\n"
 "================================================================================\n"
 "MSG: geometry_msgs/Pose\n"
@@ -189,7 +193,7 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.poses);
+      stream.next(m.sPoses);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -208,13 +212,13 @@ struct Printer< ::jackal_2dnav::sPoses_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::jackal_2dnav::sPoses_<ContainerAllocator>& v)
   {
-    s << indent << "poses[]" << std::endl;
-    for (size_t i = 0; i < v.poses.size(); ++i)
+    s << indent << "sPoses[]" << std::endl;
+    for (size_t i = 0; i < v.sPoses.size(); ++i)
     {
-      s << indent << "  poses[" << i << "]: ";
+      s << indent << "  sPoses[" << i << "]: ";
       s << std::endl;
       s << indent;
-      Printer< ::geometry_msgs::Pose_<ContainerAllocator> >::stream(s, indent + "    ", v.poses[i]);
+      Printer< ::jackal_2dnav::sInstance_<ContainerAllocator> >::stream(s, indent + "    ", v.sPoses[i]);
     }
   }
 };
