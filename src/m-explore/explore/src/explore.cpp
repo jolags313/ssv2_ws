@@ -200,17 +200,39 @@ void Explore::sPoseCallback(const jackal_2dnav::sPoses& sPose_msg){
   }
 }
 
-void Explore::sGoalSort(std::vector<sGoal> &sGoals, const geometry_msgs::Pose currPose){
+void Explore::sGoalSort(std::vector<sGoal> &sGoals, const geometry_msgs::Pose currentPose){
   // assign cost to each semantic goal based on distance
   for(int i = 0; i < sGoals.size(); ++i){
-    float dx = sGoals[i].sPoint.x - currPose.position.x;
-    float dy = sGoals[i].sPoint.y - currPose.position.y;
+    float dx = sGoals[i].sPoint.x - currentPose.position.x;
+    float dy = sGoals[i].sPoint.y - currentPose.position.y;
     
     sGoals[i].distance = sqrt(pow(dx, 2) + pow(dy, 2));
   }
   
   // sort
   std::sort(sGoals.begin(), sGoals.end(), [](const sGoal& s1, const sGoal& s2) { return s1.distance < s2.distance; });
+}
+
+geometry_msgs::Pose Explore::setAngle(const geometry_msgs::Pose currentPose, const geometry_msgs::Point target){
+  // x and y distances
+  float dx = target.x - currentPose.position.x;
+  float dy = target.y - currentPose.position.y;
+  
+  // angle between the object and the current pose, recall atan2(y, x)
+  double theta = atan2(dy, dx);
+  
+  // new goal, no need to set position, all we want is the orientation which we will just pass into the goal
+  geometry_msgs::Pose newGoal;     
+  
+  // orientation
+  quat_.setRPY(0, 0, theta);
+    
+  newGoal.orientation.x = quat_.getX();
+  newGoal.orientation.y = quat_.getY();
+  newGoal.orientation.z = quat_.getZ();
+  newGoal.orientation.w = quat_.getW();
+  
+  return newGoal;
 }
 
 void Explore::makePlan()
@@ -268,7 +290,7 @@ void Explore::makePlan()
   geometry_msgs::Point target_position;
   
   // if semantic goal is present, prioritize it
-  if(sGoals_.size() > 0 && (bestS->sPoint.x != 0 && bestS->sPoint.y != 0)){
+  if(sGoals_.size() > 0 && bestS != sGoals_.end()){
     target_position = bestS->sPoint;
     isFrontier = false;
   }
@@ -301,13 +323,14 @@ void Explore::makePlan()
   // black list if we've made no progress for a long time
   if (ros::Time::now() - last_progress_ > progress_timeout_) {
     frontier_blacklist_.push_back(target_position);
-    ROS_INFO("Adding current goal to black list");
+    ROS_INFO("Adding current goal to black list due to lack of progress");
     makePlan();
     return;
   }
 
   // we don't need to do anything if we still pursuing the same goal
   if (same_goal) {
+    ROS_INFO("Pursuing same goal");
     return;
   }
 
@@ -316,12 +339,21 @@ void Explore::makePlan()
     ROS_INFO("New goal is a frontier");
   else
     ROS_INFO("New goal is a semantic goal");
+    
+  // find goal orientation (the angle of the robot's approach)
+  geometry_msgs::Pose tempPose = setAngle(pose, target_position);
   
   move_base_msgs::MoveBaseGoal goal;
   goal.target_pose.pose.position = target_position;
-  goal.target_pose.pose.orientation.w = 1.;
+  
+  goal.target_pose.pose.orientation.x = tempPose.orientation.x;
+  goal.target_pose.pose.orientation.y = tempPose.orientation.y;
+  goal.target_pose.pose.orientation.z = tempPose.orientation.z;
+  goal.target_pose.pose.orientation.w = tempPose.orientation.w;
+  
   goal.target_pose.header.frame_id = costmap_client_.getGlobalFrameID();
   goal.target_pose.header.stamp = ros::Time::now();
+  
   move_base_client_.sendGoal(
       goal, [this, target_position](
                 const actionlib::SimpleClientGoalState& status,
@@ -332,7 +364,7 @@ void Explore::makePlan()
 
 bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal)
 {
-  constexpr static size_t tolerance = 10;
+  constexpr static size_t tolerance = 15;
   costmap_2d::Costmap2D* costmap2d = costmap_client_.getCostmap();
 
   // check if a goal is on the blacklist for goals that we're pursuing
@@ -340,7 +372,7 @@ bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal)
     double x_diff = fabs(goal.x - frontier_goal.x);
     double y_diff = fabs(goal.y - frontier_goal.y);
 
-    // resolution is 0.02, tolerance = 0.1 m = 4 inches, double it to be safe to 8 inches
+    // resolution is 0.02, tolerance = 0.1 m = 4 inches, double it to be safe to 8 inches -> up to 12 inches
     if (x_diff < tolerance * costmap2d->getResolution() &&
         y_diff < tolerance * costmap2d->getResolution())
       return true;
@@ -355,7 +387,7 @@ void Explore::reachedGoal(const actionlib::SimpleClientGoalState& status,
   ROS_INFO("Reached goal with status: %s", status.toString().c_str());
   if (status == actionlib::SimpleClientGoalState::ABORTED || status == actionlib::SimpleClientGoalState::SUCCEEDED) {
     frontier_blacklist_.push_back(frontier_goal);
-    ROS_INFO("Adding current goal to black list");
+    ROS_INFO("Adding goal to black list");
   }
 
   // find new goal immediatelly regardless of planning frequency.

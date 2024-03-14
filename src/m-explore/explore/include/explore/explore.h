@@ -80,6 +80,8 @@ private:
   // semantic objects, populate with points from semantic_navigator
   std::vector<sGoal> sGoals_;
   
+  tf2::Quaternion quat_;
+  
   /**
    * @brief  Make a global plan
    */
@@ -89,7 +91,10 @@ private:
   void sPoseCallback(const jackal_2dnav::sPoses& sPose_msg);
   
   // set semantic goal cost, sort just by cost just like is done in FrontierSearch::searchFrom, pass sPoints_ by reference so we can sort it inside; take in sPoints_ and the robot pose
-  void sGoalSort(std::vector<sGoal> &sGoals, const geometry_msgs::Pose currPose);
+  void sGoalSort(std::vector<sGoal> &sGoals, const geometry_msgs::Pose currentPose);
+  
+  // set goal orientation
+  geometry_msgs::Pose setAngle(const geometry_msgs::Pose currentPose, const geometry_msgs::Point target);
 
   /**
    * @brief  Publish a frontiers as markers

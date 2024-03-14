@@ -150,7 +150,7 @@ void ImageGrabber::GrabRGBD(const sensor_msgs::ImageConstPtr& msgRGB,const senso
     transformStamped.transform.rotation.z = q[2];
     transformStamped.transform.rotation.w = q[3];
 
-    br.sendTransform(transformStamped);
+    // br.sendTransform(transformStamped);
 }
 
 

@@ -3,8 +3,8 @@ octomap:
     tree_type: 1 # 0 for real color, 1 for max fusion, 2 for bayesian fusion (keep max)
     world_frame_id: "map"
     resolution: 0.02 # was 0.02
-    max_range: 3.0 # was 5
-    raycast_range: 3.0 # was 3
+    max_range: 3.5 # was 5 -> 3
+    raycast_range: 3.5 # was 3
     clamping_thres_min: 0.12
     clamping_thres_max: 0.97
     occupancy_thres: 0.5
