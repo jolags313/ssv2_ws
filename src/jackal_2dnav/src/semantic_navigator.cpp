@@ -46,9 +46,10 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
     // ROS_INFO("Color extracted");
     // ROS_INFO_STREAM("R is " << currentColor.r << "    G is " << currentColor.g << "    B is " << currentColor.b << '\n');
     
-    // values are for the color of a person, add a z requirement to avoid counting shadows as goals
-    if(((currentColor.r == 64  && currentColor.g == 0   && currentColor.b == 128) || 
-        (currentColor.r == 128 && currentColor.g == 192 && currentColor.b == 0)) && 
+    // add a z requirement to avoid counting shadows as goals
+    if(((currentColor.r == 64  && currentColor.g == 0   && currentColor.b == 128)  || 
+        (currentColor.r == 128 && currentColor.g == 192 && currentColor.b == 0)    || 
+        (currentColor.r == 160 && currentColor.g == 192 && currentColor.b == 192)) && 
         (it.getZ() > 0.3 && it.getZ() < 1.5)){
     
       if(currentColor.r == 64  && currentColor.g == 0   && currentColor.b == 128){
@@ -59,7 +60,10 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
         // ROS_INFO("Chair found");
         label = "chair";
       }
-      
+      else if(currentColor.r == 160 && currentColor.g == 192 && currentColor.b == 192){
+        // ROS_INFO("Ball found");
+        label = "ball";
+      }
         
       // check if the vector of bounding boxes is empty
       if(bbInstances.size() == 0){

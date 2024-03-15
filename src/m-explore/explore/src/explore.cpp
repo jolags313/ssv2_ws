@@ -181,8 +181,10 @@ void Explore::visualizeFrontiers(
 
 void Explore::sPoseCallback(const jackal_2dnav::sPoses& sPose_msg){
   
-  // empty out sGoals_
-  sGoals_.clear();
+  // empty out object queues
+  sPeople_.clear();
+  sChairs_.clear();
+  sBalls_.clear();
   
   if(sPose_msg.sPoses.size() > 0){
   
@@ -196,13 +198,21 @@ void Explore::sPoseCallback(const jackal_2dnav::sPoses& sPose_msg){
       temp.sPoint.y = sPose_msg.sPoses[i].objPose.position.y;
       
       temp.label = sPose_msg.sPoses[i].objLabel;
+    
+      if(temp.label == "person")
+        sPeople_.push_back(temp);      
       
-      sGoals_.push_back(temp); 
+      if(temp.label == "chair")
+        sChairs_.push_back(temp);      
+      
+      if(temp.label == "ball")
+        sBalls_.push_back(temp);
     }
   }
 }
 
 void Explore::sGoalSort(std::vector<sGoal> &sGoals, const geometry_msgs::Pose currentPose){
+
   // assign cost to each semantic goal based on distance
   for(int i = 0; i < sGoals.size(); ++i){
     float dx = sGoals[i].sPoint.x - currentPose.position.x;
@@ -247,13 +257,15 @@ void Explore::makePlan()
   ROS_INFO("found %lu frontiers", frontiers.size());
   
   // get semantic goals sorted according to distance
-  sGoalSort(sGoals_, pose);
+  sGoalSort(sPeople_, pose);
+  sGoalSort(sChairs_, pose);
+  sGoalSort(sBalls_, pose);
   
   for (size_t i = 0; i < frontiers.size(); ++i) {
     ROS_INFO("frontier %zd cost: %f", i, frontiers[i].cost);
   }
 
-  if (frontiers.empty() && sGoals_.empty()) {
+  if (frontiers.empty()) {
     stop();
     ROS_INFO("No frontiers or semantic goals found");
     return;
@@ -277,22 +289,47 @@ void Explore::makePlan()
     return;
   }
   
+  // do the same for semantic goals
   std::vector<sGoal>::iterator bestS;
   
-  if(sGoals_.size() > 0){  
-                  
-    // do the same for semantic goals
-    bestS = std::find_if_not(sGoals_.begin(), sGoals_.end(),
-                             [this](const sGoal& s) {
-                               return goalOnBlacklist(s.sPoint);
-                             });
+  ROS_INFO_STREAM("Now searching for " << sequence_[seqNum]);
+  
+  if((sequence_[seqNum] == "person") && (sPeople_.size() > 0)){ 
+
+    bestS = std::find_if_not(sPeople_.begin(), sPeople_.end(),
+                            [this](const sGoal& s) {
+                              return goalOnBlacklist(s.sPoint);
+                            });
+    if(bestS != sPeople_.end())                        
+      isPerson = true;      
+  }
+  else if((sequence_[seqNum] == "chair") && (sChairs_.size() > 0)){
+
+    bestS = std::find_if_not(sChairs_.begin(), sChairs_.end(),
+                            [this](const sGoal& s) {
+                              return goalOnBlacklist(s.sPoint);
+                            });
+                            
+    if(bestS != sChairs_.end())
+      isChair = true;
+  }
+  else if((sequence_[seqNum] == "ball") && (sBalls_.size() > 0)){ 
+
+    bestS = std::find_if_not(sBalls_.begin(), sBalls_.end(),
+                            [this](const sGoal& s) {
+                              return goalOnBlacklist(s.sPoint);
+                            });
+                            
+    if(bestS != sBalls_.end())
+      isBall = true;
   }
 
-  bool isFrontier = true;
+  isFrontier = true;
   geometry_msgs::Point target_position;
   
   // if semantic goal is present, prioritize it
-  if(sGoals_.size() > 0 && bestS != sGoals_.end()){
+  if(isPerson || isChair || isBall){
+      
     target_position = bestS->sPoint;
     isFrontier = false;
   }
@@ -326,6 +363,11 @@ void Explore::makePlan()
   if (ros::Time::now() - last_progress_ > progress_timeout_) {
     frontier_blacklist_.push_back(target_position);
     ROS_INFO("Adding current goal to black list due to lack of progress");
+    
+    // iterate over sequence if semantic goal
+    if(!isFrontier)
+      seqNum++;
+    
     makePlan();
     return;
   }
@@ -391,6 +433,25 @@ void Explore::reachedGoal(const actionlib::SimpleClientGoalState& status,
     frontier_blacklist_.push_back(frontier_goal);
     ROS_INFO("Adding goal to black list");
   }
+  
+  // not frontier = semantic goal, iterate through sequence and reset flags
+  if(!isFrontier){
+    
+    if(seqNum == sequence_.size() - 1){
+    
+      seqNum = 0;
+      ROS_INFO("End of sequence");
+    }
+    else{
+    
+      seqNum++;     
+      ROS_INFO_STREAM("Advance one, sequence number is " << seqNum);
+    }
+    
+    isPerson = false;
+    isChair = false;
+    isBall = false;
+  } 
 
   // find new goal immediatelly regardless of planning frequency.
   // execute via timer to prevent dead lock in move_base_client (this is

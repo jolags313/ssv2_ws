@@ -81,7 +81,23 @@ private:
   };
   
   // semantic objects, populate with points from semantic_navigator
-  std::vector<sGoal> sGoals_;
+  // std::vector<sGoal> sGoals_;
+  
+  // object queues, use people, chairs, and balls + flags for each
+  std::vector<sGoal> sPeople_;
+  std::vector<sGoal> sChairs_;
+  std::vector<sGoal> sBalls_;
+  
+  bool isPerson = false;
+  bool isChair = false;
+  bool isBall = false;
+  
+  // sequence to follow and a counter
+  std::vector<std::string> sequence_ = {"person", "ball", "chair"};
+  int seqNum = 0;
+  
+  // here from cpp
+  bool isFrontier = false;
   
   tf2::Quaternion quat_;
   
