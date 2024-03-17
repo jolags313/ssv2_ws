@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include/jackal_2dnav/grassLimits.h"
+  "/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include/jackal_2dnav/grasslands.h"
   "/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include/jackal_2dnav/sInstance.h"
   "/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include/jackal_2dnav/sPoses.h"
   "CMakeFiles/jackal_2dnav_generate_messages_cpp"

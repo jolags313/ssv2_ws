@@ -135,8 +135,10 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/jackal_2dnav/msg" TYPE FILE FILES
-    "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg"
     "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sInstance.msg"
+    "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/sPoses.msg"
+    "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/grassLimits.msg"
+    "/home/conlab/ssv2_ws/src/jackal_2dnav/msg/grasslands.msg"
     )
 endif()
 

@@ -1,0 +1,5 @@
+<library path="lib/libnew_layer">
+  <class type="terrain_layer_namespace::TerrainLayer" base_class_type="costmap_2d::Layer">
+    <description>Used to represent terrain (ie grass)</description>
+  </class>
+</library>

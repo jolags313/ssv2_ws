@@ -1,0 +1,8 @@
+prefix=/home/conlab/ssv2_ws/install
+
+Name: new_layers
+Description: Description of new_layers
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

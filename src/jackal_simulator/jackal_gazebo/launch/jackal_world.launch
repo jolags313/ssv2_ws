@@ -1,4 +1,5 @@
 <launch>
+
   <arg name="use_sim_time" default="true" />
   <arg name="gui" default="true" />
   <arg name="headless" default="false" />
@@ -6,7 +7,7 @@
 
   <!-- Short-term hack to support the original front_laser:=true argument for spawning
        the simulator. This will be removed in favour of using the config:=x arg instead. -->
-  <arg name="front_laser" default="false" />
+  <arg name="front_laser" default="true" />
   <arg name="default_config" value="front_laser" if="$(arg front_laser)" />
   <arg name="default_config" value="base" unless="$(arg front_laser)" />
   <!-- end of hack -->
@@ -36,4 +37,9 @@
     <arg name="config" value="$(arg config)" />
     <arg name="joystick" value="$(arg joystick)" />
   </include>
+  
+  <node pkg="tf" type="static_transform_publisher" name="env_map_broadcaster" args="0 0 0 0 0 0 1 env map 100" />
+  
+  <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 1 map odom 100" />
+  
 </launch>

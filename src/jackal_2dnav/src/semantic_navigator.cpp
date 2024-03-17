@@ -8,7 +8,10 @@ semanticExplore::semanticExplore(){
   // ROS_INFO("Object created");
   
   // Topic to publish (vector of inflated goal poses to pass to explore_lite)
-  pub_ = nh_.advertise<jackal_2dnav::sPoses>("/semantic_goals", 1);
+  objPub_ = nh_.advertise<jackal_2dnav::sPoses>("/semantic_goals", 1);
+  
+  // Topic to publish (vector of lists of four floats (grass bounding box limits))
+  grassPub_ = nh_.advertise<jackal_2dnav::grasslands>("/grassland", 1);
   
   // Topic to subscribe to (full octomap message from octomap_generator)
   sub_ = nh_.subscribe("floatlazer/octomap_full", 1, &semanticExplore::semanticCallback, this);
@@ -46,11 +49,26 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
     // ROS_INFO("Color extracted");
     // ROS_INFO_STREAM("R is " << currentColor.r << "    G is " << currentColor.g << "    B is " << currentColor.b << '\n');
     
-    // add a z requirement to avoid counting shadows as goals
+    bool isObject = false;
+    bool isGrass = false;
+    
     if(((currentColor.r == 64  && currentColor.g == 0   && currentColor.b == 128)  || 
         (currentColor.r == 128 && currentColor.g == 192 && currentColor.b == 0)    || 
         (currentColor.r == 160 && currentColor.g == 192 && currentColor.b == 192)) && 
         (it.getZ() > 0.3 && it.getZ() < 1.5)){
+        
+      // is member of desired class
+      isObject = true;
+    }
+    
+    if(((currentColor.r == 192  && currentColor.g == 0    && currentColor.b == 0)    ||
+        (currentColor.r == 192  && currentColor.g == 0    && currentColor.b == 128)  ||
+        (currentColor.r == 192  && currentColor.g == 64   && currentColor.b == 128)) &&
+        it.getZ() <= 0.3)
+      isGrass = true;
+      
+    // add a z requirement to avoid counting shadows as goals, current colors are for people, chairs, balls
+    if(isObject || isGrass){
     
       if(currentColor.r == 64  && currentColor.g == 0   && currentColor.b == 128){
         // ROS_INFO("Person found");
@@ -63,6 +81,10 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
       else if(currentColor.r == 160 && currentColor.g == 192 && currentColor.b == 192){
         // ROS_INFO("Ball found");
         label = "ball";
+      }
+      else if(isGrass){
+        // ROS_INFO("Grass found");
+        label = "grass";
       }
         
       // check if the vector of bounding boxes is empty
@@ -98,7 +120,7 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
       
         // ROS_INFO("Non-empty BB");
             
-        // iterate through bounding boxes -> DO NOT USE AN ITERATOR (https://stackoverflow.com/questions/37900109/adding-an-element-to-a-vector-while-iterating-over-it)
+        // iterate through bounding boxes -> DO NOT USE AN ITERATOR, YOU CANNOT CHANGE A VECTOR AS YOU ITERATE OVER IT
         int currentSize = bbInstances.size();          
         for(int i = 0; i < currentSize; ++i){
           
@@ -151,18 +173,15 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
   }
   
   // ROS_INFO("Outside of iterator");
+  
   // ROS_INFO_STREAM("Vector size is " << bbInstances.size() << " before trimming" << '\n');
   
   // check to see which is the largest in area (placeholder metric, will be using a vector of these when used with explore_lite like with the frontiers -> weighted to choose the best one)
   float minArea = 0.1; // 0.1 m^2 = about 4 inches x 4 inches
-  float bbArea = minArea;
-  int idx = 0;
   
   int currentSize = bbInstances.size();
   int currentIdx = 0;
   int numErased = 0;
-  
-  int msgLength = 0;
   
   // make sure we have bounding box(es)
   if(currentSize > 0){   
@@ -179,48 +198,48 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
       // ROS_INFO_STREAM("Bounding box area is " << currentArea << '\n');
       
       if(currentArea < minArea){
+      
         bbInstances.erase(bbInstances.begin() + currentIdx);
         numErased++;
         
         // ROS_INFO_STREAM("Current vector size = " << bbInstances.size() << '\n');
       }
-      else if(currentArea > bbArea){    
-        bbArea = currentArea;
-        idx = currentIdx;
+      else if(bbInstances[currentIdx].label != "grass"){    
+
         // ROS_INFO_STREAM("Current vector size = " << bbInstances.size() << " and idx = " << idx << '\n');
         
         // make newGoal and push into newGoals
         geometry_msgs::Pose newGoal = inflateGoal(robotX, robotY, bbInstances[currentIdx]);
-        // myGoal = newGoal;
+
         msgInstance.objPose = newGoal;
         msgInstance.objLabel = bbInstances[currentIdx].label;
         
         // ROS_INFO_STREAM("New message with area " << currentArea << " with x at " << newGoal.position.x << " and y at " << newGoal.position.y);
         
-        // newGoals.push_back(newGoal);
         msgPoses.sPoses.push_back(msgInstance); 
-        msgLength++;
       }
-      else{  
-        geometry_msgs::Pose newGoal = inflateGoal(robotX, robotY, bbInstances[currentIdx]);
+      else if(bbInstances[currentIdx].label == "grass" && currentArea > 0.3){  
         
-        msgInstance.objPose = newGoal;
-        msgInstance.objLabel = bbInstances[currentIdx].label;
+        // fill vector of messages of four floats (bounding box limits)
+        grassBox.minX = bbInstances[currentIdx].minX;
+        grassBox.maxX = bbInstances[currentIdx].maxX;
         
-        // ROS_INFO_STREAM("New message with area " << currentArea << " with x at " << newGoal.position.x << " and y at " << newGoal.position.y);
-        
-        msgPoses.sPoses.push_back(msgInstance);
-        msgLength++;    
+        grassBox.minY = bbInstances[currentIdx].minY;
+        grassBox.maxY = bbInstances[currentIdx].maxY;
+      
+        grassland.grasslands.push_back(grassBox);
       }
     }
   }
   
-  // publish goals
-  pub_.publish(msgPoses);
+  // publish goals and grass
+  objPub_.publish(msgPoses);
+  grassPub_.publish(grassland);
   
   // clear vectors
   bbInstances.clear();
   msgPoses.sPoses.clear();
+  grassland.grasslands.clear();
 }
 
 geometry_msgs::Pose semanticExplore::getCurrentPose(){
@@ -272,6 +291,12 @@ bool semanticExplore::checkAdjacency(double newX,
   
   float dx = std::max({currentBB.minX - newX, 0.0, newX - currentBB.maxX});
   float dy = std::max({currentBB.minY - newY, 0.0, newY - currentBB.maxY});
+  
+  // higher minimum distance for grass 
+  if(currentBB.label == "grass")
+    minDistance = 0.5;
+  else
+    minDistance = 0.2;
   
   if(sqrt(pow(dx, 2) + pow(dy, 2)) <= minDistance)
     return true;

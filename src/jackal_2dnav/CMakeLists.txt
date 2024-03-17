@@ -81,8 +81,10 @@ find_package(catkin REQUIRED COMPONENTS ${PACKAGE_DEPENDENCIES})
 ## Generate messages in the 'msg' folder
 add_message_files(
    FILES
-   sPoses.msg
    sInstance.msg
+   sPoses.msg
+   grassLimits.msg
+   grasslands.msg
 )
 
 ## Generate services in the 'srv' folder

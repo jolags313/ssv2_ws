@@ -1,0 +1,4 @@
+[31m[1mCMake Error[0m at /home/conlab/ssv2_ws/src/new_layers/CMakeLists.txt:124:
+  Parse error.  Function missing ending ")".  End of file reached.
+
+
