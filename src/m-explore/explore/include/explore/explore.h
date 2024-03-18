@@ -93,8 +93,16 @@ private:
   bool isBall = false;
   
   // sequence to follow and a counter
-  std::vector<std::string> sequence_ = {"person", "ball", "chair"};
+  std::vector<std::string> sequence_ = {"person", "chair", "ball"};
   int seqNum = 0;
+  
+  // placeholder for skipped class
+  int skippedClass = -1;
+  bool skip = false;
+  
+  // number of instances found of each class, use to check if a new one has been found for the skipped class, same order as sequence + T/F if a new one has been found
+  std::vector<int> numObj_ = {0, 0, 0};
+  std::vector<bool> newObj_ = {false, false, false};
   
   // here from cpp
   bool isFrontier = false;
@@ -109,7 +117,7 @@ private:
   // populate sGoals_ with the points from semantic_navigator
   void sPoseCallback(const jackal_2dnav::sPoses& sPose_msg);
   
-  // set semantic goal cost, sort just by cost just like is done in FrontierSearch::searchFrom, pass sPoints_ by reference so we can sort it inside; take in sPoints_ and the robot pose
+  // set semantic goal cost, sort just by cost just like is done in FrontierSearch::searchFrom,  pass in sPoints_ by reference (to sort it) and the robot pose
   void sGoalSort(std::vector<sGoal> &sGoals, const geometry_msgs::Pose currentPose);
   
   // set goal orientation

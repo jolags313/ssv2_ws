@@ -1,0 +1,16 @@
+[35m[1mScanning dependencies of target new_layers[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/new_layers.dir/src/terrain_layer.cpp.o[0m
+[01m[K/home/conlab/ssv2_ws/src/new_layers/src/terrain_layer.cpp:[m[K In member function ‘[01m[Kvirtual void terrain_layer_namespace::TerrainLayer::updateBounds(double, double, double, double*, double*, double*, double*)[m[K’:
+[01m[K/home/conlab/ssv2_ws/src/new_layers/src/terrain_layer.cpp:74:29:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kterrain_layer_namespace::TerrainLayer::setCost(unsigned int&, unsigned int&)[m[K’
+   74 |           setCost(mapX, mapY[01;31m[K)[m[K, GRASS_COST_);
+      |                             [01;31m[K^[m[K
+In file included from [01m[K/opt/ros/noetic/include/costmap_2d/layer.h:40[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/new_layers/include/new_layers/terrain_layer.h:6[m[K,
+                 from [01m[K/home/conlab/ssv2_ws/src/new_layers/src/terrain_layer.cpp:1[m[K:
+[01m[K/opt/ros/noetic/include/costmap_2d/costmap_2d.h:124:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kvoid costmap_2d::Costmap2D::setCost(unsigned int, unsigned int, unsigned char)[m[K’
+  124 |   void [01;36m[KsetCost[m[K(unsigned int mx, unsigned int my, unsigned char cost);
+      |        [01;36m[K^~~~~~~[m[K
+[01m[K/opt/ros/noetic/include/costmap_2d/costmap_2d.h:124:8:[m[K [01;36m[Knote: [m[K  candidate expects 3 arguments, 2 provided
+make[2]: *** [CMakeFiles/new_layers.dir/build.make:82: CMakeFiles/new_layers.dir/src/terrain_layer.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:269: CMakeFiles/new_layers.dir/all] Error 2
+make: *** [Makefile:160: all] Error 2

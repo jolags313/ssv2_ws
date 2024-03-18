@@ -21,9 +21,10 @@ global_costmap:
   static_map: false
   
   plugins:
-  - {name: static,               type: "costmap_2d::StaticLayer"}
-  - {name: obstacles,            type: "costmap_2d::ObstacleLayer"}
-  - {name: inflation,            type: "costmap_2d::InflationLayer"}
+  - {name: static,      type: "costmap_2d::StaticLayer"}
+  - {name: obstacles,   type: "costmap_2d::ObstacleLayer"}
+  - {name: inflation,   type: "costmap_2d::InflationLayer"}
+  - {name: terrain,     type: "costmap_2d::TerrainLayer"}
   
   obstacles:
    

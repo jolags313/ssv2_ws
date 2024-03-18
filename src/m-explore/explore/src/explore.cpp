@@ -208,6 +208,27 @@ void Explore::sPoseCallback(const jackal_2dnav::sPoses& sPose_msg){
       if(temp.label == "ball")
         sBalls_.push_back(temp);
     }
+    
+    if(sPeople_.size() > numObj_[0]){
+      numObj_[0] = sPeople_.size();
+      newObj_[0] = true;
+    }
+    else
+      newObj_[0] = false; 
+      
+    if(sChairs_.size() > numObj_[1]){
+      numObj_[1] = sChairs_.size();
+      newObj_[1] = true;
+    }
+    else
+      newObj_[1] = false; 
+      
+    if(sBalls_.size() > numObj_[2]){
+      numObj_[2] = sBalls_.size();
+      newObj_[2] = true;
+    }
+    else
+      newObj_[2] = false; 
   }
 }
 
@@ -292,6 +313,13 @@ void Explore::makePlan()
   // do the same for semantic goals
   std::vector<sGoal>::iterator bestS;
   
+  // return to skipped class if instance is found
+  if(skip && newObj_[skippedClass] == true){  
+    seqNum = skippedClass;
+    skippedClass = -1;
+    skip = false;
+  }
+  
   ROS_INFO_STREAM("Now searching for " << sequence_[seqNum]);
   
   if((sequence_[seqNum] == "person") && (sPeople_.size() > 0)){ 
@@ -365,8 +393,13 @@ void Explore::makePlan()
     ROS_INFO("Adding current goal to black list due to lack of progress");
     
     // iterate over sequence if semantic goal
-    if(!isFrontier)
+    if(!isFrontier && skippedClass == -1){
+      // save skipped class so we can return to it
+      skippedClass = seqNum;
+      skip = true;
+      
       seqNum++;
+    }
     
     makePlan();
     return;

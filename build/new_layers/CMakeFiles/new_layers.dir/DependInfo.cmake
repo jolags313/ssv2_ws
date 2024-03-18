@@ -19,9 +19,16 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/home/conlab/ssv2_ws/src/new_layers/include"
+  "/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include"
+  "/home/conlab/ssv2_ws/src/jackal_2dnav/include"
   "/opt/ros/noetic/include"
   "/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   "/usr/include/eigen3"
+  "/usr/include/pcl-1.10"
+  "/usr/include/ni"
+  "/usr/include/openni2"
+  "/usr/include/vtk-7.1"
+  "/usr/include/freetype2"
   )
 
 # Targets to which this target links.

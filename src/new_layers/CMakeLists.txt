@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   costmap_2d
   dynamic_reconfigure
   roscpp
+  jackal_2dnav
 )
 
 ## System dependencies are found with CMake's conventions
@@ -105,7 +106,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES new_layers
-#  CATKIN_DEPENDS costmap_2d dynamic_reconfigure roscpp
+   CATKIN_DEPENDS costmap_2d dynamic_reconfigure roscpp jackal_2dnav
 #  DEPENDS system_lib
 )
 

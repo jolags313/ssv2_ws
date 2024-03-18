@@ -21,8 +21,14 @@ void TerrainLayer::onInitialize()
   dsrv_ = new dynamic_reconfigure::Server<costmap_2d::GenericPluginConfig>(nh);
   dynamic_reconfigure::Server<costmap_2d::GenericPluginConfig>::CallbackType cb = boost::bind(&TerrainLayer::reconfigureCB, this, _1, _2);
   dsrv_->setCallback(cb);
+  
+  sub_ = nh.subscribe("/grassland", 1, &TerrainLayer::grassCallback, this);
 }
 
+void TerrainLayer::grassCallback(const jackal_2dnav::grasslands& grassyAreas){
+  // just copying into class member
+  grassyAreas_ = grassyAreas;
+}
 
 void TerrainLayer::matchSize()
 {
@@ -40,6 +46,43 @@ void TerrainLayer::updateBounds(double robot_x, double robot_y, double robot_yaw
 {
   if (!enabled_)
     return;
+  
+  // resolution (meters/cell)
+  Costmap2D* tempPtr = layered_costmap_->getCostmap();
+  float resolution = tempPtr->getResolution();
+  
+  // grassyAreas_ length = number of grassy areas
+  for(int i = 0; i < grassyAreas_.grasslands.size(); ++i){
+    
+    // find number of cells in the x and y -> result is an int, so the fractional part is discarded
+    int numX = (grassyAreas_.grasslands[i].maxX - grassyAreas_.grasslands[i].minX) / resolution;
+    int numY = (grassyAreas_.grasslands[i].maxY - grassyAreas_.grasslands[i].minY) / resolution;
+    
+    // find points within each cell and set the cost for that cell
+    for(int row = 0; row < numY; ++row){
+    
+      for(int col = 0; col < numX; ++col){
+      
+        unsigned int mapX;
+        unsigned int mapY;
+        
+        double worldX = grassyAreas_.grasslands[i].minX + (col * resolution);
+        double worldY = grassyAreas_.grasslands[i].minY + (row * resolution);
+        
+        // set cost
+        if(worldToMap(worldX, worldY, mapX, mapY)){
+          setCost(mapX, mapY, GRASS_COST_);
+          
+        // update bounds
+        *min_x = std::min(*min_x, worldX);
+        *max_x = std::max(*max_x, worldX);
+    
+        *min_y = std::min(*min_y, worldY);
+        *max_y = std::max(*max_y, worldY);
+        }
+      }
+    }
+  }
 
   double mark_x = robot_x + cos(robot_yaw), mark_y = robot_y + sin(robot_yaw);
   

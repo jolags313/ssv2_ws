@@ -30,8 +30,9 @@ aggressive_clear:
 # laser_scan_sensor: {sensor_frame: front_laser, data_type: LaserScan, topic: front/scan, marking: true, clearing: true}
 
 plugins:
-- {name: obstacles_layer, type: "costmap_2d::ObstacleLayer"}
-- {name: inflate_layer, type: "costmap_2d::InflationLayer"}
+- {name: obstacles_layer,    type: "costmap_2d::ObstacleLayer"}
+- {name: inflate_layer,      type: "costmap_2d::InflationLayer"}
+- {name: terrain_layer,      type: "costmap_2d::TerrainLayer"}
 
 obstacles_layer:
   observation_sources: scan

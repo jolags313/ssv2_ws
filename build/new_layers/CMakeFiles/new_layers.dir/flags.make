@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = -DROSCONSOLE_BACKEND_LOG4CXX -DROS_BUILD_SHARED_LIBS=1 -DROS_PACKAGE_NAME=\"new_layers\" -Dnew_layers_EXPORTS
 
-CXX_INCLUDES = -I/home/conlab/ssv2_ws/src/new_layers/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3
+CXX_INCLUDES = -I/home/conlab/ssv2_ws/src/new_layers/include -I/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/include -I/home/conlab/ssv2_ws/src/jackal_2dnav/include -I/opt/ros/noetic/include -I/opt/ros/noetic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp -I/usr/include/eigen3 -I/usr/include/pcl-1.10 -I/usr/include/ni -I/usr/include/openni2 -I/usr/include/vtk-7.1 -I/usr/include/freetype2
 
 CXX_FLAGS = -fPIC
 

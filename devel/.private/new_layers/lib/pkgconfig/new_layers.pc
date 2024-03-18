@@ -5,4 +5,4 @@ Description: Description of new_layers
 Version: 0.0.0
 Cflags: 
 Libs: -L${prefix}/lib 
-Requires: 
+Requires: costmap_2d dynamic_reconfigure roscpp jackal_2dnav

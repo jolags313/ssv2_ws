@@ -8,6 +8,8 @@
 
 # modified environment variables
 export CMAKE_PREFIX_PATH="/home/conlab/ssv2_ws/devel/.private/new_layers:$CMAKE_PREFIX_PATH"
+export LD_LIBRARY_PATH="/home/conlab/ssv2_ws/devel/.private/new_layers/lib:$LD_LIBRARY_PATH"
+export PKG_CONFIG_PATH="/home/conlab/ssv2_ws/devel/.private/new_layers/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD='/home/conlab/ssv2_ws/build/new_layers'
 export ROSLISP_PACKAGE_DIRECTORIES="/home/conlab/ssv2_ws/devel/.private/new_layers/share/common-lisp:$ROSLISP_PACKAGE_DIRECTORIES"
 export ROS_PACKAGE_PATH="/home/conlab/ssv2_ws/src/new_layers:$ROS_PACKAGE_PATH"
