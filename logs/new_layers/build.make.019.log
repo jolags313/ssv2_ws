@@ -1,4 +1,0 @@
-[35m[1mScanning dependencies of target new_layers[0m
-[ 50%] [32mBuilding CXX object CMakeFiles/new_layers.dir/src/terrain_layer.cpp.o[0m
-[100%] [32m[1mLinking CXX shared library /home/conlab/ssv2_ws/devel/.private/new_layers/lib/libnew_layers.so[0m
-[100%] Built target new_layers

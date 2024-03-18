@@ -32,12 +32,15 @@ aggressive_clear:
 plugins:
 - {name: obstacles_layer,    type: "costmap_2d::ObstacleLayer"}
 - {name: inflate_layer,      type: "costmap_2d::InflationLayer"}
-- {name: terrain_layer,      type: "costmap_2d::TerrainLayer"}
+- {name: terrain_layer,      type: "terrain_layer_namespace::TerrainLayer"}
 
 obstacles_layer:
   observation_sources: scan
   scan: {sensor_frame: front_laser, data_type: LaserScan, topic: front/scan, marking: true, clearing: true, obstacle_range: 3.0, raytrace_range: 4.0}
 
 inflate_layer:
- inflation_radius: 0.30
+  inflation_radius: 0.30
+  
+terrain_layer:
+  enabled: true
 

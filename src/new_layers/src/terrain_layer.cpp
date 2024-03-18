@@ -54,7 +54,7 @@ void TerrainLayer::updateBounds(double robot_x, double robot_y, double robot_yaw
   // grassyAreas_ length = number of grassy areas
   for(int i = 0; i < grassyAreas_.grasslands.size(); ++i){
     
-    // find number of cells in the x and y -> result is an int, so the fractional part is discarded
+    // find number of columns and rows in the x and y -> result is an int, so the fractional part is discarded
     int numX = (grassyAreas_.grasslands[i].maxX - grassyAreas_.grasslands[i].minX) / resolution;
     int numY = (grassyAreas_.grasslands[i].maxY - grassyAreas_.grasslands[i].minY) / resolution;
     
@@ -83,20 +83,6 @@ void TerrainLayer::updateBounds(double robot_x, double robot_y, double robot_yaw
       }
     }
   }
-
-  double mark_x = robot_x + cos(robot_yaw), mark_y = robot_y + sin(robot_yaw);
-  
-  unsigned int mx;
-  unsigned int my;
-  
-  if(worldToMap(mark_x, mark_y, mx, my)){
-    setCost(mx, my, LETHAL_OBSTACLE);
-  }
-  
-  *min_x = std::min(*min_x, mark_x);
-  *min_y = std::min(*min_y, mark_y);
-  *max_x = std::max(*max_x, mark_x);
-  *max_y = std::max(*max_y, mark_y);
 }
 
 void TerrainLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i, int min_j, int max_i, int max_j)

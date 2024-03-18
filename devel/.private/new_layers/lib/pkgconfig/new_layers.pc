@@ -3,6 +3,6 @@ prefix=/home/conlab/ssv2_ws/devel/.private/new_layers
 Name: new_layers
 Description: Description of new_layers
 Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: costmap_2d dynamic_reconfigure roscpp jackal_2dnav
+Cflags: -I/home/conlab/ssv2_ws/src/new_layers/include
+Libs: -L${prefix}/lib -lterrain_layer
+Requires: costmap_2d dynamic_reconfigure pluginlib roscpp jackal_2dnav
