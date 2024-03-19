@@ -96,9 +96,18 @@ private:
   std::vector<std::string> sequence_ = {"person", "chair", "ball"};
   int seqNum = 0;
   
-  // placeholder for skipped class
-  int skippedClass = -1;
+  // flag for first run, just used for skip stuff
+  bool notFirst = false;
+  
+  // previous class and time since last move in sequence + patience for each class search
+  int previousClass = -1;
+  ros::Time lastSeqMove;
+  ros::Duration classPatience = ros::Duration(60.0);
+  
+  // placeholder for skipped class + bool firstSkip so make sure we only save the earliest skip
+  int skippedClass;
   bool skip = false;
+  bool firstSkip = true;
   
   // number of instances found of each class, use to check if a new one has been found for the skipped class, same order as sequence + T/F if a new one has been found
   std::vector<int> numObj_ = {0, 0, 0};

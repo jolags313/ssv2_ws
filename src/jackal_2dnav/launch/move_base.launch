@@ -16,6 +16,10 @@
 
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="log">
       
+      <!-- use RRT -->
+      <!--param name="base_global_planner" value="global_planner/RRTGlobalPlanner"/>
+      <rosparam file="$(find rrt-global-planner)/params/rrt_global_planner.yaml" command="load" /-->
+      
       <rosparam file="$(find jackal_2dnav)/params/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
       <rosparam file="$(find jackal_2dnav)/params/costmap_common_params.yaml" command="load" ns="local_costmap" />
     

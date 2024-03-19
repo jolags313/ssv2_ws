@@ -49,7 +49,7 @@ private:
   void grassCallback(const jackal_2dnav::grasslands& grassyAreas);
   
   // grass cost, just use 50 (see figure explaining inflation) -> why is this a char? Just following how they do it in cost_values.h and the documentation
-  static const unsigned char GRASS_COST_ = 50;
+  static const unsigned char GRASS_COST_ = 10;
   
   
 }; // class

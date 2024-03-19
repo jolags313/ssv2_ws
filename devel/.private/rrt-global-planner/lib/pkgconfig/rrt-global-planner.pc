@@ -1,0 +1,8 @@
+prefix=/home/conlab/ssv2_ws/devel/.private/rrt-global-planner
+
+Name: rrt-global-planner
+Description: Description of rrt-global-planner
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
