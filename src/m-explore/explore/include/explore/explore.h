@@ -99,10 +99,9 @@ private:
   // flag for first run, just used for skip stuff
   bool notFirst = false;
   
-  // previous class and time since last move in sequence + patience for each class search
-  int previousClass = -1;
+  // time since last move in sequence + patience for each class search
   ros::Time lastSeqMove;
-  ros::Duration classPatience = ros::Duration(60.0);
+  ros::Duration classPatience = ros::Duration(100.0);
   
   // placeholder for skipped class + bool firstSkip so make sure we only save the earliest skip
   int skippedClass;
@@ -144,7 +143,7 @@ private:
                    const move_base_msgs::MoveBaseResultConstPtr& result,
                    const geometry_msgs::Point& frontier_goal);
 
-  bool goalOnBlacklist(const geometry_msgs::Point& goal);
+  bool goalOnBlacklist(const geometry_msgs::Point& goal, bool sFlag);
   
   ros::NodeHandle private_nh_;
   ros::NodeHandle relative_nh_;

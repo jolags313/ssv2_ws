@@ -3,7 +3,7 @@
 <!-- run semantic_navigation -->
 <node pkg="jackal_2dnav" type="semantic_navigator" name="semantic_navigator" output="screen"/>
 
-<node pkg="explore_lite" type="explore" respawn="false" name="explore" output="screen">
+<node pkg="explore_lite" type="explore" respawn="true" name="explore" output="screen">
 
   <param name="robot_base_frame" value="base_link"/>
   <param name="costmap_topic" value="/move_base/global_costmap/costmap"/>
@@ -13,14 +13,15 @@
   
   <!-- planner_frequency was 0.2 -->
   <param name="planner_frequency" value="0.2"/>
-  <param name="progress_timeout" value="10.0"/>
+  <param name="progress_timeout" value="15.0"/>
   
-  <param name="potential_scale" value="3.0"/>
+  <!-- potential_scale was 3, min_frontier_size was 0.5 -->
+  <param name="potential_scale" value="0.0001"/>
   <!--param name="orientation_scale" value="0.0"/>
   
   <param name="gain_scale" value="1.0"/>
-  <param name="transform_tolerance" value="0.3"/>
-  <param name="min_frontier_size" value="0.5"/-->
+  <param name="transform_tolerance" value="0.3"/-->
+  <param name="min_frontier_size" value="0.3"/>
   
 </node>
 

@@ -67,7 +67,7 @@ Explore::Explore()
   private_nh_.param("potential_scale", potential_scale_, 1e-3);
   private_nh_.param("orientation_scale", orientation_scale_, 0.0);
   private_nh_.param("gain_scale", gain_scale_, 1.0);
-  private_nh_.param("min_frontier_size", min_frontier_size, 0.5);
+  private_nh_.param("min_frontier_size", min_frontier_size, 0.4);
   
   // subscribe to semantic_goals
   sub_ = relative_nh_.subscribe("/semantic_goals", 1, &Explore::sPoseCallback, this);
@@ -146,7 +146,7 @@ void Explore::visualizeFrontiers(
     m.scale.y = 0.1;
     m.scale.z = 0.1;
     m.points = frontier.points;
-    if (goalOnBlacklist(frontier.centroid)) {
+    if (goalOnBlacklist(frontier.centroid, false)) {
       m.color = red;
     } else {
       m.color = blue;
@@ -288,7 +288,7 @@ void Explore::makePlan()
 
   if (frontiers.empty()) {
     stop();
-    ROS_DEBUG("No frontiers or semantic goals found");
+    ROS_DEBUG("No new frontiers found");
     return;
   }
 
@@ -301,24 +301,26 @@ void Explore::makePlan()
   auto frontier =
       std::find_if_not(frontiers.begin(), frontiers.end(),
                        [this](const frontier_exploration::Frontier& f) {
-                         return goalOnBlacklist(f.centroid);
+                         return goalOnBlacklist(f.centroid, false);
                        });
                        
   if (frontier == frontiers.end()) {
     stop();
-    ROS_INFO("No more frontiers found");
+    ROS_INFO("No unvisited frontiers found");
     return;
   }
   
   // do the same for semantic goals
   std::vector<sGoal>::iterator bestS;
   
-  // first run 
+  // if on the first loop 
   if(!notFirst)
     lastSeqMove = ros::Time::now();
   
   // iterate over sequence if semantic goal
-  if(notFirst && ros::Time::now() - lastSeqMove > classPatience){
+  if(notFirst && (ros::Time::now() - lastSeqMove > classPatience)){
+    
+    lastSeqMove = ros::Time::now();
     
     // save skipped class so we can return to it
     if(firstSkip){
@@ -346,36 +348,46 @@ void Explore::makePlan()
     firstSkip = true;
   }
   
+  isPerson = false;
+  isChair = false;
+  isBall = false;
+  
   ROS_INFO_STREAM("Currently searching for a " << sequence_[seqNum]);
   
   if((sequence_[seqNum] == "person") && (sPeople_.size() > 0)){ 
-
+    
     bestS = std::find_if_not(sPeople_.begin(), sPeople_.end(),
                             [this](const sGoal& s) {
-                              return goalOnBlacklist(s.sPoint);
+                              return goalOnBlacklist(s.sPoint, true);
                             });
-    if(bestS != sPeople_.end())                        
-      isPerson = true;      
+    if(bestS != sPeople_.end()){                        
+      isPerson = true; 
+      // ROS_INFO("isPerson"); 
+    }    
   }
   else if((sequence_[seqNum] == "chair") && (sChairs_.size() > 0)){
-
+    
     bestS = std::find_if_not(sChairs_.begin(), sChairs_.end(),
                             [this](const sGoal& s) {
-                              return goalOnBlacklist(s.sPoint);
+                              return goalOnBlacklist(s.sPoint, true);
                             });
                             
-    if(bestS != sChairs_.end())
+    if(bestS != sChairs_.end()){
       isChair = true;
+      // ROS_INFO("isChair");
+    }
   }
   else if((sequence_[seqNum] == "ball") && (sBalls_.size() > 0)){ 
 
     bestS = std::find_if_not(sBalls_.begin(), sBalls_.end(),
                             [this](const sGoal& s) {
-                              return goalOnBlacklist(s.sPoint);
+                              return goalOnBlacklist(s.sPoint, true);
                             });
                             
-    if(bestS != sBalls_.end())
+    if(bestS != sBalls_.end()){
       isBall = true;
+      // ROS_INFO("isBall");
+    }
   }
 
   isFrontier = true;
@@ -383,7 +395,9 @@ void Explore::makePlan()
   
   // if semantic goal is present, prioritize it
   if(isPerson || isChair || isBall){
-      
+     
+    // ROS_INFO("isNotFrontier"); 
+    
     target_position = bestS->sPoint;
     isFrontier = false;
   }
@@ -404,17 +418,9 @@ void Explore::makePlan()
       prev_distance_ = frontier->min_distance;
     }
   }
-  else{
-  
-    if (!same_goal || prev_distance_ > bestS->distance) {
-      // we have different goal or we made some progress
-      last_progress_ = ros::Time::now();
-      prev_distance_ = frontier->min_distance;
-    }
-  }
   
   // black list if we've made no progress for a long time
-  if (ros::Time::now() - last_progress_ > progress_timeout_) {
+  if (isFrontier && (ros::Time::now() - last_progress_ > progress_timeout_)) {
     frontier_blacklist_.push_back(target_position);
     ROS_INFO("Adding current goal to black list due to lack of progress");
     
@@ -456,19 +462,22 @@ void Explore::makePlan()
       });
 }
 
-bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal)
+bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal, bool sFlag)
 {
-  constexpr static size_t tolerance = 15;
+  // separate tolerances for frontiers and semantic goals, resolution is 0.02, so a tolerance of 5 = 4 inches, sTolerance was 15
+  constexpr static size_t fTolerance = 5;
+  constexpr static size_t sTolerance = 50;
+    
   costmap_2d::Costmap2D* costmap2d = costmap_client_.getCostmap();
 
   // check if a goal is on the blacklist for goals that we're pursuing
   for (auto& frontier_goal : frontier_blacklist_) {
     double x_diff = fabs(goal.x - frontier_goal.x);
     double y_diff = fabs(goal.y - frontier_goal.y);
-
-    // resolution is 0.02, tolerance = 0.1 m = 4 inches, double it to be safe to 8 inches -> up to 12 inches
-    if (x_diff < tolerance * costmap2d->getResolution() &&
-        y_diff < tolerance * costmap2d->getResolution())
+ 
+    if (sFlag && (x_diff < sTolerance * costmap2d->getResolution() && y_diff < sTolerance * costmap2d->getResolution()))
+      return true;
+    else if (!sFlag && (x_diff < fTolerance * costmap2d->getResolution() && y_diff < fTolerance * costmap2d->getResolution()))
       return true;
   }
   return false;
@@ -487,7 +496,7 @@ void Explore::reachedGoal(const actionlib::SimpleClientGoalState& status,
   // not frontier = semantic goal, iterate through sequence and reset flags
   if(!isFrontier){
   
-    previousClass = seqNum;
+    ROS_INFO_STREAM("Found a " << sequence_[seqNum]);
     lastSeqMove = ros::Time::now();
     
     if(seqNum == sequence_.size() - 1){

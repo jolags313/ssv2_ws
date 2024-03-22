@@ -1,0 +1,22 @@
+[  7%] Built target my_navigation_goals
+[  7%] Built target geometry_msgs_generate_messages_py
+[  7%] Built target geometry_msgs_generate_messages_eus
+[  7%] Built target std_msgs_generate_messages_eus
+[ 15%] Built target semantic_navigator
+[ 15%] Built target std_msgs_generate_messages_py
+[ 15%] Built target geometry_msgs_generate_messages_nodejs
+[ 15%] Built target std_msgs_generate_messages_nodejs
+[ 15%] Built target std_msgs_generate_messages_lisp
+[ 15%] Built target geometry_msgs_generate_messages_lisp
+[ 15%] Built target std_msgs_generate_messages_cpp
+[ 15%] Built target geometry_msgs_generate_messages_cpp
+[ 15%] Built target _jackal_2dnav_generate_messages_check_deps_grasslands
+[ 15%] Built target _jackal_2dnav_generate_messages_check_deps_sPoses
+[ 15%] Built target _jackal_2dnav_generate_messages_check_deps_grassLimits
+[ 15%] Built target _jackal_2dnav_generate_messages_check_deps_sInstance
+[ 42%] Built target jackal_2dnav_generate_messages_nodejs
+[ 46%] Built target jackal_2dnav_generate_messages_lisp
+[ 73%] Built target jackal_2dnav_generate_messages_py
+[ 84%] Built target jackal_2dnav_generate_messages_eus
+[100%] Built target jackal_2dnav_generate_messages_cpp
+[100%] Built target jackal_2dnav_generate_messages

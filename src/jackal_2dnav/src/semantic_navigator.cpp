@@ -61,16 +61,13 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
       isObject = true;
     }
     
-    if(((currentColor.r == 192  && currentColor.g == 0    && currentColor.b == 0)    ||
-        (currentColor.r == 192  && currentColor.g == 0    && currentColor.b == 128)  ||
-        (currentColor.r == 192  && currentColor.g == 64   && currentColor.b == 128)) &&
-        it.getZ() <= 0.3)
+    if((currentColor.r == 192  && currentColor.g == 0    && currentColor.b == 0) && it.getZ() <= 0.3)
       isGrass = true;
       
     // add a z requirement to avoid counting shadows as goals, current colors are for people, chairs, balls
     if(isObject || isGrass){
     
-      if(currentColor.r == 64  && currentColor.g == 0   && currentColor.b == 128){
+      if(currentColor.r == 64 && currentColor.g == 0 && currentColor.b == 128){
         // ROS_INFO("Person found");
         label = "person";
       }
@@ -177,7 +174,7 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
   // ROS_INFO_STREAM("Vector size is " << bbInstances.size() << " before trimming" << '\n');
   
   // check to see which is the largest in area (placeholder metric, will be using a vector of these when used with explore_lite like with the frontiers -> weighted to choose the best one)
-  float minArea = 0.1; // 0.1 m^2 = about 4 inches x 4 inches
+  float minArea = 0.2; // 0.1 m^2 = about 4 inches x 4 inches
   
   int currentSize = bbInstances.size();
   int currentIdx = 0;
@@ -292,9 +289,9 @@ bool semanticExplore::checkAdjacency(double newX,
   float dx = std::max({currentBB.minX - newX, 0.0, newX - currentBB.maxX});
   float dy = std::max({currentBB.minY - newY, 0.0, newY - currentBB.maxY});
   
-  // higher minimum distance for grass 
+  // higher minimum distance for grass -> lower
   if(currentBB.label == "grass")
-    minDistance = 0.5;
+    minDistance = 0.1;
   else
     minDistance = 0.2;
   
@@ -341,7 +338,7 @@ int main(int argc, char** argv){
   // create an object of class semanticExplore that will take care of everything
   semanticExplore semanticExplorer;
   
-  ros::Rate r(0.5); // every 2 seconds
+  ros::Rate r(0.3); // every 2 seconds
   
   while(ros::ok()){
         
