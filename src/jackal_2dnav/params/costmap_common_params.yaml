@@ -1,7 +1,7 @@
 map_type: costmap # from Jackal Navigation
 
 # 4.5 and 5
-obstacle_range: 3
+obstacle_range: 3 # was 3.5
 raytrace_range: 4
 
 footprint: [[-0.21, -0.165], [-0.21, 0.165], [0.21, 0.165], [0.21, -0.165]]

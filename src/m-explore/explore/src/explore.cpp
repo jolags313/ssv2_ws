@@ -437,8 +437,9 @@ void Explore::makePlan()
   // send goal to move_base if we have something new to pursue
   if(isFrontier)
     ROS_INFO("New goal is a frontier");
-  else
-    ROS_INFO("New goal is a semantic goal");
+  else{
+    ROS_INFO_STREAM("New goal is a semantic goal at " << target_position.x << ", " << target_position.y);
+  }
     
   // find goal orientation (the angle of the robot's approach)
   geometry_msgs::Pose tempPose = setAngle(pose, target_position);
@@ -490,7 +491,7 @@ void Explore::reachedGoal(const actionlib::SimpleClientGoalState& status,
   ROS_INFO("Reached goal with status: %s", status.toString().c_str());
   if (status == actionlib::SimpleClientGoalState::ABORTED || status == actionlib::SimpleClientGoalState::SUCCEEDED) {
     frontier_blacklist_.push_back(frontier_goal);
-    ROS_INFO("Adding goal to black list");
+    ROS_INFO_STREAM("Adding goal " << frontier_goal.x << ", " << frontier_goal.y << " to black list");
   }
   
   // not frontier = semantic goal, iterate through sequence and reset flags

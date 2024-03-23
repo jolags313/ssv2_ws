@@ -140,7 +140,7 @@ void ImageGrabber::GrabRGBD(const sensor_msgs::ImageConstPtr& msgRGB,const senso
     geometry_msgs::TransformStamped transformStamped;
     transformStamped.header.stamp = cv_ptrRGB->header.stamp;
     transformStamped.header.frame_id = "camera_rgb_optical_frame"; 
-    transformStamped.child_frame_id = "map";
+    transformStamped.child_frame_id = "world";
     transformStamped.transform.translation.x = tcw.at<float>(0);
     transformStamped.transform.translation.y = tcw.at<float>(1);
     transformStamped.transform.translation.z = tcw.at<float>(2);
@@ -150,7 +150,7 @@ void ImageGrabber::GrabRGBD(const sensor_msgs::ImageConstPtr& msgRGB,const senso
     transformStamped.transform.rotation.z = q[2];
     transformStamped.transform.rotation.w = q[3];
 
-    // br.sendTransform(transformStamped);
+    br.sendTransform(transformStamped);
 }
 
 

@@ -174,7 +174,7 @@ void semanticExplore::semanticCallback(const octomap_msgs::Octomap& octomap_msg)
   // ROS_INFO_STREAM("Vector size is " << bbInstances.size() << " before trimming" << '\n');
   
   // check to see which is the largest in area (placeholder metric, will be using a vector of these when used with explore_lite like with the frontiers -> weighted to choose the best one)
-  float minArea = 0.2; // 0.1 m^2 = about 4 inches x 4 inches
+  float minArea = 0.1; // 0.1 m^2 = about 4 inches x 4 inches
   
   int currentSize = bbInstances.size();
   int currentIdx = 0;
