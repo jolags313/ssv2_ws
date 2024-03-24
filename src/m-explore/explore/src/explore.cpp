@@ -467,7 +467,7 @@ bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal, bool sFlag)
 {
   // separate tolerances for frontiers and semantic goals, resolution is 0.02, so a tolerance of 5 = 4 inches, sTolerance was 15
   constexpr static size_t fTolerance = 5;
-  constexpr static size_t sTolerance = 50;
+  constexpr static size_t sTolerance = 100;
     
   costmap_2d::Costmap2D* costmap2d = costmap_client_.getCostmap();
 
@@ -489,7 +489,7 @@ void Explore::reachedGoal(const actionlib::SimpleClientGoalState& status,
                           const geometry_msgs::Point& frontier_goal)
 {
   ROS_INFO("Reached goal with status: %s", status.toString().c_str());
-  if (status == actionlib::SimpleClientGoalState::ABORTED || status == actionlib::SimpleClientGoalState::SUCCEEDED) {
+  if (status == actionlib::SimpleClientGoalState::SUCCEEDED) {
     frontier_blacklist_.push_back(frontier_goal);
     ROS_INFO_STREAM("Adding goal " << frontier_goal.x << ", " << frontier_goal.y << " to black list");
   }

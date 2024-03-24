@@ -177,10 +177,12 @@ bool FrontierSearch::isNewFrontierCell(unsigned int idx,
     return false;
   }
 
+   static const unsigned char GRASS = 15; 
+  
   // frontier cells should have at least one cell in 4-connected neighbourhood
   // that is free
   for (unsigned int nbr : nhood4(idx, *costmap_)) {
-    if (map_[nbr] == FREE_SPACE) {
+    if (map_[nbr] == FREE_SPACE || map_[nbr] == GRASS) {
       return true;
     }
   }
