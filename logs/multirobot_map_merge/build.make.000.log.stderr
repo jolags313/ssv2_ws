@@ -1,3 +1,0 @@
-/usr/bin/ld: warning: libopencv_calib3d.so.4.2, needed by /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.4.2.0, may conflict with libopencv_calib3d.so.3.4
-/usr/bin/ld: warning: libopencv_imgproc.so.3.4, needed by /usr/local/lib/libopencv_calib3d.so.3.4.20, may conflict with libopencv_imgproc.so.4.2
-/usr/bin/ld: warning: libopencv_core.so.3.4, needed by /usr/local/lib/libopencv_calib3d.so.3.4.20, may conflict with libopencv_core.so.4.2

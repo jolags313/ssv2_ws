@@ -1,4 +1,0 @@
-[01m[K/home/conlab/ssv2_ws/src/semantic_slam/octomap_generator/src/octomap_generator/octomap_generator_ros.cpp:[m[K In member function ‘[01m[Kbool OctomapGeneratorNode::save(const char*) const[m[K’:
-[01m[K/home/conlab/ssv2_ws/src/semantic_slam/octomap_generator/src/octomap_generator/octomap_generator_ros.cpp:112:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
-  112 | [01;35m[K}[m[K
-      | [01;35m[K^[m[K

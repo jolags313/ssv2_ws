@@ -6,7 +6,7 @@
   <arg name="mode" default="day" doc="mode of the track to load, valid options are 'day' or 'night'"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find aws_robomaker_racetrack_world)/worlds/racetrack_$(arg mode).world"/>
+    <arg name="world_name" value="$(find aws_robomaker_racetrack_world)/worlds/racetrack_day.world"/>
     <arg name="paused" default="false"/>
     <arg name="use_sim_time" default="true"/>
     <arg name="gui" default="$(arg gui)"/>
@@ -39,6 +39,8 @@
     <arg name="joystick" value="$(arg joystick)" />
   </include>
   
-  <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="0 0 0 0 0 0 1 world odom 100" />
+  <node pkg="tf" type="static_transform_publisher" name="env_map_broadcaster" args="0 0 0 0 0 0 1 env map 100" />
+  
+  <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 1 map odom 100" />
   
 </launch>

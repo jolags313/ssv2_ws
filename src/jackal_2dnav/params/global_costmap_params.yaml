@@ -1,26 +1,31 @@
 global_costmap:
 
-  # world? -> odom now, see tf issue fix
+  # world? -> map now, see tf issue fix
   global_frame: map
   
   # check this on Jackal tf
   robot_base_frame: base_link
   
-  update_frequency: 5.0
-  publish_frequency: 2.0
+  # were 10 and 5
+  update_frequency: 10.0
+  publish_frequency: 5.0
   
   # new 
   always_send_full_costmap: true
   
   map_type: costmap
   
+  # new, was true
+  rolling_window: false
+  
   # false since even though the map is from map_server it's on a topic and not already saved -> rtab says true?
   static_map: false
   
   plugins:
-  - {name: static,               type: "costmap_2d::StaticLayer"}
-  - {name: obstacles,            type: "costmap_2d::ObstacleLayer"}
-  - {name: inflation,            type: "costmap_2d::InflationLayer"}
+  - {name: static,      type: "costmap_2d::StaticLayer"}
+  - {name: obstacles,   type: "costmap_2d::ObstacleLayer"}
+  - {name: inflation,   type: "costmap_2d::InflationLayer"}
+  - {name: terrain,     type: "terrain_layer_namespace::TerrainLayer"}
   
   obstacles:
    
@@ -31,4 +36,8 @@ global_costmap:
     # new, see http://wiki.ros.org/costmap_2d/Tutorials/Configuring%20Layered%20Costmaps -> doesn't help,doesn't clear shadows
     observation_sources: laser_scan_sensor
     laser_scan_sensor: {sensor_frame: front_laser, data_type: LaserScan, topic: front/scan, marking: true, clearing: true}
+    
+  terrain: 
+  
+    enabled: true
     

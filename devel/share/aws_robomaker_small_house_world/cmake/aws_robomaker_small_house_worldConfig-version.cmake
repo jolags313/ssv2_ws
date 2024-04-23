@@ -1,1 +1,0 @@
-/home/conlab/ssv2_ws/devel/.private/aws_robomaker_small_house_world/share/aws_robomaker_small_house_world/cmake/aws_robomaker_small_house_worldConfig-version.cmake

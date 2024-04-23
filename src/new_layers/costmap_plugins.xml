@@ -1,0 +1,7 @@
+<class_libraries>
+  <library path="lib/libterrain_layer">
+    <class type="terrain_layer_namespace::TerrainLayer" base_class_type="costmap_2d::Layer">
+      <description>Used to represent terrain (ie grass)</description>
+    </class>
+  </library>
+</class_libraries>

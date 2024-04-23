@@ -49,7 +49,7 @@ Visualization Manager:
         X: 0
         Y: 0
         Z: 0
-      Plane: XZ
+      Plane: XY
       Plane Cell Count: 15
       Reference Frame: <Fixed Frame>
       Value: true
@@ -91,7 +91,7 @@ Visualization Manager:
           Max. Octree Depth: 16
           Min. Height Display: -3.40282347e+38
           Name: ColorOccupancyGrid
-          Octomap Topic: /octomap_full
+          Octomap Topic: /floatlazer/octomap_full
           Queue Size: 5
           Value: true
           Voxel Alpha: 1
@@ -228,7 +228,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: map
+    Fixed Frame: env
     Frame Rate: 30
   Name: root
   Tools:

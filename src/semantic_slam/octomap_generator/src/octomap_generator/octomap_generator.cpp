@@ -7,6 +7,8 @@
 #include <sstream>
 #include <cstring> // For std::memcpy
 
+// #include <vector>
+
 template<class CLOUD, class OCTREE>
 OctomapGenerator<CLOUD, OCTREE>::OctomapGenerator(): octomap_(0.05), max_range_(1.), raycast_range_(1.){}
 
@@ -108,6 +110,9 @@ void OctomapGenerator<PCLColor, ColorOcTree>::updateColorAndSemantics(PCLColor* 
 template<>
 void OctomapGenerator<PCLSemanticsMax, SemanticsOctreeMax>::updateColorAndSemantics(PCLSemanticsMax* pcl_cloud)
 {
+  // Declare (?) vector of bounding boxes
+  // vector<bounding_box> bb_instances;
+  
   for(PCLSemanticsMax::const_iterator it = pcl_cloud->begin(); it < pcl_cloud->end(); it++)
   {
     if (!std::isnan(it->x) && !std::isnan(it->y) && !std::isnan(it->z))
@@ -117,6 +122,8 @@ void OctomapGenerator<PCLSemanticsMax, SemanticsOctreeMax>::updateColorAndSemant
         octomap::SemanticsMax sem;
         uint32_t rgb;
         std::memcpy(&rgb, &it->semantic_color, sizeof(uint32_t));
+        
+        // See explanation, & is used to mask unwanted bits and >> is used to shift the desired colors to the end to compare
         sem.semantic_color.r = (rgb >> 16) & 0x0000ff;
         sem.semantic_color.g = (rgb >> 8)  & 0x0000ff;
         sem.semantic_color.b = (rgb)       & 0x0000ff;

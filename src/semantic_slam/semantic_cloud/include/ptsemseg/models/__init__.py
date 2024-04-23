@@ -10,6 +10,7 @@ from ptsemseg.models.frrn import *
 
 
 def get_model(name, n_classes, version=None):
+    
     model = _get_model_instance(name)
 
     if name in ['frrnA', 'frrnB']:

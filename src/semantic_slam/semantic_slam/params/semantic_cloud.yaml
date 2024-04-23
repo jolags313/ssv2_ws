@@ -13,7 +13,8 @@ semantic_pcl:
   depth_image_topic: "/camera/depth_registered/image_raw" # DO NOT CHANGE TOPIC NAMES, REMAP
   point_type: 1
   frame_id: "/camera_rgb_optical_frame"
-  dataset: "ade20k" # sunrgbd
-  #dataset: "sunrgbd" # sunrgbd
+  dataset: "ade20k" # ade20k
+  # dataset: "sunrgbd" # sunrgbd
+  # model_path: "/home/conlab/ss_models/train_epoch_100.pth"
   model_path: "/home/conlab/ss_models/pspnet_50_ade20k.pth"
-  #model_path: "/home/interns/xuan/models/pspnet_sunrgbd_best_model180625_5k.pth"
+  # model_path: "/home/interns/xuan/models/pspnet_sunrgbd_best_model180625_5k.pth"

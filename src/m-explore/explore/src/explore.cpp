@@ -61,13 +61,16 @@ Explore::Explore()
   double timeout;
   double min_frontier_size;
   private_nh_.param("planner_frequency", planner_frequency_, 1.0);
-  private_nh_.param("progress_timeout", timeout, 30.0);
+  private_nh_.param("progress_timeout", timeout, 10.0);
   progress_timeout_ = ros::Duration(timeout);
   private_nh_.param("visualize", visualize_, false);
   private_nh_.param("potential_scale", potential_scale_, 1e-3);
   private_nh_.param("orientation_scale", orientation_scale_, 0.0);
   private_nh_.param("gain_scale", gain_scale_, 1.0);
-  private_nh_.param("min_frontier_size", min_frontier_size, 0.5);
+  private_nh_.param("min_frontier_size", min_frontier_size, 0.4);
+  
+  // subscribe to semantic_goals
+  sub_ = relative_nh_.subscribe("/semantic_goals", 1, &Explore::sPoseCallback, this);
 
   search_ = frontier_exploration::FrontierSearch(costmap_client_.getCostmap(),
                                                  potential_scale_, gain_scale_,
@@ -111,7 +114,7 @@ void Explore::visualizeFrontiers(
   green.b = 0;
   green.a = 1.0;
 
-  ROS_DEBUG("visualising %lu frontiers", frontiers.size());
+  ROS_INFO("visualising %lu frontiers", frontiers.size());
   visualization_msgs::MarkerArray markers_msg;
   std::vector<visualization_msgs::Marker>& markers = markers_msg.markers;
   visualization_msgs::Marker m;
@@ -143,7 +146,7 @@ void Explore::visualizeFrontiers(
     m.scale.y = 0.1;
     m.scale.z = 0.1;
     m.points = frontier.points;
-    if (goalOnBlacklist(frontier.centroid)) {
+    if (goalOnBlacklist(frontier.centroid, false)) {
       m.color = red;
     } else {
       m.color = blue;
@@ -176,66 +179,282 @@ void Explore::visualizeFrontiers(
   marker_array_publisher_.publish(markers_msg);
 }
 
+void Explore::sPoseCallback(const jackal_2dnav::sPoses& sPose_msg){
+  
+  // empty out object queues
+  sPeople_.clear();
+  sChairs_.clear();
+  sBalls_.clear();
+  
+  if(sPose_msg.sPoses.size() > 0){
+  
+    // make temporary point
+    sGoal temp; 
+    
+    // iterate through and then push back 
+    for(int i = 0; i < sPose_msg.sPoses.size(); ++i){
+    
+      temp.sPoint.x = sPose_msg.sPoses[i].objPose.position.x;
+      temp.sPoint.y = sPose_msg.sPoses[i].objPose.position.y;
+      
+      temp.label = sPose_msg.sPoses[i].objLabel;
+    
+      if(temp.label == "person")
+        sPeople_.push_back(temp);      
+      
+      if(temp.label == "chair")
+        sChairs_.push_back(temp);      
+      
+      if(temp.label == "ball")
+        sBalls_.push_back(temp);
+    }
+    
+    if(sPeople_.size() > numObj_[0]){
+      numObj_[0] = sPeople_.size();
+      newObj_[0] = true;
+    }
+    else
+      newObj_[0] = false; 
+      
+    if(sChairs_.size() > numObj_[1]){
+      numObj_[1] = sChairs_.size();
+      newObj_[1] = true;
+    }
+    else
+      newObj_[1] = false; 
+      
+    if(sBalls_.size() > numObj_[2]){
+      numObj_[2] = sBalls_.size();
+      newObj_[2] = true;
+    }
+    else
+      newObj_[2] = false; 
+  }
+}
+
+void Explore::sGoalSort(std::vector<sGoal> &sGoals, const geometry_msgs::Pose currentPose){
+
+  // assign cost to each semantic goal based on distance
+  for(int i = 0; i < sGoals.size(); ++i){
+    float dx = sGoals[i].sPoint.x - currentPose.position.x;
+    float dy = sGoals[i].sPoint.y - currentPose.position.y;
+    
+    sGoals[i].distance = sqrt(pow(dx, 2) + pow(dy, 2));
+  }
+  
+  // sort
+  std::sort(sGoals.begin(), sGoals.end(), [](const sGoal& s1, const sGoal& s2) { return s1.distance < s2.distance; });
+}
+
+geometry_msgs::Pose Explore::setAngle(const geometry_msgs::Pose currentPose, const geometry_msgs::Point target){
+  // x and y distances
+  float dx = target.x - currentPose.position.x;
+  float dy = target.y - currentPose.position.y;
+  
+  // angle between the object and the current pose, recall atan2(y, x)
+  double theta = atan2(dy, dx);
+  
+  // new goal, no need to set position, all we want is the orientation which we will just pass into the goal
+  geometry_msgs::Pose newGoal;     
+  
+  // orientation
+  quat_.setRPY(0, 0, theta);
+    
+  newGoal.orientation.x = quat_.getX();
+  newGoal.orientation.y = quat_.getY();
+  newGoal.orientation.z = quat_.getZ();
+  newGoal.orientation.w = quat_.getW();
+  
+  return newGoal;
+}
+
 void Explore::makePlan()
 {
   // find frontiers
   auto pose = costmap_client_.getRobotPose();
+  
   // get frontiers sorted according to cost
   auto frontiers = search_.searchFrom(pose.position);
-  ROS_DEBUG("found %lu frontiers", frontiers.size());
+  ROS_INFO("found %lu frontiers", frontiers.size());
+  
+  // get semantic goals sorted according to distance
+  sGoalSort(sPeople_, pose);
+  sGoalSort(sChairs_, pose);
+  sGoalSort(sBalls_, pose);
+  
   for (size_t i = 0; i < frontiers.size(); ++i) {
-    ROS_DEBUG("frontier %zd cost: %f", i, frontiers[i].cost);
+    // ROS_INFO("frontier %zd cost: %f", i, frontiers[i].cost);
   }
 
   if (frontiers.empty()) {
     stop();
+    ROS_DEBUG("No new frontiers found");
     return;
   }
 
-  // publish frontiers as visualization markers
+  // publish frontiers as visualization markers, should edit this as well to visualize objects
   if (visualize_) {
     visualizeFrontiers(frontiers);
   }
 
-  // find non blacklisted frontier
+  // find non blacklisted frontier -> returns the first non blacklisted frontier, note the frontiers are already sorted by cost
   auto frontier =
       std::find_if_not(frontiers.begin(), frontiers.end(),
                        [this](const frontier_exploration::Frontier& f) {
-                         return goalOnBlacklist(f.centroid);
+                         return goalOnBlacklist(f.centroid, false);
                        });
+                       
   if (frontier == frontiers.end()) {
     stop();
+    ROS_INFO("No unvisited frontiers found");
     return;
   }
-  geometry_msgs::Point target_position = frontier->centroid;
+  
+  // do the same for semantic goals
+  std::vector<sGoal>::iterator bestS;
+  
+  // if on the first loop 
+  if(!notFirst)
+    lastSeqMove = ros::Time::now();
+  
+  // iterate over sequence if semantic goal
+  if(notFirst && (ros::Time::now() - lastSeqMove > classPatience)){
+    
+    lastSeqMove = ros::Time::now();
+    
+    // save skipped class so we can return to it
+    if(firstSkip){
+    
+      skippedClass = seqNum;
+      
+      skip = true;
+      firstSkip = false;
+    }
+    
+    if(seqNum == sequence_.size() - 1)
+      seqNum = 0;
+    else
+      seqNum++;
+  }
+  
+  notFirst = true;
+  
+  // return to skipped class if instance is found
+  if(skip && newObj_[skippedClass] == true){  
+  
+    seqNum = skippedClass;
+    
+    skip = false;
+    firstSkip = true;
+  }
+  
+  isPerson = false;
+  isChair = false;
+  isBall = false;
+  
+  ROS_INFO_STREAM("Currently searching for a " << sequence_[seqNum]);
+  
+  if((sequence_[seqNum] == "person") && (sPeople_.size() > 0)){ 
+    
+    bestS = std::find_if_not(sPeople_.begin(), sPeople_.end(),
+                            [this](const sGoal& s) {
+                              return goalOnBlacklist(s.sPoint, true);
+                            });
+    if(bestS != sPeople_.end()){                        
+      isPerson = true; 
+      // ROS_INFO("isPerson"); 
+    }    
+  }
+  else if((sequence_[seqNum] == "chair") && (sChairs_.size() > 0)){
+    
+    bestS = std::find_if_not(sChairs_.begin(), sChairs_.end(),
+                            [this](const sGoal& s) {
+                              return goalOnBlacklist(s.sPoint, true);
+                            });
+                            
+    if(bestS != sChairs_.end()){
+      isChair = true;
+      // ROS_INFO("isChair");
+    }
+  }
+  else if((sequence_[seqNum] == "ball") && (sBalls_.size() > 0)){ 
+
+    bestS = std::find_if_not(sBalls_.begin(), sBalls_.end(),
+                            [this](const sGoal& s) {
+                              return goalOnBlacklist(s.sPoint, true);
+                            });
+                            
+    if(bestS != sBalls_.end()){
+      isBall = true;
+      // ROS_INFO("isBall");
+    }
+  }
+
+  isFrontier = true;
+  geometry_msgs::Point target_position;
+  
+  // if semantic goal is present, prioritize it
+  if(isPerson || isChair || isBall){
+     
+    // ROS_INFO("isNotFrontier"); 
+    
+    target_position = bestS->sPoint;
+    isFrontier = false;
+  }
+  else{
+    target_position = frontier->centroid;
+    isFrontier = true;
+  }
 
   // time out if we are not making any progress
   bool same_goal = prev_goal_ == target_position;
   prev_goal_ = target_position;
-  if (!same_goal || prev_distance_ > frontier->min_distance) {
-    // we have different goal or we made some progress
-    last_progress_ = ros::Time::now();
-    prev_distance_ = frontier->min_distance;
+  
+  if(isFrontier){
+  
+    if (!same_goal || prev_distance_ > frontier->min_distance) {
+      // we have different goal or we made some progress
+      last_progress_ = ros::Time::now();
+      prev_distance_ = frontier->min_distance;
+    }
   }
+  
   // black list if we've made no progress for a long time
-  if (ros::Time::now() - last_progress_ > progress_timeout_) {
+  if (isFrontier && (ros::Time::now() - last_progress_ > progress_timeout_)) {
     frontier_blacklist_.push_back(target_position);
-    ROS_DEBUG("Adding current goal to black list");
+    ROS_INFO("Adding current goal to black list due to lack of progress");
+    
     makePlan();
     return;
   }
 
   // we don't need to do anything if we still pursuing the same goal
   if (same_goal) {
+    ROS_INFO("Pursuing same goal");
     return;
   }
 
   // send goal to move_base if we have something new to pursue
+  if(isFrontier)
+    ROS_INFO("New goal is a frontier");
+  else{
+    ROS_INFO_STREAM("New goal is a semantic goal at " << target_position.x << ", " << target_position.y);
+  }
+    
+  // find goal orientation (the angle of the robot's approach)
+  geometry_msgs::Pose tempPose = setAngle(pose, target_position);
+  
   move_base_msgs::MoveBaseGoal goal;
   goal.target_pose.pose.position = target_position;
-  goal.target_pose.pose.orientation.w = 1.;
+  
+  goal.target_pose.pose.orientation.x = tempPose.orientation.x;
+  goal.target_pose.pose.orientation.y = tempPose.orientation.y;
+  goal.target_pose.pose.orientation.z = tempPose.orientation.z;
+  goal.target_pose.pose.orientation.w = tempPose.orientation.w;
+  
   goal.target_pose.header.frame_id = costmap_client_.getGlobalFrameID();
   goal.target_pose.header.stamp = ros::Time::now();
+  
   move_base_client_.sendGoal(
       goal, [this, target_position](
                 const actionlib::SimpleClientGoalState& status,
@@ -244,18 +463,22 @@ void Explore::makePlan()
       });
 }
 
-bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal)
+bool Explore::goalOnBlacklist(const geometry_msgs::Point& goal, bool sFlag)
 {
-  constexpr static size_t tolerace = 5;
+  // separate tolerances for frontiers and semantic goals, resolution is 0.02, so a tolerance of 5 = 4 inches, sTolerance was 15
+  constexpr static size_t fTolerance = 5;
+  constexpr static size_t sTolerance = 100;
+    
   costmap_2d::Costmap2D* costmap2d = costmap_client_.getCostmap();
 
   // check if a goal is on the blacklist for goals that we're pursuing
   for (auto& frontier_goal : frontier_blacklist_) {
     double x_diff = fabs(goal.x - frontier_goal.x);
     double y_diff = fabs(goal.y - frontier_goal.y);
-
-    if (x_diff < tolerace * costmap2d->getResolution() &&
-        y_diff < tolerace * costmap2d->getResolution())
+ 
+    if (sFlag && (x_diff < sTolerance * costmap2d->getResolution() && y_diff < sTolerance * costmap2d->getResolution()))
+      return true;
+    else if (!sFlag && (x_diff < fTolerance * costmap2d->getResolution() && y_diff < fTolerance * costmap2d->getResolution()))
       return true;
   }
   return false;
@@ -265,11 +488,33 @@ void Explore::reachedGoal(const actionlib::SimpleClientGoalState& status,
                           const move_base_msgs::MoveBaseResultConstPtr&,
                           const geometry_msgs::Point& frontier_goal)
 {
-  ROS_DEBUG("Reached goal with status: %s", status.toString().c_str());
-  if (status == actionlib::SimpleClientGoalState::ABORTED) {
+  ROS_INFO("Reached goal with status: %s", status.toString().c_str());
+  if (status == actionlib::SimpleClientGoalState::SUCCEEDED) {
     frontier_blacklist_.push_back(frontier_goal);
-    ROS_DEBUG("Adding current goal to black list");
+    ROS_INFO_STREAM("Adding goal " << frontier_goal.x << ", " << frontier_goal.y << " to black list");
   }
+  
+  // not frontier = semantic goal, iterate through sequence and reset flags
+  if(!isFrontier){
+  
+    ROS_INFO_STREAM("Found a " << sequence_[seqNum]);
+    lastSeqMove = ros::Time::now();
+    
+    if(seqNum == sequence_.size() - 1){
+    
+      seqNum = 0;
+      ROS_INFO("End of sequence");
+    }
+    else{
+    
+      seqNum++;     
+      ROS_INFO_STREAM("Advance one, sequence number is " << seqNum);
+    }
+    
+    isPerson = false;
+    isChair = false;
+    isBall = false;
+  } 
 
   // find new goal immediatelly regardless of planning frequency.
   // execute via timer to prevent dead lock in move_base_client (this is
@@ -306,3 +551,4 @@ int main(int argc, char** argv)
 
   return 0;
 }
+

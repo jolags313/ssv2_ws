@@ -1,8 +1,0 @@
-prefix=/home/conlab/ssv2_ws/devel/.private/jackal_control
-
-Name: jackal_control
-Description: Description of jackal_control
-Version: 0.8.8
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

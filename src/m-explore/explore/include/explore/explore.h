@@ -51,6 +51,9 @@
 #include <explore/costmap_client.h>
 #include <explore/frontier_search.h>
 
+#include <jackal_2dnav/sInstance.h>
+#include <jackal_2dnav/sPoses.h>
+
 namespace explore
 {
 /**
@@ -68,27 +71,87 @@ public:
   void stop();
 
 private:
+  
+  // struct with minimum distances included as a member to sort semantic goals
+  struct sGoal{
+    geometry_msgs::Point sPoint;
+    float distance;
+    
+    std::string label;
+  };
+  
+  // semantic objects, populate with points from semantic_navigator
+  // std::vector<sGoal> sGoals_;
+  
+  // object queues, use people, chairs, and balls + flags for each
+  std::vector<sGoal> sPeople_;
+  std::vector<sGoal> sChairs_;
+  std::vector<sGoal> sBalls_;
+  
+  bool isPerson = false;
+  bool isChair = false;
+  bool isBall = false;
+  
+  // sequence to follow and a counter
+  std::vector<std::string> sequence_ = {"person", "chair", "ball"};
+  int seqNum = 0;
+  
+  // flag for first run, just used for skip stuff
+  bool notFirst = false;
+  
+  // time since last move in sequence + patience for each class search
+  ros::Time lastSeqMove;
+  ros::Duration classPatience = ros::Duration(100.0);
+  
+  // placeholder for skipped class + bool firstSkip so make sure we only save the earliest skip
+  int skippedClass;
+  bool skip = false;
+  bool firstSkip = true;
+  
+  // number of instances found of each class, use to check if a new one has been found for the skipped class, same order as sequence + T/F if a new one has been found
+  std::vector<int> numObj_ = {0, 0, 0};
+  std::vector<bool> newObj_ = {false, false, false};
+  
+  // here from cpp
+  bool isFrontier = false;
+  
+  tf2::Quaternion quat_;
+  
   /**
    * @brief  Make a global plan
    */
   void makePlan();
+  
+  // populate sGoals_ with the points from semantic_navigator
+  void sPoseCallback(const jackal_2dnav::sPoses& sPose_msg);
+  
+  // set semantic goal cost, sort just by cost just like is done in FrontierSearch::searchFrom,  pass in sPoints_ by reference (to sort it) and the robot pose
+  void sGoalSort(std::vector<sGoal> &sGoals, const geometry_msgs::Pose currentPose);
+  
+  // set goal orientation
+  geometry_msgs::Pose setAngle(const geometry_msgs::Pose currentPose, const geometry_msgs::Point target);
 
   /**
    * @brief  Publish a frontiers as markers
    */
   void visualizeFrontiers(
       const std::vector<frontier_exploration::Frontier>& frontiers);
+      
+  // void visualizeBoundingBoxes()?
 
   void reachedGoal(const actionlib::SimpleClientGoalState& status,
                    const move_base_msgs::MoveBaseResultConstPtr& result,
                    const geometry_msgs::Point& frontier_goal);
 
-  bool goalOnBlacklist(const geometry_msgs::Point& goal);
-
+  bool goalOnBlacklist(const geometry_msgs::Point& goal, bool sFlag);
+  
   ros::NodeHandle private_nh_;
   ros::NodeHandle relative_nh_;
   ros::Publisher marker_array_publisher_;
   tf::TransformListener tf_listener_;
+  
+  // subscribes to /semantic_goals
+  ros::Subscriber sub_;
 
   Costmap2DClient costmap_client_;
   actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>

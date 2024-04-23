@@ -1,7 +1,0 @@
-set(semantic_cloud_SETUP_PY_SETUP_MODULE "distutils.core")
-set(semantic_cloud_SETUP_PY_VERSION "1.0.0")
-set(semantic_cloud_SETUP_PY_SCRIPTS "")
-set(semantic_cloud_SETUP_PY_PACKAGES "color_pcl_generator;ptsemseg")
-set(semantic_cloud_SETUP_PY_PACKAGE_DIRS "include/color_pcl_generator;include/ptsemseg")
-set(semantic_cloud_SETUP_PY_MODULES "")
-set(semantic_cloud_SETUP_PY_MODULE_DIRS "")

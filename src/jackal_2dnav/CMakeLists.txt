@@ -12,6 +12,9 @@ find_package(catkin REQUIRED COMPONENTS
   move_base_msgs
   actionlib
   roscpp
+  
+  std_msgs
+  message_generation
 
 )
 
@@ -76,11 +79,13 @@ find_package(catkin REQUIRED COMPONENTS ${PACKAGE_DEPENDENCIES})
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+   FILES
+   sInstance.msg
+   sPoses.msg
+   grassLimits.msg
+   grasslands.msg
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -97,10 +102,11 @@ find_package(catkin REQUIRED COMPONENTS ${PACKAGE_DEPENDENCIES})
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+generate_messages(
+   DEPENDENCIES
+   std_msgs
+   geometry_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -132,10 +138,9 @@ find_package(catkin REQUIRED COMPONENTS ${PACKAGE_DEPENDENCIES})
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES jackal_2dnav
-   LIBRARIES ${PROJECT_NAME}
-   CATKIN_DEPENDS ${PACKAGE_DEPENDENCIES}
+   INCLUDE_DIRS include
+   # LIBRARIES ${PROJECT_NAME}
+   CATKIN_DEPENDS message_runtime ${PACKAGE_DEPENDENCIES}
    DEPENDS octomap PCL
 )
 
@@ -146,7 +151,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
   ${OCTOMAP_INCLUDE_DIRS}
@@ -166,7 +171,8 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/jackal_2dnav_node.cpp)
-add_executable(simple_navigation_goals src/simple_navigation_goals.cpp)
+add_executable(my_navigation_goals src/my_navigation_goals.cpp)
+add_executable(semantic_navigator src/semantic_navigator.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -183,8 +189,14 @@ add_executable(simple_navigation_goals src/simple_navigation_goals.cpp)
 #   ${catkin_LIBRARIES}
 # )
 target_link_libraries(
-  simple_navigation_goals 
+  my_navigation_goals 
   ${catkin_LIBRARIES}
+)
+
+target_link_libraries(
+  semantic_navigator 
+  ${catkin_LIBRARIES}
+  ${OCTOMAP_LIBRARIES}
 )
 
 set(LINK_LIBS
@@ -221,7 +233,7 @@ set(LINK_LIBS
 #   RUNTIME DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION}
 # )
 
-install(TARGETS simple_navigation_goals
+install(TARGETS my_navigation_goals
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 ## Mark cpp header files for installation

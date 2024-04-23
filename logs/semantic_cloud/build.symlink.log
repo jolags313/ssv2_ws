@@ -1,5 +1,0 @@
-Symlinking /home/conlab/ssv2_ws/devel/lib/python3/dist-packages/ptsemseg/__init__.py
-Symlinking /home/conlab/ssv2_ws/devel/lib/python3/dist-packages/color_pcl_generator/__init__.py
-Symlinking /home/conlab/ssv2_ws/devel/lib/pkgconfig/semantic_cloud.pc
-Symlinking /home/conlab/ssv2_ws/devel/share/semantic_cloud/cmake/semantic_cloudConfig-version.cmake
-Symlinking /home/conlab/ssv2_ws/devel/share/semantic_cloud/cmake/semantic_cloudConfig.cmake

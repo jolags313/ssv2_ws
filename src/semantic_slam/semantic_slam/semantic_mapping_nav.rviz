@@ -46,7 +46,7 @@ Visualization Manager:
         X: 0
         Y: 0
         Z: 0
-      Plane: XZ
+      Plane: XY
       Plane Cell Count: 15
       Reference Frame: <Fixed Frame>
       Value: true
@@ -86,7 +86,7 @@ Visualization Manager:
           Max. Octree Depth: 16
           Min. Height Display: -3.4028234663852886e+38
           Name: ColorOccupancyGrid
-          Octomap Topic: /octomap_full
+          Octomap Topic: /floatlazer/octomap_full
           Queue Size: 5
           Value: true
           Voxel Alpha: 1
@@ -134,63 +134,67 @@ Visualization Manager:
         base_link:
           Value: true
         camera_accel_frame:
-          Value: true
+          Value: false
         camera_accel_optical_frame:
-          Value: true
+          Value: false
         camera_bottom_screw_frame:
-          Value: true
+          Value: false
         camera_color_frame:
-          Value: true
+          Value: false
         camera_depth_frame:
           Value: false
         camera_depth_optical_frame:
           Value: false
         camera_gyro_frame:
-          Value: true
+          Value: false
         camera_gyro_optical_frame:
-          Value: true
+          Value: false
         camera_left_ir_frame:
-          Value: true
+          Value: false
         camera_left_ir_optical_frame:
-          Value: true
+          Value: false
         camera_link:
           Value: false
         camera_rgb_optical_frame:
-          Value: true
+          Value: false
         camera_right_ir_frame:
-          Value: true
+          Value: false
         camera_right_ir_optical_frame:
-          Value: true
+          Value: false
         chassis_link:
-          Value: true
+          Value: false
+        env:
+          Value: false
         front_fender_link:
-          Value: true
+          Value: false
+        front_laser:
+          Value: false
+        front_laser_mount:
+          Value: false
         front_left_wheel_link:
-          Value: true
+          Value: false
         front_mount:
           Value: true
         front_right_wheel_link:
-          Value: true
+          Value: false
         imu_link:
-          Value: true
+          Value: false
         map:
           Value: true
         mid_mount:
-          Value: true
+          Value: false
         navsat_link:
-          Value: true
+          Value: false
         odom:
-          Value: true
+          Value: false
         rear_fender_link:
-          Value: true
+          Value: false
         rear_left_wheel_link:
-          Value: true
+          Value: false
         rear_mount:
-          Value: true
+          Value: false
         rear_right_wheel_link:
-          Value: true
-        world:
-          Value: true
+          Value: false
       Marker Alpha: 1
       Marker Scale: 1
       Name: TF
@@ -198,51 +202,54 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        map:
-          odom:
-            base_link:
-              chassis_link:
-                front_fender_link:
-                  {}
-                front_left_wheel_link:
-                  {}
-                front_right_wheel_link:
-                  {}
-                imu_link:
-                  {}
-                mid_mount:
-                  front_mount:
-                    camera_bottom_screw_frame:
-                      camera_link:
-                        camera_accel_frame:
-                          camera_accel_optical_frame:
-                            {}
-                        camera_depth_frame:
-                          camera_color_frame:
-                            camera_rgb_optical_frame:
-                              world:
-                                {}
-                          camera_depth_optical_frame:
-                            {}
-                          camera_left_ir_frame:
-                            camera_left_ir_optical_frame:
-                              {}
-                          camera_right_ir_frame:
-                            camera_right_ir_optical_frame:
-                              {}
-                        camera_gyro_frame:
-                          camera_gyro_optical_frame:
-                            {}
-                  rear_mount:
+        env:
+          map:
+            odom:
+              base_link:
+                chassis_link:
+                  front_fender_link:
                     {}
-                navsat_link:
-                  {}
-                rear_fender_link:
-                  {}
-                rear_left_wheel_link:
-                  {}
-                rear_right_wheel_link:
-                  {}
+                  front_left_wheel_link:
+                    {}
+                  front_right_wheel_link:
+                    {}
+                  imu_link:
+                    {}
+                  mid_mount:
+                    front_mount:
+                      camera_bottom_screw_frame:
+                        camera_link:
+                          camera_accel_frame:
+                            camera_accel_optical_frame:
+                              {}
+                          camera_depth_frame:
+                            camera_color_frame:
+                              camera_rgb_optical_frame:
+                                {}
+                            camera_depth_optical_frame:
+                              {}
+                            camera_left_ir_frame:
+                              camera_left_ir_optical_frame:
+                                {}
+                            camera_right_ir_frame:
+                              camera_right_ir_optical_frame:
+                                {}
+                          camera_gyro_frame:
+                            camera_gyro_optical_frame:
+                              {}
+                      front_laser_mount:
+                        front_laser:
+                          {}
+                    rear_mount:
+                      {}
+                  navsat_link:
+                    {}
+                  rear_fender_link:
+                    {}
+                  rear_left_wheel_link:
+                    {}
+                  rear_right_wheel_link:
+                    {}
       Update Interval: 0
       Value: true
     - Class: rviz/Group
@@ -305,12 +312,12 @@ Visualization Manager:
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: true
+      Enabled: false
       Name: Occupancy Grid
       Topic: /projected_map
       Unreliable: false
       Use Timestamp: false
-      Value: true
+      Value: false
     - Alpha: 0.699999988079071
       Class: rviz/Map
       Color Scheme: map
@@ -351,7 +358,7 @@ Visualization Manager:
       Marker Topic: /explore/frontiers
       Name: MarkerArray
       Namespaces:
-        frontiers: true
+        {}
       Queue Size: 100
       Value: true
     - Alpha: 1
@@ -454,7 +461,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 15.235210418701172
+      Distance: 3.952899217605591
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -462,17 +469,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 3.338080644607544
-        Y: -5.171402454376221
-        Z: 4.000086307525635
+        X: 6.07220458984375
+        Y: -0.4063611924648285
+        Z: 3.0366249084472656
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.0552029609680176
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
-      Yaw: 3.5121757984161377
+      Yaw: 3.1471753120422363
     Saved: ~
 Window Geometry:
   Displays:

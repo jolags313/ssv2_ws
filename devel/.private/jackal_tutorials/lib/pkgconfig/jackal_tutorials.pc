@@ -1,8 +1,0 @@
-prefix=/home/conlab/ssv2_ws/devel/.private/jackal_tutorials
-
-Name: jackal_tutorials
-Description: Description of jackal_tutorials
-Version: 0.8.8
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

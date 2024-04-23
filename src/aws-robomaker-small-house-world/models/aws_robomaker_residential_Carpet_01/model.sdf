@@ -4,6 +4,14 @@
     <link name="link">
       <inertial>
         <mass>8.1</mass>
+          <inertia>
+            <ixx>0.030752</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.030752</iyy>
+            <iyz>0</iyz>
+            <izz>0.030752</izz>
+          </inertia>
       </inertial>
       
       <collision name="collision">
@@ -25,7 +33,7 @@
           </friction>
           <contact>
             <ode>
-              <!--<max_vel>0.01</max_vel>!-->
+              <max_vel>0.01</max_vel>
             </ode>
           </contact>
         </surface>

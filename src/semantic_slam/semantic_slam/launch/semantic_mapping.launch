@@ -1,16 +1,16 @@
 <launch>
 
 <rosparam file="$(find semantic_slam)/params/semantic_cloud.yaml" command="load"/>
-<node pkg="semantic_cloud" type="semantic_cloud.py" name="semantic_cloud" output="screen"/>
+<node pkg="semantic_cloud" type="semantic_cloud.py" name="semantic_cloud" output="log"/>
 
 <rosparam file="$(find semantic_slam)/params/octomap_generator.yaml" command="load"/>
-<node pkg="octomap_generator" type="octomap_generator" name="octomap_generator" output="screen"/>
+<node pkg="octomap_generator" type="octomap_generator" name="octomap_generator" output="log"/>
 
 <!--rviz-->
 <node pkg="rviz" type="rviz" name="ss_rviz" args="-d $(find semantic_slam)/semantic_mapping_nav.rviz"/>
 
 <!-- start octomap_server to publish an occupancy map -->
-<node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+<node pkg="octomap_server" type="octomap_server_node" name="octomap_server" output="log">
 
               <param name="resolution" value="0.02" />
               <param name="frame_id" type="string" value="map" />
@@ -21,8 +21,9 @@
               
               <param name="pointcloud_min_z" value="0.03" />
               <param name="occupancy_min_z" value="0.03" />
-              <!-- param name="pointcloud_max_z" value="2.2" /-->
-              <param name="occupancy_max_z" value="1" />
+              
+              <!--param name="pointcloud_max_z" value="2.2" /-->
+              <param name="occupancy_max_z" value="1.5" />
               
               <remap from="cloud_in" to="/semantic_pcl/semantic_pcl" />                         
 </node>
@@ -36,9 +37,12 @@
               <remap from="camera_info" to="/camera/depth_registered/camera_info" />
 </node-->
 
+<!-- run semantic_navigation -->
+<!--node pkg="jackal_2dnav" type="semantic_navigator" name="semantic_navigator" output="screen"/-->
+
 <include file="$(find jackal_2dnav)/launch/move_base.launch"/>
 
-<!--include file="$(find explore_lite)/launch/explore.launch"/-->
+<include file="$(find explore_lite)/launch/explore.launch"/>
 
 <!-- node pkg="map_server" type="map_saver" name="map_saver" args="-f $(find semantic_slam)/maps/occupancy_map">
 
