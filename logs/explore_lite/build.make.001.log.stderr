@@ -1,8 +1,0 @@
-[01m[K/home/conlab/ssv2_ws/src/m-explore/explore/src/semantic_navigation.cpp:2:10:[m[K [01;31m[Kfatal error: [m[Ksemantic_navigation.h: No such file or directory
-    2 | #include [01;31m[K<semantic_navigation.h>[m[K
-      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~[m[K
-compilation terminated.
-make[2]: *** [CMakeFiles/explore.dir/build.make:121: CMakeFiles/explore.dir/src/semantic_navigation.cpp.o] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [CMakeFiles/Makefile2:413: CMakeFiles/explore.dir/all] Error 2
-make: *** [Makefile:160: all] Error 2

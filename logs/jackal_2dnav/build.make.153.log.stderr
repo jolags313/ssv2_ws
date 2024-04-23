@@ -1,8 +1,0 @@
-[01m[K/home/conlab/ssv2_ws/src/jackal_2dnav/src/semantic_navigation.cpp:2:10:[m[K [01;31m[Kfatal error: [m[Ksemantic_navigation.h: No such file or directory
-    2 | #include [01;31m[K<semantic_navigation.h>[m[K
-      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~[m[K
-compilation terminated.
-make[2]: *** [CMakeFiles/semantic_navigation.dir/build.make:82: CMakeFiles/semantic_navigation.dir/src/semantic_navigation.cpp.o] Error 1
-make[1]: *** [CMakeFiles/Makefile2:1228: CMakeFiles/semantic_navigation.dir/all] Error 2
-make[1]: *** Waiting for unfinished jobs....
-make: *** [Makefile:160: all] Error 2

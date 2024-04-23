@@ -1,8 +1,0 @@
-In file included from [01m[K/home/conlab/ssv2_ws/src/new_layers/src/terrain_layer.cpp:1[m[K:
-[01m[K/home/conlab/ssv2_ws/src/new_layers/include/new_layers/terrain_layer.h:10:10:[m[K [01;31m[Kfatal error: [m[Kjackal_2dnav/grassLimits.h: No such file or directory
-   10 | #include [01;31m[K<jackal_2dnav/grassLimits.h>[m[K
-      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
-compilation terminated.
-make[2]: *** [CMakeFiles/new_layers.dir/build.make:82: CMakeFiles/new_layers.dir/src/terrain_layer.cpp.o] Error 1
-make[1]: *** [CMakeFiles/Makefile2:232: CMakeFiles/new_layers.dir/all] Error 2
-make: *** [Makefile:160: all] Error 2

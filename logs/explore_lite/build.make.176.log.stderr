@@ -1,7 +1,0 @@
-[01m[K/home/conlab/ssv2_ws/src/m-explore/explore/src/explore.cpp:[m[K In member function ‘[01m[Kbool explore::Explore::goalOnBlacklist(const Point&)[m[K’:
-[01m[K/home/conlab/ssv2_ws/src/m-explore/explore/src/explore.cpp:480:15:[m[K [01;31m[Kerror: [m[Kassignment of read-only variable ‘[01m[Ktolerance[m[K’
-  480 |     [01;31m[Ktolerance = 15[m[K;
-      |     [01;31m[K~~~~~~~~~~^~~~[m[K
-make[2]: *** [CMakeFiles/explore.dir/build.make:95: CMakeFiles/explore.dir/src/explore.cpp.o] Error 1
-make[1]: *** [CMakeFiles/Makefile2:449: CMakeFiles/explore.dir/all] Error 2
-make: *** [Makefile:160: all] Error 2
