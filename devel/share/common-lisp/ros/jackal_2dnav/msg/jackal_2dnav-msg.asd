@@ -1,1 +1,0 @@
-/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/share/common-lisp/ros/jackal_2dnav/msg/jackal_2dnav-msg.asd

@@ -1,1 +1,0 @@
-/home/conlab/ssv2_ws/devel/.private/jackal_msgs/share/common-lisp/ros/jackal_msgs/msg/Status.lisp

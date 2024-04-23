@@ -1,1 +1,0 @@
-/home/conlab/ssv2_ws/devel/.private/jackal_control/lib/pkgconfig/jackal_control.pc

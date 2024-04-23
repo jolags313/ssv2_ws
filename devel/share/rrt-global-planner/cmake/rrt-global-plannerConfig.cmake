@@ -1,1 +1,0 @@
-/home/conlab/ssv2_ws/devel/.private/rrt-global-planner/share/rrt-global-planner/cmake/rrt-global-plannerConfig.cmake

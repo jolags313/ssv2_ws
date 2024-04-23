@@ -1,8 +1,0 @@
-prefix=/home/conlab/ssv2_ws/devel/.private/jackal_msgs
-
-Name: jackal_msgs
-Description: Description of jackal_msgs
-Version: 0.8.8
-Cflags: -I/home/conlab/ssv2_ws/devel/.private/jackal_msgs/include
-Libs: -L${prefix}/lib 
-Requires: std_msgs message_runtime

@@ -1,1 +1,0 @@
-/home/conlab/ssv2_ws/devel/.private/jackal_2dnav/lib/python3/dist-packages/jackal_2dnav/msg/_grasslands.py

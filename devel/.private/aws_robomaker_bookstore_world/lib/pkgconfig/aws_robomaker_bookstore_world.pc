@@ -1,8 +1,0 @@
-prefix=/home/conlab/ssv2_ws/devel/.private/aws_robomaker_bookstore_world
-
-Name: aws_robomaker_bookstore_world
-Description: Description of aws_robomaker_bookstore_world
-Version: 1.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
