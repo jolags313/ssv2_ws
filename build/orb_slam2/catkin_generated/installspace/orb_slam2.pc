@@ -1,8 +1,0 @@
-prefix=/home/conlab/ssv2_ws/install
-
-Name: orb_slam2
-Description: Description of orb_slam2
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
