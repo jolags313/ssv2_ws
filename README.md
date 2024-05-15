@@ -23,6 +23,8 @@ This repository allows for the autonomous exploration of and navigation through 
 
 **!!! Note that most of the needed packages are already included in this repository as they have been edited !!!**
 
+But, you will still need to download the semantic segmentation model from the semantic_slam repository README and change the path to it accordingly.
+
 ## Usage
 ### In simulation
 Pull and `catkin build` the main branch (or the octomap_script branch if the main branch has changed as of May 15, 2024) and run the following commands
@@ -44,4 +46,7 @@ To run the pipeline on the real Jackal, see the manual in Box and make sure the 
 To set which semantic classes the Jackal should navigate to, edit lines 55-57 in `jackal_2dnav/semantic_navigator.cpp` and change the rgb colors to match whichever colors correspond to the desired semantic classes in the OctoMap representation. Line 64 corresponds to types of terrain. The sequence in which each desired class is visited can be edited in `m-explore/explore/include/explore/explore.h` in the vector `sequence_`. You will also need to change variable names like `isBall` in the same file and in `m-explore/explore/src/explore.cpp` to match whichever classes you want. 
 
 These changes/parameters should have been put into a .yaml file for ease of editing, but I didn't get around to it- this can be a quick and easy QoL change in the future for whoever wants to work on this further. Other parameters regarding path planning, movement, frontiers, etc can be found in other packages and are expanded upon in packages' respective documentation. For example, to test different path planners, one would edit the parameter in `jackal_2dnav/launch/move_base.launch`. 
+
+### Improvements
+The semantic segmentation model is quite old with poor accuracy, swapping it out should improve performance.
 
